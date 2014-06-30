@@ -11,7 +11,7 @@ int calVolume(int* land, int length);
 int main()
 {
   int a[9] = {2, 5, 1, 2, 3, 4, 7, 7, 6};
-  cout << calVolume(a, 9) << endl;
+  cout << calVolume(a, 9) << endl;      // should output 10
   return 0;
 }
 
