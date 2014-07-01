@@ -8,10 +8,27 @@
 using namespace std;
 
 struct node {
-  node *left, *right;
   int val;
-  node(int val) : left(NULL), right(NULL), val(val) { }
-  node(int val, node* left, node* right): left(left), right(right), val(val) {  }
+  node *left, *right;
+
+  public:
+  node() {
+    this->val = 0;
+    this->left = NULL;
+    this->right = NULL;
+  }
+
+  node( int val ) {
+    this->val = val;
+    this->left = NULL;
+    this->right = NULL;
+  }
+
+  node( int val, node* left, node* right ) {
+    this->val = val;
+    this->left = left;
+    this->right = right;
+  }
 };
 
 // Find the maximum height of the binary tree
@@ -97,26 +114,7 @@ void printPretty(node *root, int level, int indentSpace, ostream& out) {
   printLeaves(indentSpace, level, nodesInThisLevel, nodesQueue, out);
 }
 
-//int main() {
-  //node *root = new node(30);
-  //root->left = new node(20);
-  //root->right = new node(40);
-  //root->left->left = new node(10);
-  //root->left->right = new node(25);
-  //root->right->left = new node(35);
-  //root->right->right = new node(50);
-  //root->left->left->left = new node(5);
-  //root->left->left->right = new node(15);
-  //root->left->right->right = new node(28);
-  //root->right->right->left = new node(41);
-
-  //cout << "Tree pretty print with level=1 and indentSpace=0\n\n";
-  //// Output to console
-  //printPretty(root, 1, 0, cout);
-
-  //return 0;
-//}
-
 void printBST(node* root) {
   printPretty(root, 1, 0, cout);
 }
+
