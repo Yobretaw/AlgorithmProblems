@@ -4,6 +4,27 @@
 #include "map"
 #include "BSTStructure.h"
 using namespace std;
+/*
+ *
+ *  Given tree: 
+ *               a
+ *            /     \
+ *           b       c
+ *         /  \     /  \
+ *        d    e    f    g
+ *       / \  / \  / \  / \
+ *       h  i j  k l  m  n  o 
+ *
+ *  Modified tree:
+ *  	           a
+ *            /     \
+ *           c       b
+ *         /  \     /  \
+ *        d    e    f    g
+ *       / \  / \  / \  / \
+ *      o  n m  l k  j  i  h 
+ *
+ */
 
 void reverse(node* root, vector<int>& v, int level, bool isFirst);
 
