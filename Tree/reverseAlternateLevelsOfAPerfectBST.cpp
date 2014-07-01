@@ -13,7 +13,7 @@ using namespace std;
  *         /  \     /  \
  *        d    e    f    g
  *       / \  / \  / \  / \
- *       h  i j  k l  m  n  o 
+ *      h  i j  k l  m  n  o 
  *
  *  Modified tree:
  *  	           a
