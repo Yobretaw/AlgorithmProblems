@@ -2,6 +2,10 @@
 #include "BSTStructure.h"
 using namespace std;
 
+//Given a binary tree in which each node element contains a number. 
+//Find the maximum possible sum from one leaf node to another.
+
+
 int findHelp(node* root, int& max) {
   if(root == NULL)
     return 0;
