@@ -11,21 +11,22 @@ node* BSTtoDLL(node* root) {
 }
 
 node* help(node* curr, node*& pre, node*& head) {
-  if(root == NULL) return NULL;
+  if(curr == NULL) return NULL;
 
-  help(current->left, pre, head);
+  help(curr->left, pre, head);
   curr->left = pre;
   if(pre == NULL)
-    head = current;
+    head = curr;
   else
-    pre->right = current;
+    pre->right = curr;
   
-  node* right = current->right;
-  head->left = current;
-  current->right = head;
+  node* right = curr->right;
+  head->left = curr;
+  curr->right = head;
 
-  pre = current;
+  pre = curr;
   help(right, pre, head);
+  return head;
 }
 
 int main()
