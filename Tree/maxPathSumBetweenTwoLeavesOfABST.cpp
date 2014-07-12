@@ -10,7 +10,6 @@ int findHelp(node* root, int& max) {
   if(root == NULL)
     return 0;
 
-
   int left = findHelp(root->left, max);
   int right = findHelp(root->right, max);
 
@@ -54,6 +53,8 @@ int main() {
           new node(40, NULL,
             new node(40, NULL, NULL))));
 
+  printBST(root);
+  cout << find(root) << endl;
   printBST(root2);
   cout << find(root2) << endl;
 }
