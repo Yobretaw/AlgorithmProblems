@@ -8,6 +8,16 @@ int rand5() {
   return rand() % 5 + 1;
 }
 
+// number of call to rand5():
+// S = 1 * 4/5 + 2 * 1/5 * 4/5 + 3 * (1/5)^2 * 4/5 + ...
+//   = 4/5*(1/5 + 2/25 + 3/125 + 4/625 + ...)
+// =>
+// 1/5*S  = 1/25 + 2/125 + 3/625 + ...
+// =>
+// 4/5*S = 1/5 + 1/5 + 1/5 + .... = 1/(1-1/5) = 5/4
+// => S = 25 / 16 = 1.5625
+// 
+// So on average a call to genZeroOrOne will call rand5() 1.25 times
 int genZeroOrOne() {
   int ret = rand5();
   while(ret == 1)
@@ -26,6 +36,9 @@ int rand7_help() {
   return result;
 }
 
+// Similar to genZeroOrOne, every call to rand7() will call
+// rand7_help (7/6)^2 = 49/36 times
+// Therefore every call to rand7() will call rand5 25/16 * 49/36 = 2.126 times
 int rand7() {
   int result = rand7_help();
   while(result == 0)
