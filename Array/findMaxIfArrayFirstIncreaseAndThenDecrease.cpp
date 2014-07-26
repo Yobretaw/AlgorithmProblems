@@ -11,7 +11,7 @@ int main() {
 
 int find(int a[], int n) {
   if( n == 1 )
-    return 0;
+    return a[0];
     
   int first = 0;
   int end = n - 1;
