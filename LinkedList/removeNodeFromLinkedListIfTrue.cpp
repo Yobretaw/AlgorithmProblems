@@ -1,15 +1,15 @@
 #include <iostream>
-#include <linkedListStructure.h>
+#include "linkedListStructure.h"
 using namespace std;
 
 void removeOdd(node*& head) {
   for(node** curr = &head; *curr; ) {
     node* entry = *curr;
-    if(curr->val % 2 == 1) {
+    if(entry->val % 2 == 1) {
       *curr = entry->next;
       delete entry;
     } else {
-      *curr = &(entry->next);
+      curr = &(entry->next);
     }
   }
 }
