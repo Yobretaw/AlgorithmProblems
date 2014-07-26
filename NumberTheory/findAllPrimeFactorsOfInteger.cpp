@@ -46,6 +46,7 @@ vector<int> findAll_two(long long n) {
     
     if(n != 1)
       primes.push_back(d);
+
     return primes;
 }
 
