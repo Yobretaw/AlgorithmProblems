@@ -10,11 +10,11 @@ using namespace std;
 // dict = ["leet", "code"].
 // Return true because "leetcode" can be segmented as "leet code".
 
-bool wordBreak(string s, vector<string> dict) {
-  bool* t = new bool(s.length() + 1);
-  t[0] = true;
-  for(int i = 1; i < (int)s.length() + 1; i++)
-    t[i] = false;
+bool wordBreak(string s, vector<string>& dict) {
+  bool t[s.length() + 1];
+  memset(t, 0, sizeof(t));
+
+  t[0] = 1;
 
   for(int i = 0; i < (int)s.length(); i++) {
     // should start from match position
@@ -40,15 +40,17 @@ bool wordBreak(string s, vector<string> dict) {
 int main()
 {
   vector<string> dict;
+
   dict.push_back("hello");
   dict.push_back("world");
   dict.push_back("foo");
   dict.push_back("bar");
-  cout << wordBreak("barfooworldhello", dict) << endl;
- 
+  int result = wordBreak("barfooworldhello", dict);
+  cout << result << endl;
+
   //dict.push_back("programcree");
   //dict.push_back("program");
   //dict.push_back("creek");
-  //cout << workBreak("programcreek", dict) << endl;
+  //cout << wordBreak("programcreek", dict) << endl;
   return 0;
 }
