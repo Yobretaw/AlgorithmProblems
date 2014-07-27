@@ -16,6 +16,20 @@ int findMin(int* a, int n) {
   while(first < last) {
     int mid = (first + last) / 2;
 
+    /**
+     * Why check a[mid] > a[last] but not a[mid] > a[first]?
+     *
+     * Since there are two increasing inervals in the given array
+     * and hence a[mid] > a[first] can have two cases:
+     *
+     * 1. both first and last are in the first increasing interval
+     * 2. both first and last are in the second increasing interval
+     * 
+     * Therefore a[mid] > a[first] can be ambiguous. However there is
+     * only one case where a[mid] > a[last]: first is in the first
+     * increasing interval, and last is in the second increasing 
+     * interval
+     */
     if(a[mid] > a[last])
       first = mid + 1;
     else
