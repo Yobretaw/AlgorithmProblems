@@ -23,7 +23,7 @@ void remove(string& s) {
     }
   }
 
-  s[tail] = '\0';
+  s = s.substr(0, tail);
 }
 
 int main()
