@@ -3,28 +3,24 @@
 using namespace std;
 
 void remove(string& s) {
-  int len = s.length();
+  int tail = 0;
 
-  if(len < 2)
-    return;
-
-  int tail = 1;
-  for(int i = 1; i < len; i++) {
+  for (int i = 0; i < (int)s.length(); i++) {
     int j;
-    for(j = 0; j < tail; j++) {
-      if(s[i] == s[j]) {
+    for(j = i+1; j < (int)s.length(); j++) {
+      if(s[i] == s[j])
         break;
-      }
     }
 
-    if(j == tail) {
-      s[tail] = s[i];
-      tail++;
-    }
+    if(j == (int)s.length())
+      s[tail++] = s[i];
+
   }
-
-  s[tail] = '\0';
+  
+  s = s.substr(0, tail);
 }
+
+
 
 int main()
 {
