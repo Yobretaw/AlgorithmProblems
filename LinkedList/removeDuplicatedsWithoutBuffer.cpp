@@ -3,7 +3,7 @@
 using namespace std;
 
 void remove(node* head) {
-  if(head == NULL) {
+  if(head == NULL || head->next == NULL) {
     return;
   }
 

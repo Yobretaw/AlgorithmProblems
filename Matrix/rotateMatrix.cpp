@@ -24,4 +24,38 @@ void rotate(int** mx, int n) {
 
 int main()
 {
+  int** mx = new int*[10];
+  for(int i = 0; i < 10; i++)
+    mx[i] = new int[10];
+
+
+  int count = 0;
+  for(int i = 0; i < 10; i++) {
+    for(int j = 0; j < 10; j++)
+      mx[i][j] = count++;
+  }
+
+  for(int i = 0; i < 10; i++) {
+    for(int j = 0; j < 10; j++) {
+      cout << mx[i][j];
+      if(mx[i][j] >= 10)
+        cout << " ";
+      else
+        cout << "  ";
+    }
+    cout << endl;
+  }
+  rotate(mx, 10);
+
+  cout << endl;
+  for(int i = 0; i < 10; i++) {
+    for(int j = 0; j < 10; j++) {
+      cout << mx[i][j];
+      if(mx[i][j] >= 10)
+        cout << " ";
+      else
+        cout << "  ";
+    }
+    cout << endl;
+  }
 }

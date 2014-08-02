@@ -6,10 +6,11 @@ vector<int> findAll_one(long long n) {
   vector<int> primes;
 
   long long d = 2;
+  long long pre = -1;
   while( n > 1 ) {
     while( n % d == 0 ) {
-      if(primes.size() == 0) primes.push_back(d);
-      if(primes.size() > 0 && d != primes[primes.size()-1]) {
+      if(d != pre) {
+        pre = d;
         primes.push_back(d);
       }
       n /= d;
@@ -34,10 +35,10 @@ vector<int> findAll_two(long long n) {
     long long d = 2;
     while( d * d < n ) {
       if(n % d == 0) {
+        n /= d;
         if( d != pre ) {
           pre = d;
           primes.push_back(d);
-          n /= d;
         }
       } else {
         d++;
@@ -45,7 +46,7 @@ vector<int> findAll_two(long long n) {
     }
     
     if(n != 1)
-      primes.push_back(d);
+      primes.push_back(n);
 
     return primes;
 }
