@@ -5,7 +5,7 @@ using namespace std;
 
 void traversal(node* root);
 void pushLeft(stack<node*>& s, node* root);
-void post(node*);
+void postTraversal(node*);
 
 int main()
 {

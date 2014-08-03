@@ -26,12 +26,11 @@ using namespace std;
  *
  */
 
-void reverse(node* root, vector<int>& v, int level, bool isFirst);
+void reverse(node* root, stack<int>& v, int level, bool isFirst);
 
 int main()
 {
-  map<int, stack<int> > m;
-  vector<int> v;
+  stack<int> v;
   node* root = new node(7, 
       new node(3, 
         new node(1, 
@@ -55,10 +54,11 @@ int main()
   return 0;
 }
 
-void reverse(node* root, vector<int>& v, int level, bool isFirst) {
+void reverse(node* root, stack<int>& v, int level, bool isFirst) {
   if(root == NULL) return;
 
-  if(level % 2 == 0) {
+  if(false) {
+  //if(level % 2 == 0) {
     reverse(root->left, v, level+1, isFirst);
     reverse(root->right, v, level+1, isFirst);
     return;
@@ -67,10 +67,10 @@ void reverse(node* root, vector<int>& v, int level, bool isFirst) {
   // inorder traversal
   reverse(root->left, v, level+1, isFirst);
   if(isFirst) {
-    v.push_back(root->val);
+    v.push(root->val);
   } else {
-    root->val = v.back();
-    v.pop_back();
+    root->val = v.top();
+    v.pop();
   }
   reverse(root->right, v, level+1, isFirst);
   return;
