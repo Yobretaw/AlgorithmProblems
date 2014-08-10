@@ -11,17 +11,9 @@ void findHelp(vector<vector<int> >& m, int x, int y) {
 
   m[x][y] = 2;
 
-  //======================
-  // check position o
-  // 
-  //  x x x
-  //  x x o
-  //  o o o
-  //======================
-  findHelp(m, x, y+1);
-  findHelp(m, x+1, y);
-  findHelp(m, x+1, y+1);
-  findHelp(m, x+1, y-1);
+  for(int i = -1; i <= 1; i++)
+    for(int j = -1; j <= 1; j++)
+      findHelp(m, x + i, y + j);
 }
 
 int find(vector<vector<int> >& m) {
