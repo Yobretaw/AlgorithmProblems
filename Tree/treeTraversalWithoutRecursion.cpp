@@ -34,7 +34,7 @@ void traversal(node* root) {
     s.pop();
 
     // if inorder traversal, uncomment the line below
-    //cout << curr->val << endl;
+    cout << curr->val << endl;
     curr = curr->right;
     pushLeft(s, curr);
   }
