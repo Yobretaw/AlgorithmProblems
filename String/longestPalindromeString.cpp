@@ -59,6 +59,8 @@ string longestPalSubstring(string s) {
 int main()
 {
   string s = "HHHeHHHelleoWorld";
+  //string s = "babcbabcbaccba";
+  cout << s.length() << endl;
   cout << longestPalSubstring(s) << endl;
   return 0;
 }
