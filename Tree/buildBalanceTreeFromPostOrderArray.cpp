@@ -40,7 +40,7 @@ node* buildBST(vector<int> a) {
   return buildBSTHelp(a, 0, a.size() - 1);
 }
 
-node* recoverTreeHelp(vector<int> postorder, vector<int> inorder, int start, int end, int& min) {
+node* recoverTreeHelp(vector<int> postorder, vector<int> inorder, int start, int end) {
   static int lastPostIndex = postorder.size() - 1;
   if(start > end)
     return NULL;
@@ -60,8 +60,8 @@ node* recoverTreeHelp(vector<int> postorder, vector<int> inorder, int start, int
     }
   }
 
-  node* rightnode = recoverTreeHelp(postorder, inorder, index+1, end, min);
-  node* leftnode = recoverTreeHelp(postorder, inorder, start, index - 1, min);
+  node* rightnode = recoverTreeHelp(postorder, inorder, index+1, end);
+  node* leftnode = recoverTreeHelp(postorder, inorder, start, index - 1);
   return new node(rootval, leftnode, rightnode);
 }
 
