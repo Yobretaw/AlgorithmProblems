@@ -22,6 +22,7 @@ vector<int> findAll_one(long long n) {
         primes.push_back(n);
         return primes;
       }
+      break;
     }
   }
 
