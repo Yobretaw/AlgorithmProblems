@@ -13,6 +13,12 @@ int search(int* a, int n, int x) {
     if(a[mid] == x)
       return mid;
 
+    // Q: why increment lower boound but not decrement upper bound?
+    // A: Since mid = (first + last) / 2 always rounds to its follor.
+    // Consider if a = [1, 2, 3] and x = 3
+    // In first iteration we have mid = (0 + 2)/2 = 1, and a[1] = 1
+    // Then if we decrement `last`, last is now 2 - 1 = 1, and a[2] will
+    // never be hit.
     if(a[mid] < x)
       first = mid + 1;
     else
