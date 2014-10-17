@@ -1,37 +1,44 @@
 #include <iostream>
 #include <vector>
+#include <string>
+#include <unordered_map>
 using namespace std;
 
-void printHelp(vector<int> v, int idx, vector<int>& store);
+void printStringSubset(string s, int index = 0, string curr = "");
 
-void printSubset(vector<int> v) {
-  vector<int> store;
-  printHelp(v, 0, store);
-}
+void printStringSubset(string s, int index, string curr) {
+  if(s.length() == 0) 
+    return;
 
+  unordered_map<char, int> seen;
+  for(int i = index; i < s.length(); i++) {
+    if(seen[s[i]])
+      continue;
 
-void printHelp(vector<int> v, int idx, vector<int>& store) {
-  for(int i = idx; i < v.size(); i++) {
-    store.push_back(v[i]);
+    curr += s[i];
+    seen[s[i]] = 1;
+    
+    /**
+     if we only want to print subset with certain length, then use this block
+     we print all string of length 3, and continue if curr has length at least
+     3
+     
+     if(curr.length() == 3)
+       cout << curr << endl;
+     else if(curr.length() > 2)
+       continue;
 
-    for(int i = 0; i < store.size(); i++) {
-      cout << store[i];
-    }
+     */
+    cout << curr << endl;
 
-    cout << endl;
-
-    printHelp(v, i+1, store);
-    store.pop_back();
+    printStringSubset(s, i + 1, curr);
+    curr.erase(curr.length() - 1);
   }
 }
 
 
 int main(){
-  vector<int> v;
-  for(int i = 0; i < 3; i++)
-    v.push_back(i);
-
-  vector<int> store;
-  printSubset(v);
+  string a = "abcdefg";
+  printStringSubset(a);
   return 0;
 }

@@ -2,6 +2,8 @@
 #include "string"
 using namespace std;
 
+void printString(string s, int start = 0);
+
 void printString(string s, int start) {
   if(start == (int)s.length() - 1) {
     cout << s << endl;
@@ -9,24 +11,18 @@ void printString(string s, int start) {
   }
 
   for(int i = start; i < (int)s.length(); i++) {
-    // adding this if statement to avoid duplicates
+    // avoid duplicates
     if(i != start && s[i] == s[start])
       continue;
     
-    char temp = s[start];
-    s[start] = s[i];
-    s[i] = temp;
-
+    swap(s[start], s[i]);
     printString(s, start + 1);
-
-    temp = s[start];
-    s[start] = s[i];
-    s[i] = temp;
+    swap(s[start], s[i]);
   }
 }
 
 int main()
 {
-  printString("abcd", 0);
+  printString("abcdefg");
   return 0;
 }
