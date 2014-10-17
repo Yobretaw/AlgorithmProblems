@@ -16,9 +16,6 @@ void printSubsetOfString(string s) {
 }
 
 void printSubsetOfStringHelp(string& str, string& cstr, int s, unordered_map<string, int>& seen) {
-  int newStart;
-  static int count = 0;
-
   if(cstr.length() <= str.length() && seen[cstr] != 1) {
     cout << cstr << endl;
     seen[cstr] = 1;
@@ -28,7 +25,7 @@ void printSubsetOfStringHelp(string& str, string& cstr, int s, unordered_map<str
     return;
   }
 
-  newStart = s + 1;
+  int newStart = s + 1;
 
   /* Elements chosen to be part of the output */
   cstr += str[s];
@@ -44,9 +41,6 @@ void printSubsetOfStringHelp(string& str, string& cstr, int s, unordered_map<str
 // s: Index of first element not yet considered for building the set. Initially zero.
 // k: Target subset size, assumed to be checked < size of original string.
 void kSubstring(string& str, string &cstr, int s, int k, unordered_map<string, int>& seen) {
-  int newStart;
-  static int count = 0;
-
   if(cstr.length() == k) {
     if(seen[cstr] != 1) {
       cout << cstr << endl;
@@ -61,7 +55,7 @@ void kSubstring(string& str, string &cstr, int s, int k, unordered_map<string, i
   }
 
   /* Skip all duplicates */
-  newStart = s + 1;
+  int newStart = s + 1;
   while(str[newStart] && str[s] == str[newStart]) {
     newStart++;
   }
@@ -76,7 +70,7 @@ void kSubstring(string& str, string &cstr, int s, int k, unordered_map<string, i
 }
 
 int main() {
-  string s = "abcde";
+  string s = "abcdefg";
   printSubsetOfString(s);
   return 0;
 }
