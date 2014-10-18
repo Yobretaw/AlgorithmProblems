@@ -4,15 +4,15 @@
 #include <unordered_map>
 using namespace std;
 
-void printStringSubset(string s, int index = 0, string curr = "");
+void printStringSubset(string s, int startIdx = 0, string curr = "");
 
-void printStringSubset(string s, int index, string curr) {
+void printStringSubset(string s, int startIdx, string curr) {
   if(s.length() == 0) 
     return;
 
-  unordered_map<char, int> seen;
-  for(int i = index; i < s.length(); i++) {
-    if(seen[s[i]])
+  int seen[255] = {0};
+  for(int i = startIdx; i < s.length(); i++) {
+    if(seen[s[i]] == 1)
       continue;
 
     curr += s[i];
@@ -38,7 +38,7 @@ void printStringSubset(string s, int index, string curr) {
 
 
 int main(){
-  string a = "abcdefg";
+  string a = "abcde";
   printStringSubset(a);
   return 0;
 }
