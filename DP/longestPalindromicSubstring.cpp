@@ -15,10 +15,12 @@ string lps(string s) {
   int maxlen = 1;
   vector<vector<int> > table(n, vector<int>(n));
 
+  // base case: len 1
   for(int i = 0; i < n; i++) {
     table[i][i] = 1;
   }
 
+  // base case: len 2
   for(int i = 0; i < n - 1; i++) {
     if(s[i] == s[i+1]) {
       table[i][i+1] = 1;
@@ -26,7 +28,6 @@ string lps(string s) {
       maxlen = 2;
     }
   }
-
 
   for(int len = 3; len <= n; len++) {
     for(int i = 0; i < n - len + 1; ++i) {
@@ -45,7 +46,7 @@ string lps(string s) {
 
 int main()
 {
-  string a = "abedebaba";
+  string a = "abeddeeddebaba";
   cout << lps(a) << endl;
   return 0;
 }
