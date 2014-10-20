@@ -8,7 +8,7 @@ int search(int* a, int n, int x) {
   int last = n - 1;
 
   while(first <= last) {
-    int mid = (first + last) / 2;
+    int mid = first + (last - first) / 2;
 
     if(a[mid] == x)
       return mid;
