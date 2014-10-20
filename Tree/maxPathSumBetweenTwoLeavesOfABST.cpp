@@ -1,5 +1,6 @@
 #include "iostream"
 #include "BSTStructure.h"
+#include <climits>
 using namespace std;
 
 //Given a binary tree in which each node element contains a number. 

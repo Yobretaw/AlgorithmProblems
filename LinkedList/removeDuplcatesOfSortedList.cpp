@@ -2,6 +2,12 @@
 #include "linkedListStructure.h"
 using namespace std;
 
+struct compare {
+  bool operator()(const node*& l, const node*& r) {
+    return l->val > r->val;
+  }
+};
+
 void remove(node* head) {
   if(head == NULL || head->next == NULL)
     return;
