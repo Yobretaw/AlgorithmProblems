@@ -10,6 +10,7 @@ using namespace std;
 struct node {
   int val;
   node *left, *right;
+  node *next;
 
   public:
   node() {

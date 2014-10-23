@@ -23,6 +23,6 @@ void printString(string s, int start) {
 
 int main()
 {
-  printString("abcdefg");
+  printString("RRDD");
   return 0;
 }
