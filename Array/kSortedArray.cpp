@@ -14,7 +14,7 @@ struct compare {
 };
 
 // with heap, complexity O(nlogK)
-void kSort(vector<int>& a, int k) {
+void kSort_heap(vector<int>& a, int k) {
   priority_queue<int, vector<int>, compare> heap;   // our min heap
   
   for(int i = 0; i <= k; i++) {
@@ -32,7 +32,7 @@ void kSort(vector<int>& a, int k) {
 
 
 // without extra space, complexity: O(nK)
-void insertionSort(vector<int>& a) {
+void kSort_intertion(vector<int>& a) {
   int i, key, j;
   for (i = 0; i < (int)a.size(); ++i) {
     key = a[i];
@@ -53,10 +53,10 @@ void insertionSort(vector<int>& a) {
 int main()
 {
   vector<int> a = {2, 6, 3, 12, 56, 8};
-  //kSort(a, 3);
-  insertionSort(a);
-  for(int i = 0; i < (int)a.size(); i++) {
-    cout << a[i] << endl;
-  }
+  //kSort_heap(a, 3);
+  kSort_intertion(a);
+  //for(int i = 0; i < (int)a.size(); i++) {
+    //cout << a[i] << endl;
+  //}
   return 0;
 }

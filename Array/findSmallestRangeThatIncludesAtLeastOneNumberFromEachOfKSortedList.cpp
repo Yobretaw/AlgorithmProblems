@@ -99,26 +99,6 @@ void printSmallestRange(vector<vector<int> > list) {
 }
 
 
-// find the first common integer value in both arrays
-//bool hasIntersection(const vector<int>& a, const vector<int>& b, int& common) {
-//  int ai = 0;
-//  int bi = 0;
-
-//  while(ai < a.size() && bi < b.size()) {
-//    if(a[ai] < b[bi])
-//      ai++;
-//    else if(a[ai] > b[bi])
-//      bi++;
-//    else {
-//      common = ai;
-//      return true;    // find common values
-//    }
-//  }
-
-//  return false;
-//}
-
-
 void printSmallestRangeOfTwoSortedList(vector<int>& a, vector<int>& b) {
   if(a.size() == 0 || b.size() == 0)
     return;
@@ -148,6 +128,7 @@ void printSmallestRangeOfTwoSortedList(vector<int>& a, vector<int>& b) {
       upper = currUpper;
       srange = diff;
 
+      // since 0 is the smallest possible range for any two integers
       if(srange == 0)
         break;
     }
