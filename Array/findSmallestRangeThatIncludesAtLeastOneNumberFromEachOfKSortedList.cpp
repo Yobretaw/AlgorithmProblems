@@ -83,6 +83,11 @@ void printSmallestRange(vector<vector<int> > list) {
       u = upper;
       l = lower;
       range = u - l;
+
+      // if find two common elements, then break
+      // since 0 is the smallest possible range
+      if(range == 0)
+        break;
     }
 
     m[nextVal] = listIndex;
@@ -91,6 +96,64 @@ void printSmallestRange(vector<vector<int> > list) {
   cout << "The minimum range is : [" << l << ", " << u << "]" << endl;
 
   return;
+}
+
+
+// find the first common integer value in both arrays
+//bool hasIntersection(const vector<int>& a, const vector<int>& b, int& common) {
+//  int ai = 0;
+//  int bi = 0;
+
+//  while(ai < a.size() && bi < b.size()) {
+//    if(a[ai] < b[bi])
+//      ai++;
+//    else if(a[ai] > b[bi])
+//      bi++;
+//    else {
+//      common = ai;
+//      return true;    // find common values
+//    }
+//  }
+
+//  return false;
+//}
+
+
+void printSmallestRangeOfTwoSortedList(vector<int>& a, vector<int>& b) {
+  if(a.size() == 0 || b.size() == 0)
+    return;
+
+  int lower     = min(a[0], b[0]);
+  int currLower = lower;
+  int upper     = max(a[0], b[0]);
+  int currUpper = upper;
+  int srange    = currUpper - currLower;
+
+  int ai = 1, bi = 1;     // index of array a and b respectively
+  while(ai < a.size() && bi < b.size()) {
+    int *fromIdx = currLower == a[ai-1] ? &ai : &bi;
+    vector<int> *from = currLower == a[ai-1] ? &a : &b;
+    int nextVal = from->at((*fromIdx)++);
+
+    if(currUpper < nextVal) {
+      currLower = currUpper;
+      currUpper = nextVal;
+    } else {
+      currLower = nextVal;
+    }
+
+    int diff = currUpper - currLower;
+    if(diff < srange) {
+      lower = currLower;
+      upper = currUpper;
+      srange = diff;
+
+      if(srange == 0)
+        break;
+    }
+  }
+
+  cout << "[" << lower << ", " << upper << "]" << endl;
 }
 
 int main() {
@@ -116,6 +179,10 @@ int main() {
   list[2].push_back(22);
   list[2].push_back(30);
 
-  printSmallestRange(list);
+  vector<int> a = {0, 10, 15, 24, 26};
+  vector<int> b = {0, 9, 12, 20, 21};
+
+  //printSmallestRange(list);
+  printSmallestRangeOfTwoSortedList(a, b);
   return 0;
 }
