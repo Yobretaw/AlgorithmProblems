@@ -6,71 +6,53 @@ using namespace std;
 
 #define N 8
 
-void printGrid(int grid[N][N]) {
-    for (int row = 0; row < N; row++)
-    {
-       for (int col = 0; col < N; col++)
-             printf("%2d", grid[row][col]);
-        printf("\n");
-    }
-    cout << endl;
-}
+bool isSafe(int current_row, int col, vector<int>& pos) {
+  for (int other_row = 0; other_row < current_row; other_row++) {
+    int other_col = pos[other_row];
 
-
-bool isSave(int grid[N][N], int row, int col) {
-  // check columns only
-  for (int i = 0; i < N; i++) {
-    if(grid[i][col] == 1)
+    if(other_col == col || //same col
+        other_col == col - (current_row - other_row) || // same diagonal
+        other_col == col + (current_row - other_row)) // same diagonal
       return false;
   }
-
-  // check upper diagonal
-  int i = row - 1, j = col - 1;
-  while(i >= 0 && j >= 0)
-    if(grid[i--][j--] == 1)
-      return false;
-
-  // check lower diagonal
-  i = row + 1, j = col + 1;
-  while(i < N && j < N)
-    if(grid[i++][j++] == 1)
-      return false;
 
   return true;
 }
 
-bool solve(int grid[N][N], int level) {
-  if(level == N) {
-    return true;
+void print(const vector<int>& pos) {
+  static int count = 0;
+  count++;
+  // pos[i] = j represents that the queen in ith row is in jth column
+  cout << "Solution #" << count << ": " << endl;
+  for (int i = 0; i < N; i++) {
+    for (int j = 0; j < N; j++) {
+      if(pos[i] == j)
+        cout << "Q" << " ";
+      else
+        cout << "." << " ";
+    }
+    cout << endl;
+  }
+  cout << endl;
+}
+
+void solve(int row, vector<int>& pos) {
+  if(row == N) {
+    print(pos);
+    return;
   }
 
   for (int i = 0; i < N; i++) {
-    if(!isSave(grid, level, i)) {
-      continue;
+    if(isSafe(row, i, pos)) {
+      pos[row] = i;
+      solve(row+1, pos);
     }
-
-    grid[level][i] = 1;
-
-    if(solve(grid, level + 1)) {
-      return true;
-    }
-
-    grid[level][i] = 0;
   }
-
-  return false;
 }
 
 int main()
 {
-  int grid[N][N];
-  for (int i = 0; i < N; i++) {
-    for (int j = 0; j < N; j++) {
-      grid[i][j] = 0;
-    }
-  }
-
-  solve(grid, 0);
-  printGrid(grid);
+  vector<int> a(N);
+  solve(0, a);
   return 0;
 }
