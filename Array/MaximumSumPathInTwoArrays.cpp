@@ -1,4 +1,5 @@
 #include<iostream>
+#include <vector>
 using namespace std;
 
 /*
@@ -28,15 +29,13 @@ Output: 122
 */
 
 
-// Utility function to find maximum of two integers
-int max(int x, int y) { return (x > y)? x : y; }
- 
 // This function returns the sum of elements on maximum path
 // from beginning to end
-int maxPathSum(int ar1[], int ar2[], int m, int n)
+int maxPathSum(const vector<int>& ar1, const vector<int>& ar2)
 {
     // initialize indexes for ar1[] and ar2[]
     int i = 0, j = 0;
+    int m = ar1.size(), n = ar2.size();
  
     // Initialize result and current sum through ar1[] and ar2[].
     int  result = 0, sum1 = 0, sum2 = 0;
@@ -65,7 +64,8 @@ int maxPathSum(int ar1[], int ar2[], int m, int n)
             // elements
             while (i < m &&  j < n && ar1[i] == ar2[j])
             {
-                result = result + ar1[i++];
+                result = result + ar1[i];
+                i++;
                 j++;
             }
         }
@@ -88,10 +88,8 @@ int maxPathSum(int ar1[], int ar2[], int m, int n)
 // Driver program to test above function
 int main()
 {
-    int ar1[]  = {2, 3, 7, 10, 12, 15, 30, 34};
-    int ar2[] =  {1, 5, 7, 8, 10, 15, 16, 19};
-    int m = sizeof(ar1)/sizeof(ar1[0]);
-    int n = sizeof(ar2)/sizeof(ar2[0]);
-    cout << maxPathSum(ar1, ar2, m, n);
+    vector<int> ar1 = {2, 3, 7, 10, 12, 15, 30, 34};
+    vector<int> ar2 = {1, 5, 7, 8, 10, 15, 16, 19};
+    cout << maxPathSum(ar1, ar2) << endl;
     return 0;
 }
