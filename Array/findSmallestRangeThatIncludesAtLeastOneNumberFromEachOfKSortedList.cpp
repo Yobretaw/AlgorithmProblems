@@ -2,6 +2,7 @@
 #include <climits>
 #include <queue>
 #include <vector>
+#include <stack>
 #include <unordered_map>
 using namespace std;
 
@@ -14,7 +15,7 @@ struct compare {
 
 // reverse all lists in the given list of lists
 void reverseAllList(vector<vector<int> >& list) {
-  for(int i = 0; i < list.size(); ++i) {
+  for(int i = 0; i < (int)list.size(); ++i) {
     vector<int> tmp;
     vector<int> curr = list[i];
 
@@ -33,7 +34,6 @@ void printSmallestRange(vector<vector<int> > list) {
   int l = lower;
   int u = upper;
   int range = INT_MAX;
-  int lowestIndex = 0;
   priority_queue<int, vector<int>, compare> pq;
   unordered_map<int, int> m;
 
@@ -41,7 +41,7 @@ void printSmallestRange(vector<vector<int> > list) {
   reverseAllList(list);
 
   // insert the first value of the list into the heap
-  for(int i = 0; i < list.size(); i++) {
+  for(int i = 0; i < (int)list.size(); i++) {
     int val = list[i].back();
     list[i].pop_back();
 
@@ -118,4 +118,30 @@ int main() {
 
   printSmallestRange(list);
   return 0;
+}
+
+
+
+void printSmallestRangeOfTwoSortedList(vector<int>& a, vector<int>& b) {
+  if(a.size() == 0 || b.size() == 0) {
+    return;
+  }
+
+  stack<int> sa, sb;
+  for (int i = a.size() - 1; i >= 0; --i)
+    sa.push(a[i]);
+  for (int i = b.size() - 1; i >= 0; --i)
+    sb.push(b[i]);
+
+  int lower = min(sa.top(), sb.top());
+  int upper = max(sa.top(), sb.top());
+  if(lower == upper) {
+    cout << "[" << lower << ", " << upper <<  "]";
+    return;
+  }
+
+  sa.pop();
+  sb.pop();
+
+
 }
