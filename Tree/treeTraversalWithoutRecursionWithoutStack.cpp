@@ -7,13 +7,24 @@ void moveToRight(node* root);
 
 int main()
 {
-  node* n1 = makeBST(1, NULL, NULL);
-  node* n3 = makeBST(3, NULL, NULL);
-  node* n2 = makeBST(2, n1, n3);
-  node* n5 = makeBST(5, NULL, NULL);
-  node* n4 = makeBST(4, n2, n5);
-  traversal(n4);
+  node* root = new node(7, 
+      new node(3, 
+        new node(1, 
+          new node(0, NULL, NULL),
+          new node(2, NULL, NULL)),
+        new node(5,
+          new node(4, NULL, NULL),
+          new node(6, NULL, NULL))),
+      new node(11,
+        new node(9,
+          new node(8, NULL, NULL),
+          new node(10, NULL, NULL)),
+        new node(13,
+          new node(12, NULL, NULL),
+          new node(14, NULL, NULL))));
 
+  printBST(root);
+  traversal(root);
   return 0;
 }
 
