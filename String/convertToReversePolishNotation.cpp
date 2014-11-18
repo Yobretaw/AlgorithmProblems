@@ -34,6 +34,7 @@ string convert(string s) {
 }
 
 int main() {
+  // should output: at+bac++cd+^*
   cout << convert("((a+t)*((b+(a+c))^(c+d)))") << endl;
   return 0;
 }
