@@ -109,11 +109,15 @@ void printSmallestRangeOfTwoSortedList(vector<int>& a, vector<int>& b) {
   int currUpper = upper;
   int srange    = currUpper - currLower;
 
+  int nextVal;
+  int *fromIdx;
+  vector<int> *from;
+
   int ai = 1, bi = 1;     // index of array a and b respectively
   while(ai < a.size() && bi < b.size()) {
-    int *fromIdx = currLower == a[ai-1] ? &ai : &bi;
-    vector<int> *from = currLower == a[ai-1] ? &a : &b;
-    int nextVal = from->at((*fromIdx)++);
+    fromIdx = currLower == a[ai-1] ? &ai : &bi;
+    from = currLower == a[ai-1] ? &a : &b;
+    nextVal = from->at((*fromIdx)++);
 
     if(currUpper < nextVal) {
       currLower = currUpper;

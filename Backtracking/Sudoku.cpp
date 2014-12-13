@@ -9,16 +9,29 @@ using namespace std;
 
 bool isSafe(int su[N][N], int row, int col, int num);
 bool findUassignedLocation(vector<vector<int> > su, int& row, int& col);
-bool usedInRow(int su[N][N], int row, int num);
-bool usedInCol(int su[N][N], int col, int num);
-bool usedInBox(int su[N][N], int rowStart, int colStart, int num);
 bool solve(int su[N][N]);
 void printGrid(int grid[N][N]);
 
 bool isSafe(int su[N][N], int row, int col, int num) {
-  return !usedInRow(su, row, num) &&
-          !usedInCol(su, col, num) &&
-          !usedInBox(su, row - row % 3, col - col % 3, num);
+  // check same number in row
+  for(int i = 0; i < N; i++)
+    if(su[row][i] == num)
+      return false;
+
+  // check same number in col 
+  for(int i = 0; i < N; i++)
+    if(su[i][col] == num)
+      return false;
+
+  // check same number is box of 3x3
+  int rowStart = row - row % 3;
+  int colStart = col - col % 3;
+  for(int i = 0; i < 3; i++)
+    for(int j = 0; j < 3; j++)
+      if(su[rowStart + i][colStart + j] == num)
+        return false;
+
+  return true;
 }
 
 bool findUassignedLocation(int su[N][N], int& row, int& col) {
@@ -30,34 +43,6 @@ bool findUassignedLocation(int su[N][N], int& row, int& col) {
   return false;
 }
 
-bool usedInRow(int su[N][N], int row, int num) {
-  for (int i = 0; i < N; i++) {
-    if(su[row][i] == num)
-      return true;
-  }
-
-  return false;
-}
-
-bool usedInCol(int su[N][N], int col, int num) {
-  for (int i = 0; i < N; i++) {
-    if(su[i][col] == num)
-      return true;
-  }
-
-  return false;
-}
-
-bool usedInBox(int su[N][N], int rowStart, int colStart, int num) {
-  for(int i = 0; i < 3; i++) {
-    for (int j = 0; j < 3; j++) {
-      if(su[rowStart + i][colStart + j] == num)
-        return true;
-    }
-  }
-
-  return false;
-}
 
 bool solve(int su[N][N]) {
   int row, col;

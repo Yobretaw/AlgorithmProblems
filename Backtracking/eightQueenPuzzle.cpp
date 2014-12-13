@@ -6,7 +6,7 @@ using namespace std;
 
 #define N 8
 
-bool isSafe(int current_row, int col, vector<int>& pos) {
+bool isSafe(int current_row, int col, const vector<int>& pos) {
   for (int other_row = 0; other_row < current_row; other_row++) {
     int other_col = pos[other_row];
 
