@@ -34,7 +34,6 @@ int find(int a[], int m, int b[], int n, int k) {
     return find(a, i, b+j+1, n-j-1, k-j-1);
 }
 
-
 int main()
 {
   int a[] = { 1, 2, 3, 4, 5 };
