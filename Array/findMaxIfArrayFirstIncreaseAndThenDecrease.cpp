@@ -22,7 +22,7 @@ int find(int a[], int n) {
     if(mid == 0)
       return ( a[0] > a[1] )? a[0] : a[1];
     if(mid == n - 1)
-      return ( a[n - 1] > a[n-2] )? a[n - 1] : a[n - 2];
+      return ( a[n - 1] > a[n - 2] )? a[n - 1] : a[n - 2];
 
     // a[mid] is the maximum value
     if(a[mid] > a[mid + 1] && a[mid] > a[mid - 1])

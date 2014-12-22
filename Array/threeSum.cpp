@@ -9,12 +9,12 @@ using namespace std;
 // The 3SUM problem asks if a given set of n integers, each with absolute value bounded by some polynomial in n, contains three elements that sum to zero.
 void threeSum(vector<int> a) {
   unordered_map<int, int> m;
-  for(int i = 0; i < a.size(); ++i) {
+  for(int i = 0; i < (int)a.size(); ++i) {
     m[a[i]] = i;
   }
 
-  for(int i = 0; i < a.size() - 1; ++i) {
-    for(int j = i + 1; j < a.size(); ++j) {
+  for(int i = 0; i < (int)a.size() - 1; ++i) {
+    for(int j = i + 1; j < (int)a.size(); ++j) {
       int val = -(a[i] + a[j]);
       if(m.count(val) == 1 && m[val] < i && i < j) {
         cout << m[val] << " " << i << " " << j << endl;
