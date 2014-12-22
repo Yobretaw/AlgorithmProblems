@@ -16,20 +16,21 @@ void mergeHelp(vector<int>& arr, int start, int end) {
 
   int i = start;
   int j = mid + 1;
-  int tmp;
 
-  while(i < mid + 1) {
-    if(arr[i] > arr[j]) {
-      swap(arr[i], arr[j]);
+  int idx = 0;
+  vector<int> tmp(end - start + 1);
+  while( i <= mid && j <= end ) {
+    tmp[idx++] = (arr[i] < arr[j]) ? arr[i++] : arr[j++];
+  }
+  while(i <= mid) {
+    tmp[idx++] = arr[i++];
+  }
+  while(j <= end) {
+    tmp[idx++] = arr[j++];
+  }
 
-      tmp = j;
-      while(arr[tmp] > arr[tmp + 1] && tmp < end) {
-        swap(arr[tmp], arr[tmp + 1]);
-        tmp++;
-      }
-
-      i++;
-    }
+  for(int i = 0; i < idx; i++) {
+    arr[start + i] = tmp[i];
   }
 }
 
@@ -41,7 +42,7 @@ void mergesort(vector<int>& arr) {
 }
 
 int main() {
-  int size = 10;
+  int size = 2000;
   vector<int> arr(size);
   for(int i = 0; i < size; i++) {
     arr[i] = size - i;
