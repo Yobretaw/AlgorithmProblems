@@ -25,6 +25,7 @@ int canCompleteCircuit(const vector<int>& gas, const vector<int>& cost) {
   // to current station. When loop exists, if total < 0 then the total
   // amount of gas is not enough for the car to traveral all N stations
   int total = 0;
+  int sum = 0;
   int startIdx = -1;
 
   for (int i = 0; i < gas.size(); i++) {
@@ -32,7 +33,7 @@ int canCompleteCircuit(const vector<int>& gas, const vector<int>& cost) {
     total += gas[i] - cost[i];
 
     if(sum < 0) {
-      stations = i;
+      startIdx = i;
       sum = 0;
     }
   }

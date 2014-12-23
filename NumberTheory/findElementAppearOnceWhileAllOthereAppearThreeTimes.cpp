@@ -5,7 +5,18 @@
 #include <stack>
 using namespace std;
 
-int find(vector<int>& arr) {
+int findOneInTwo(const vector<int>& arr) {
+  int ret = 0;
+  int len = arr.size();
+
+  for(int i = 0; i < len; ++i) {
+    ret ^= arr[i];
+  }
+
+  return ret;
+}
+
+int findOneInThree(const vector<int>& arr) {
   int ones = 0, twos = 0;
   int common_bit_mask;
 
@@ -43,7 +54,10 @@ int find(vector<int>& arr) {
 }
 
 int main() {
-  vector<int> arr = {3, 3, 2, 3, 2, 2, 1, 1, 4, 1};
-  cout << find(arr) << endl;
+  //vector<int> arr = {3, 3, 2, 3, 2, 2, 1, 1, 4, 1};
+  //cout << findOneInThree(arr) << endl;
+  
+  vector<int> arr = {1, 2, 3, 2, 3, 1, 4, 5, 5};
+  cout << findOneInTwo(arr) << endl;
   return 0;
 }
