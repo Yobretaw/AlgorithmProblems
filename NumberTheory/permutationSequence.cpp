@@ -19,7 +19,7 @@ int getNextDigit(vector<int>& digits, int m);
  * 3, 1, 2
  * 3, 2, 1
  * 
- * Now given 0 <= n <= 9 and k, return the kth permutation sequence.
+ * Given 0 <= n <= 9 and k, return the kth permutation sequence.
  */
 vector<int> findSeq(int n, int k) {
   vector<int> fac(n);
