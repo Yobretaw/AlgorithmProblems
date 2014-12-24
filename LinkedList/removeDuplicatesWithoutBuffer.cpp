@@ -7,10 +7,12 @@ void remove(node* head) {
     return;
   }
 
+  int val;
+  node *pre, *curr;
   while(head) {
-    int val = head->val;
-    node* pre = head;
-    node* curr = head->next;
+    val = head->val;
+    pre = head;
+    curr = head->next;
 
     while(curr) {
       if(curr->val == val) {

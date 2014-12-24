@@ -51,9 +51,9 @@ void threeSum(vector<int> a) {
   }
 }
 
-int closest_threeSum(const vector<int>& arr, int target) {
-  assert(arr.size() >= 3);
-  vector<int> A(arr);
+int closest_threeSum(const vector<int>& num, int target) {
+  assert(num.size() >= 3);
+  vector<int> A(num);
 
   int len = A.size();
   sort(A.begin(), A.end());
@@ -72,6 +72,9 @@ int closest_threeSum(const vector<int>& arr, int target) {
       if(gap < mingap) {
         result = sum;
         mingap = gap;
+
+        if(mingap == 0)
+          return result;
       }
 
       if(sum < target) ++b;
