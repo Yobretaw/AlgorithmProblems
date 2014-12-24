@@ -25,7 +25,6 @@ node* rotateList(node* head, int k) {
   node *prev = &dummy;
 
   while(k > 0) {
-    newhead = newhead->next;
     prev = prev->next;
     k--;
   }
