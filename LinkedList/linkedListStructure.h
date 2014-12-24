@@ -39,12 +39,12 @@ void deleteNode(node *head) {
 void printNode(node* head) {
 	if(head == NULL)
 		return;
-	std::cout << head->val << " ";
+  cout << head->val << " ";
   if(head->next == NULL) {
     cout << endl;
     return;
   }
-	printNode(head->next);
+  printNode(head->next);
 }
 
 int len(node* head) {
@@ -53,6 +53,5 @@ int len(node* head) {
     len++;
     head = head->next;
   }
-
   return len;
 }

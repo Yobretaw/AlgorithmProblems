@@ -2,7 +2,9 @@
 #include "cmath"
 #include "linkedListStructure.h"
 using namespace std;
-//                    Sum two linkedlist
+ 
+// ==============================================================
+//                     Sum two linkedlist
 // ==============================================================
 // Given two numbers represented by a linked list, where each node
 // contains a single digit. The digits are stored in order,
@@ -66,7 +68,6 @@ node* sumListReverse(node* a, node* b, int carry) {
     if(carry != 0) {
       return new node(carry, NULL);
     }
-    
     return NULL;
   }
 
