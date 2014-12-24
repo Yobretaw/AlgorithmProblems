@@ -16,8 +16,13 @@ bool pairLess(const pair<double, double>& a, const pair<double, double>& b) {
   return a.first < b.first;
 }
 
+bool pairLessL(const double& a, const double& b) {
+  return a < b;
+}
+
 bool isInt(double x) {
-  return (int)x == x;
+  double intpart;
+  return modf(x, &intpart) == 0.0;
 }
 
 int minMeetingRoom(vector<pair<int, int> >& list) {
@@ -30,7 +35,7 @@ int minMeetingRoom(vector<pair<int, int> >& list) {
   }
 
   // sort pairs based on starting time
-  sort(dlist.begin(), dlist.end(), pairLess);
+  sort(dlist.begin(), dlist.end(), pairLessL);
 
   int room = 0;
   int minroom = 0;
