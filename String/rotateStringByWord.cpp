@@ -4,56 +4,63 @@
 #include <stack>
 using namespace std;
 
-int nextWhitespace(string& s, int start) {
-  while(start < s.length() && !isspace(s[start]))
-    start++;
-
-  return start;
+void reverseWord(string& s, int i, int j) {
+  while(i < j) {
+    swap(s[i++], s[j--]);
+  }
 }
 
-// "foo bar baz lol" -> "lol baz bar foo"
-// algorithm:
-//
-//  first we reverse each word in the string:
-//     --> "oof rab zab lol"
-//
-//  then we rotate the whole string
-//    --> "lol baz bar foo"
-//
-//  done.
+/*
+ *  transfrom "foo bar baz lol" into "lol baz bar foo"
+ *  
+ *  Algorithm:
+ *
+ *  first we reverse each word in the string:
+ *     --> "oof rab zab lol"
+ *
+ *  then we rotate the whole string
+ *    --> "lol baz bar foo"
+ *
+ *  Note: 
+ *  1. The reversed string should nto contain
+ *     leading or trailing spaces
+ *  2. Reduct mutiple spaces between words into
+ *     a single space
+*/     
 void reverse(string& s) {
   int len = s.length();
 
-  if(len == 0 || len == 1)
+  if(len == 0)
     return;
 
-  int idx = 0;
-  while(idx < len) {
-    while(isspace(s[idx])) {
-      idx++;
-    }
+  int i = 0, j = 0, l = 0;
+  bool hasWord = false;
+  while(true) {
+    while(i < len && s[i] == ' ')
+      i++;
 
-    int nextPos = nextWhitespace(s, idx);
-    int beforeNextPos = nextPos - 1;
+    if(i == len) break;
+    if(hasWord)
+      s[j++] = ' ';
 
-    while (idx < beforeNextPos) {
-      swap(s[idx++], s[beforeNextPos--]);
-    }
+    l = j;
     
-    idx = nextPos + 1;
+    while(i < len && s[i] != ' ')
+      s[j++] = s[i++];
+    
+    reverseWord(s, l, j - 1);
+    hasWord = true;
   }
 
-  idx = 0;
-  len--;
-  while (idx < len) {
-    swap(s[idx++], s[len--]);
-  }
+  s.resize(j);
+  reverseWord(s, 0, j - 1);
 }
+
 
 int main()
 {
   //string s = "foo bar baz lol";
-  string s = "I am a student";
+  string s = "I    am a student";
   reverse(s);
   cout << s << endl;
   return 0;

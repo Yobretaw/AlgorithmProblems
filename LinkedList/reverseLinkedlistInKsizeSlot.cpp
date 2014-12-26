@@ -2,7 +2,7 @@
 #include "linkedListStructure.h"
 using namespace std;
 
-node* getPreNextNode(node* head, int k) {
+node* getPrev(node* head, int k) {
   while(head != NULL && k != 1) {
     head = head->next;
     k--;
@@ -11,22 +11,27 @@ node* getPreNextNode(node* head, int k) {
   return head;
 }
 
+/* Givne a linked list, reverse the nodes of a linked list at a time
+ * and return its modified list
+ *
+ * If the number of nodes is not mutiple of k then left-out nodes in
+ * the ends should remain as it is
+ *
+ * You may NOT alter the values in the nodes, only nodes itself may
+ * be changed
+ */
 node* reverse(node* head, int k) {
   if(head == NULL)
     return NULL;
 
-  node* preNext = getPreNextNode(head, k);
-  node* next = NULL;
+  node* preNext = getPrev(head, k);
+  if(preNext == NULL)
+    return head;
 
-  if(preNext != NULL) {
-    next = preNext->next;
-    preNext->next = NULL;
-  }
+  node *newhead = reverse(preNext->next, k);
+  preNext->next = NULL;
 
-  node* rest = reverse(next, k);
-
-  node* newhead = rest;
-  while(head) {
+  while(head != NULL) {
     node* next = head->next;
     head->next = newhead;
     newhead = head;
@@ -38,18 +43,9 @@ node* reverse(node* head, int k) {
 
 int main()
 {
-  node* head = new node(11, NULL);
-  node* cp = head;
-  int count = 10;
-
-  while(count != 0) {
-    cp->next = new node(count, NULL);
-    cp= cp->next;
-    count--;
-  }
-
+  node *head = genList(10);
   printNode(head);
-  node* rev = reverse(head, 3);
+  node* rev = reverse(head, 4);
   printNode(rev);
   return 0;
 }

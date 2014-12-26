@@ -9,26 +9,28 @@ class node {
   public:
 	int val;
 	node *next;
+  node *random;
 
   node() {}
 
   node(int val) {
     this->val = val;
     this->next = NULL;
+    this->random = NULL;
   }
 
   node(int val, node* next) {
     this->val = val;
     this->next = next;
+    this->random = NULL;
+  }
+
+  node(int val, node* next, node *random) {
+    this->val = val;
+    this->next = next;
+    this->random = random;
   }
 };
-
-node* makenode(int val, node *next) {
-	node *ret = new node;
-	ret->val = val;
-	ret->next = next;
-	return ret;
-}
 
 void deleteNode(node *head) {
 	if(head == NULL)
@@ -37,15 +39,25 @@ void deleteNode(node *head) {
 	delete head;
 }
 
-void printNode(node* head) {
+void printNodeHelp(node* head) {
 	if(head == NULL)
 		return;
-  cout << head->val << " ";
+  cout << head->val;
+  if(head->random != NULL)
+    cout << "[" << head->random->val << "]";
   if(head->next == NULL) {
     cout << endl;
     return;
   }
-  printNode(head->next);
+  cout << ", ";
+  printNodeHelp(head->next);
+}
+
+void printNode(node* head) {
+  if(head == NULL)
+    cout << "NULL POINTER" << endl;
+  else
+    printNodeHelp(head);
 }
 
 int getLength(node* head) {

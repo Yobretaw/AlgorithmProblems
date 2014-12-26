@@ -2,9 +2,9 @@
 #include "linkedListStructure.h"
 using namespace std;
 
-void reverse(node*& head){
+node* reverse(node* head){
   if(head == NULL || head->next == NULL)
-    return;
+    return head;
 
   node* newhead = NULL;
   while(head) {
@@ -14,7 +14,7 @@ void reverse(node*& head){
     head = next;
   }
 
-  head = newhead;
+  return newhead;
 }
 
 

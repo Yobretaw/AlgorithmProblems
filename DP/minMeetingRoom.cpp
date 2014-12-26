@@ -12,15 +12,12 @@ using namespace std;
  * Example: input (1, 4), (2, 3), (3, 4), (4, 5)
  *          output: 2
  */
-bool pairLess(const pair<double, double>& a, const pair<double, double>& b) {
-  return a.first < b.first;
-}
-
-bool pairLessL(const double& a, const double& b) {
+bool pairLess_first(const double& a, const double& b) {
   return a < b;
 }
 
-bool isInt(double x) {
+/* return ture if the x is of the from m.0 */
+bool isEnd(double x) {
   double intpart;
   return modf(x, &intpart) == 0.0;
 }
@@ -35,18 +32,12 @@ int minMeetingRoom(vector<pair<int, int> >& list) {
   }
 
   // sort pairs based on starting time
-  sort(dlist.begin(), dlist.end(), pairLessL);
+  sort(dlist.begin(), dlist.end(), pairLess_first);
 
   int room = 0;
   int minroom = 0;
   for(int i = 0; i < 2 * len; ++i) {
-    if(isInt(dlist[i]))
-      room++;
-    else
-      room--;
-    
-    if(room > minroom)
-      minroom = room;
+    minroom = max(minroom, isEnd(dlist[i]) ? --room : ++room);
   }
 
   return minroom;

@@ -17,7 +17,7 @@ void remove(string& s) {
 
   }
   
-  s = s.substr(0, tail);
+  s.resize(tail);
 }
 
 
