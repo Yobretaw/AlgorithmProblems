@@ -37,7 +37,8 @@ int maxHeight(node *p) {
   if (!p) return 0;
   int leftHeight = maxHeight(p->left);
   int rightHeight = maxHeight(p->right);
-  return (leftHeight > rightHeight) ? leftHeight + 1: rightHeight + 1;
+  //return (leftHeight > rightHeight) ? leftHeight + 1: rightHeight + 1;
+  return max(leftHeight, rightHeight) + 1;
 }
 
 // Convert an integer value to string
