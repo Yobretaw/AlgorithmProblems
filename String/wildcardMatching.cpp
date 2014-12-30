@@ -14,6 +14,11 @@ unordered_map<char*, unordered_map<char*, bool> > seen;
  *
  * The matching should cover the entire input string.
  */
+/*
+s1记录的是离当前s最近的*在s里match的最后一个位置
+
+因为*能match任意长度的string, 所以只记录下离当前位置最近的*的位置，并在当前不match的时候回溯，看看之前有没有*。 有的话就从之前那个*在原s中match的最后一个位置之后的那个char开始继续match。
+*/
 bool isMatch(const char *s, const char *p) {
   if(!*p) return !*s;
 
