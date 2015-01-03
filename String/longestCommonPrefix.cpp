@@ -6,10 +6,22 @@
 #include <unordered_map>
 using namespace std;
 
+
+string lcp2(const vector<string>& strs) {
+  if(strs.size() == 0) return "";
+  
+  string prefix = strs[0];
+  for (int i = 0; i < prefix.length(); ++i)
+    for (int j = 1; j < strs.size(); ++j)
+      if(strs[j][i] != prefix[i]) return prefix.substr(0, i);
+
+  return prefix;
+}
+
 /* Write a function to find the longest common prefix string
  * amongst an array of strings
  */
-string longestCommonPrefix(const vector<string>& strs) {
+string lcp(const vector<string>& strs) {
   if(strs.size() == 0)
     return "";
 
@@ -34,13 +46,12 @@ string longestCommonPrefix(const vector<string>& strs) {
 int main() {
   vector<string> strs = {
     "aba",
-    "c",
-    "b",
     "a",
     "ab"
   };
 
-  cout << longestCommonPrefix(strs) << endl;
+  //cout << longestCommonPrefix(strs) << endl;
+  cout << lcp2(strs) << endl;
   return 0;
 }
 
