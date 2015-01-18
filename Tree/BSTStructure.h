@@ -9,26 +9,35 @@ using namespace std;
 
 struct node {
   int val;
-  node *left, *right;
-  node *next;
+  node *left, *right, *next;
 
   public:
   node() {
     this->val = 0;
     this->left = NULL;
     this->right = NULL;
+    this->next = NULL;
   }
 
   node( int val ) {
     this->val = val;
     this->left = NULL;
     this->right = NULL;
+    this->next = NULL;
   }
 
   node( int val, node* left, node* right ) {
     this->val = val;
     this->left = left;
     this->right = right;
+    this->next = NULL;
+  }
+
+  node( int val, node* left, node* right, node *next) {
+    this->val = val;
+    this->left = left;
+    this->right = right;
+    this->next = next;
   }
 };
 

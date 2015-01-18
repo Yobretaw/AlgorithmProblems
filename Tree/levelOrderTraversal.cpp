@@ -6,10 +6,33 @@
 #include "BSTStructure.h"
 using namespace std;
 
-// ===========================================
+void traversal_help(node *root, int level, vector<vector<int> >& result);
+
+// ===============================================================
+// Using a queue, runtime O(n) in all cases(no matter if the tree
+// is balanced or not)
+// ===============================================================
+void levelOrderTraversal(node* root) {
+  queue<node*> q;
+  q.push(root);
+
+  while(!q.empty()) {
+    node* curr = q.front();
+    q.pop();
+    cout << curr->val << endl;
+
+    if(curr->left != NULL)
+      q.push(curr->left);
+    if(curr->right != NULL)
+      q.push(curr->right);
+  }
+}
+
+
+// ===============================================================
 // Without extra space, runtime O(n) if the tree is balanced,
 // O(n^2) in worst case
-// ===========================================
+// ===============================================================
 void printLevel(node* root, int level) {
   if(root == NULL)
     return;
@@ -32,7 +55,7 @@ int findHeight(node* root) {
 }
 
 
-void printTree(node* root) {
+void levelOrderTraversal2(node* root) {
   int height = findHeight(root);
 
   for (int i = 0; i < height; i++) {
@@ -40,30 +63,31 @@ void printTree(node* root) {
   }
 }
 
+// ===============================================================
+// O(n) time, O(n) space
+// ===============================================================
+void levelOrderTraversal3(node *root) {
+  vector<vector<int> > result;
+  traversal_help(root, 1, result);
+  for (int i = 0; i < result.size(); ++i)
+    for (int j = 0; j < result[i].size(); ++j) 
+      cout << result[i][j] << endl;
+}
 
-// ===========================================
-// Using a queue, runtime O(n) in all cases(no matter if the tree
-// is balanced or not)
-// ===========================================
-void levelOrderTraversal(node* root) {
-  queue<node*> q;
-  q.push(root);
+void traversal_help(node *root, int level, vector<vector<int> >& result) {
+  if(root == NULL)
+    return;
 
-  while(!q.empty()) {
-    node* curr = q.front();
-    q.pop();
-    cout << curr->val << endl;
+  if(level > result.size())
+    result.push_back(vector<int>());
 
-    if(curr->left != NULL)
-      q.push(curr->left);
-    if(curr->right != NULL)
-      q.push(curr->right);
-  }
+  result[level - 1].push_back(root->val);
+  traversal_help(root->left, level + 1, result);
+  traversal_help(root->right, level + 1, result);
 }
 
 int main()
 {
-  
   node* root = new node(7, 
       new node(3, 
         new node(1, 
@@ -82,6 +106,7 @@ int main()
 
   printBST(root);
   //levelOrderTraversal(root);
-  printTree(root);
+  //levelOrderTraversal2(root);
+  levelOrderTraversal3(root);
   return 0;
 }

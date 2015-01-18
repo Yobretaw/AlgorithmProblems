@@ -16,6 +16,7 @@ int main()
   node* n7 = new node(7, NULL, NULL);
   node* n5 = new node(5, n6, n7);
   node* n4 = new node(4, n2, n5);
+  printBST(n4);
   postTraversal(n4);
   return 0;
 }
