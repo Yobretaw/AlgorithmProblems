@@ -11,21 +11,22 @@
 using namespace std;
 
 node *mergeHelp(node *a, node *b);
-node *mergeRecursion(const vector<node*>& list, int start, int end);
 
-node *merge(const vector<node*>& list) {
-  if(list.size() == 0) return NULL;
-  return mergeRecursion(list, 0, list.size() - 1);
-}
+node *mergeSort(node *head) {
+  if(head == NULL || head->next == NULL) return head;
 
-node *mergeRecursion(const vector<node*>& list, int start, int end) {
-  if(start == end)
-    return list[start];
+  node *fast = head, *slow = head;
+  while(fast->next != NULL && fast->next->next != NULL) {
+    fast = fast->next->next;
+    slow = slow->next;
+  }
 
-  int mid = (end - start) / 2 + start;
-  node *first = mergeRecursion(list, start, mid);
-  node *second = mergeRecursion(list, mid + 1, end);
+  fast = slow;
+  slow = slow->next;
+  fast->next = NULL;
 
+  node *first = mergeSort(head);
+  node *second = mergeSort(slow);
   return mergeHelp(first, second);
 }
 
@@ -48,5 +49,7 @@ node *mergeHelp(node *a, node *b) {
 }
 
 int main() {
+  node *head = new node(5, new node(4, new node(3, new node(2, new node(1, new node(0, NULL))))));
+  printNode(mergeSort(head));
   return 0;
 }
