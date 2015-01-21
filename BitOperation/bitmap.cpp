@@ -17,9 +17,11 @@ class Bitmap {
   public:
     Bitmap(int n) {
       a = new int(n / BITPERWORD + 1);
+      capacity = n;
     }
 
     void set(int n) {
+      if(n < 0 || n > capacity) return;
       a[n >> SHIFT] |= (1 << (n & MASK));
     }
 
@@ -28,6 +30,7 @@ class Bitmap {
     }
 
     bool test(int n) {
+      if(n < 0 || n > capacity) return 0;
       return a[n >> SHIFT] & (1 << (n & MASK));
     }
 
@@ -36,6 +39,7 @@ class Bitmap {
     }
 
   private:
+    int capacity;
     int* a;
 };
 
