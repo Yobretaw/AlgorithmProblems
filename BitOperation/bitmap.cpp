@@ -30,7 +30,7 @@ class Bitmap {
     }
 
     bool test(int n) {
-      if(n < 0 || n > capacity) return 0;
+      if(n < 0 || n > capacity) return false;
       return a[n >> SHIFT] & (1 << (n & MASK));
     }
 
