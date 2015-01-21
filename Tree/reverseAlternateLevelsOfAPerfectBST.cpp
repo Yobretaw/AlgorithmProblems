@@ -57,13 +57,6 @@ int main()
 void reverse(node* root, stack<int>& v, int level, bool isFirst) {
   if(root == NULL) return;
 
-  if(false) {
-  //if(level % 2 == 0) {
-    reverse(root->left, v, level+1, isFirst);
-    reverse(root->right, v, level+1, isFirst);
-    return;
-  }
-
   // inorder traversal
   reverse(root->left, v, level+1, isFirst);
   if(isFirst) {
