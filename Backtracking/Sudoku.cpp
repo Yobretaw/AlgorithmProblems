@@ -44,6 +44,7 @@ bool findUassignedLocation(int su[N][N], int& row, int& col) {
 }
 
 
+
 bool solve(int su[N][N]) {
   int row, col;
 

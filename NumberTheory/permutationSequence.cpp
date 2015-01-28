@@ -36,7 +36,7 @@ vector<int> findSeq(int n, int k) {
   // reverse Canto expansion
   for(int i = 0; i < n; ++i) {
     int currFac = k / fac[n - 1 - i];
-    int idx     = getNextDigit(digits, currFac);
+    int idx = getNextDigit(digits, currFac);
 
     // ith digit of the result sequence is found
     result[i]   = idx;

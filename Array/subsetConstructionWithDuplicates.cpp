@@ -57,7 +57,7 @@ vector<vector<int> >subsetIterative(const vector<int>& a) {
   vector<vector<int> > result(1 << n);
 
   int n = sorted.size(), count = 0;
-  for (int i = 0; i < 1 << n; ++i) {
+  for (int i = 1; i < 1 << n; ++i) {
     for (int j = 0; j < n; ++j)
       if(i & 1 << j) v.push_back(sorted[j]);
 
