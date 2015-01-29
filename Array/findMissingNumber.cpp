@@ -34,7 +34,7 @@ int findMissingNumber2(const vector<int>& a) {
 }
 
 int main() {
-  vector<int> a = {1, 3, 5, 4};
+  vector<int> a = {1, 3, 5, 4, 2, 7};
   cout << findMissingNumber2(a) << endl;
   return 0;
 }
