@@ -29,7 +29,7 @@ void nextPermutation(vector<int>& num) {
   if(len < 2)
     return;
 
-  // find the first index i such that num[i] < num[i+1]
+  // find the last index i such that num[i] < num[i+1]
   int i;
   for(i = len - 1; i >= 1; --i) {
     if(num[i] > num[i - 1])
