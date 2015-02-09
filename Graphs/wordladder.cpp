@@ -3,6 +3,7 @@
 #include "vector"
 #include "map"
 #include "unordered_set"
+#include "unordered_map"
 using namespace std;
 
 int BFS(string start, string end, vector<string> dict) {
@@ -13,7 +14,7 @@ int BFS(string start, string end, vector<string> dict) {
 
   map<string, vector<string> > table; 
   for(auto curr: dict) {
-    for(int j = 0; j < start.length(); j++) {
+    for(int j = 0; j < curr.length(); j++) {
       string s = curr;
       s[j] = '*';
       table[s].push_back(curr);
@@ -22,6 +23,10 @@ int BFS(string start, string end, vector<string> dict) {
 
   int len = INT_MAX;
   int level = 0;
+
+  // used to track the parent of a string
+  unordered_map<string, string> parent;
+
   q.push(start);
   while(q.size() != 0) {
     string curr = q.front();
@@ -33,6 +38,7 @@ int BFS(string start, string end, vector<string> dict) {
 
     for(int i = 0; i < word_len; i++) {
       char tmp = curr[i];
+      string t = curr;
       curr[i] = '*';
 
       if(table[curr].size() == 0) continue;
@@ -42,12 +48,25 @@ int BFS(string start, string end, vector<string> dict) {
 
         q.push(next);
         seen[next] = level + 1;
+        parent[next] = t;
       }
       // swap back
       curr[i] = tmp;
     }
   }
 
+  // printing path
+  vector<string> path;
+  if(len != INT_MAX) {
+    while(end != start) {
+      path.insert(path.begin(), 1, end);
+      end = parent[end];
+    }
+    path.insert(path.begin(), 1, start);
+    for (auto s : path) {
+      cout << s << endl;
+    }
+  }
   return len == INT_MAX ? 0 : len + 1;
 }
 
@@ -63,7 +82,7 @@ int main()
 {
   string start = "hit";
   string end = "cog";
-  unordered_set<string> dict = {"hot", "cog", "dot", "dog", "hit", "lot", "log"};
+  unordered_set<string> dict = {"hot", "hat", "cog", "dot", "dog", "hit", "lot", "aog", "log"};
 
   cout << ladder(start, end, dict) << endl;
   return 0;
