@@ -4,7 +4,7 @@
 #include <stack>
 using namespace std;
 
-#define N 8
+#define N 14
 
 bool isSafe(int current_row, int col, const vector<int>& pos) {
   for (int other_row = 0; other_row < current_row; other_row++) {
