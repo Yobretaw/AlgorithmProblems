@@ -15,13 +15,13 @@ string find(const string& s) {
   int start = 0;
   int max_len = 0;
   int max_start = 0;
-  vector<int> count(256, -1);
+  vector<int> pos(256, -1);
 
   for (int i = 0; i < s.length(); i++) {
-    if(count[s[i]] >= start)
-      start = count[s[i]] + 1;
+    if(pos[s[i]] >= start)
+      start = pos[s[i]] + 1;
 
-    count[s[i]] = i;
+    pos[s[i]] = i;
 
     if(i - start >= max_len) {
       max_len = i - start + 1;
