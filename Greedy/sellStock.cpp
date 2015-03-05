@@ -34,8 +34,11 @@ int maxProfit2(const vector<int>& prices) {
   return sum;
 }
 
-//Design an algorithm to find the maximum profit. You may complete at most two transactions.
-//Note: You may not engage in multiple transactions at the same time (ie, you must sell the stock before you buy again).
+// Design an algorithm to find the maximum profit. You may complete at most two transactions.
+// Note: You may not engage in multiple transactions at the same time (ie, you must sell the stock before you buy again).
+//
+// 设状态 first(i),表示区间 [0, i](0 ≤ i ≤ n − 1) 的最大利润,状态 second(i),表示区间 [i, n − 1](0 ≤ i ≤ n − 1) 的最大利润,
+// 则最终答案为 max {first (i) + second(i)} , 0 ≤ i ≤ n − 1。
 int maxProfit3(const vector<int>& prices) {
   const int len = prices.size();
   if(len < 2)
