@@ -55,6 +55,39 @@ bool isInterleaving(const string s1, const string s2, const string s3) {
   return mem[len1][len2];
 }
 
+// 二维动归+滚动数组
+// Since mem[i][j] is determined only by mem[i - 1][j] and mem[i][j - 1]
+// 1D array is enough
+// Time O(n^2), space O(n)
+bool isInterleaving2(string s1, string s2, string s3) {
+  int len1 = s1.length();
+  int len2 = s2.length();
+  int len3 = s3.length();
+
+  if(len1 + len2 != len3)
+    return false;
+
+  // swap s1 and s2 to swap space
+  if(len1 < len2)
+    return isInterleaving2(s2, s1, s3);
+
+  vector<bool> f(len2 + 1, true);
+
+  for (int i = 1; i <= len2; ++i) {
+    f[i] = s2[i - 1] == s3[i - 1] && f[i - 1];
+  }
+
+  for (int i = 1; i <= len1; ++i) {
+    f[0] = s1[i - 1] == s3[i - 1] && f[0];
+
+    for (int j = 1; j <= len2; ++j) {
+      f[j] = (s1[i - 1] == s3[i + j - 1] && f[j])
+              || (s2[j - 1] == s3[i + j - 1] && f[j - 1]);
+    }
+  }
+  return f[len2];
+}
+
 int main() {
   string s1 = "aabcc";
   string s2 = "dbbca";
