@@ -13,24 +13,30 @@ using namespace std;
  *  Given a m x n grid filled with non-negative numbers, find a path from top left to bottom right which minimizes the sum of all numbers along its path.
  *  Note: You can only move either down or right at any point in time.
  */
-//void minPathHelp(const vector<vector<int> >& grid, int x, int y, vector<vector<int> >& mem) {
-//  int m = grid.size();
-//  int n = grid[0].size();
+int minPathHelp(const vector<vector<int> >& grid, int x, int y, vector<vector<int> >& mem) {
+  if(x == 0 && y == 0) return grid[0][0];
 
-//  // reaching lower right corner
-//  if(x == m - 1 && y == n - 1) return grid[x][y] + min(x == 0 ? 0 : mem[x - 1][y], y == 0 ? 0 : mem[x, y - 1]);
+  int m = grid.size();
+  int n = grid[0].size();
 
-//  // already traversed
-//  if(mem[x][y] >= 0) return mem[x][y];
-//}
+  if(mem[x][y] >= 0) return mem[x][y];
 
-//int minPath(const vector<vector<int> >& grid) {
-//  if(grid.size() == 0) return 0;
+  int left = -1, up = -1;
+  if(x > 0)
+    left = minPathHelp(grid, x - 1, y, mem);
 
-//  vector<vector<int> > mem(grid.size(), vector<int>(grid[0].size(), -1));
-//  minPathHelp(grid, 0, 0, mem);
-//  return mem[grid.size() - 1][grid[0].size() - 1];
-//}
+  if(y > 0)
+    up = minPathHelp(grid, x, y - 1, mem);
+
+  mem[x][y] = grid[x][y] + min(left == -1 ? INT_MAX : left, up == -1 ? INT_MAX : up);
+  return mem[x][y];
+}
+
+// Recursion
+int minPath(const vector<vector<int> >& grid) {
+  vector<vector<int> > mem(grid.size(), vector<int>(grid[0].size(), -1));
+  return minPathHelp(grid, grid.size() - 1, grid[0].size() - 1, mem);
+}
 
 // 二维DP
 int minPath2(const vector<vector<int> >& grid) {
@@ -56,7 +62,7 @@ int minPath2(const vector<vector<int> >& grid) {
 }
 
 // 滚动数组
-int minPath3(const vector<int> >& grid) {
+int minPath3(const vector<vector<int> >& grid) {
   int m = grid.size();
   int n = grid[0].size();
 
@@ -75,5 +81,11 @@ int minPath3(const vector<int> >& grid) {
 }
 
 int main() {
+  vector<vector<int> > grid = {
+    {0, 0},
+    {0, 0}
+  };
+
+  cout << minPath(grid) << endl;
   return 0;
 }
