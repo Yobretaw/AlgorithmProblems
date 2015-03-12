@@ -20,6 +20,7 @@ using namespace std;
  *   [ 4, 5, 6 ],
  *   [ 7, 8, 9 ]
  *  ]
+ *  
  *  You should return [1,2,3,6,9,8,7,4,5].
  */
 vector<int> spiral(const vector<vector<int> >& mtx) {
@@ -48,6 +49,40 @@ vector<int> spiral(const vector<vector<int> >& mtx) {
   }
   return result;
 }
+
+/*
+ *  Given an integer n, generate a square matrix filled with elements from 1 to n2 in spiral order.
+ *  
+ *  For example,
+ *  Given n = 3,
+ *  
+ *  You should return the following matrix:
+ *  [
+ *   [ 1, 2, 3 ],
+ *   [ 8, 9, 4 ],
+ *   [ 7, 6, 5 ]
+ *  ]
+ */
+vector<vector<int> > generateSpiralMatrix(int n) {
+  if(n == 0)
+    return vector<vector<int> >();
+
+  vector<vector<int> > mtx(n, vector<int>(n, 0));
+  int begin = 0, end = n - 1;
+  int num = 1;
+  while(begin < end) {
+     for(int i = begin; i < end; ++i) mtx[begin][i] = num++;
+     for(int i = begin; i < end; ++i) mtx[i][end] = num++;
+     for(int i = end; i > begin; --i) mtx[end][i] = num++;
+     for(int i = end; i > begin; --i) mtx[i][begin] = num++;
+
+     begin++;
+     end--;
+  }
+  if(begin == end) mtx[begin][begin] = num;
+  return mtx;
+}
+
 
 int main() {
   //vector<vector<int> > mtx = {
