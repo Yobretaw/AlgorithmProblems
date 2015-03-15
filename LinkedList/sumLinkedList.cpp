@@ -65,9 +65,9 @@ node* sumList(node* a, node* b) {
 
 node* sumListReverse(node* a, node* b, int carry) {
   if(a == NULL && b == NULL) {
-    if(carry != 0) {
+    if(carry != 0)
       return new node(carry, NULL);
-    }
+
     return NULL;
   }
 

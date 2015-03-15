@@ -52,28 +52,25 @@ void convert(vector<int>& arr) {
  *  of the number and for the multiples of five print “Buzz”. For numbers which are multiples of both three
  *  and five print “FizzBuzz”.
  */
-
 void fizzbuzz() {
+  string fizz = "Fizz";
+  string buzz = "Buzz";
+
   for(int i = 1; i < 100; ++i) {
-    string s = "";
-
-    if(i % 3 == 0) s += "Fizz";
-    if(i % 5 == 0) s += "Buzz";
-
-    if(s == "")
-      cout << i << endl;
-    else
-      cout << s << endl;
+    if(i % 3 == 0 && i % 5 == 0) cout << fizz + buzz << endl;
+    else if(i % 3 == 0) cout << fizz << endl;
+    else if(i % 3 == 0) cout << buzz << endl;
+    else cout << i << endl;
   }
 }
 
 int main() {
-  vector<int> arr;
-  int size = 20;
-  for(int i = 0; i < size; ++i) arr.push_back(i + 1);
-  convert(arr);
-  for(auto v : arr) cout << v << " ";
-  cout << endl;
-  //fizzbuzz();
+  //vector<int> arr;
+  //int size = 20;
+  //for(int i = 0; i < size; ++i) arr.push_back(i + 1);
+  //convert(arr);
+  //for(auto v : arr) cout << v << " ";
+  //cout << endl;
+  fizzbuzz();
   return 0;
 }
