@@ -38,20 +38,17 @@ int ksmall(int A[], int m, int B[], int n, int k) {
 
 // http://fisherlei.blogspot.com/2012/12/leetcode-median-of-two-sorted-arrays.html
 int getKSmall(int A[], int m, int B[], int n, int k) {
-  if(m <= 0 || n <= 0) {
-    return m == 0 ? B[k - 1] : A[k - 1];
-  }
-  
-  if(k <= (m + n)/2) {
-    if(A[m/2] < B[n/2])
-      return getKSmall(A, m, B, n/2, k);
-    else
-      return getKSmall(A, m/2, B, n, k);
+  if(m <= 0 || n <= 0)
+    return m <= 0 ? B[k - 1] : A[k - 1];
+
+  if(k <= 1) return min(A[0], B[0]);
+
+  if(m/2 + n/2 + 1 >= k) {
+    if(A[m/2] > B[n/2]) return getKSmall(A, m/2, B, n, k);
+    else return getKSmall(A, m, B, n/2, k);
   } else {
-    if(A[m/2] < B[n/2])
-      return getKSmall(A, m/2, B, n, k - m/2 - 1);
-    else
-      return getKSmall(A, m, B + n/2, n, k - n/2 - 1);
+    if(A[m/2] > B[n/2]) return getKSmall(A, m, B + n/2 + 1, n - (n/2 + 1), k - n/2 - 1);
+    else return getKSmall(A + m/2 + 1, m - (m/2 + 1), B, n, k - m/2 -1);
   }
 } 
 
@@ -65,13 +62,12 @@ double findMedianSortedArrays(int A[], int m, int B[], int n) {
 int main() {
   int A[100];
   int B[100];
-  for(int i = 0; i < 100; ++i) {
-    A[i] = i + 1;
-    B[i] = 100 + i + 1;
+  for(int i = 0; i < 200; ++i) {
+    if(i % 2 == 0) A[i / 2] = i + 1;
+    else B[i / 2] = i + 1;
   }
-  cout << findMedianSortedArrays(A, 100, B, 100) << endl;
-  //for(int i = 0; i < 200; ++i) {
-  //  cout << ksmall(A, 100, B, 100, i + 1) << endl;
-  //}
-  return 0;
+  for(int i = 0; i < 200; ++i) {
+    if(i % 2 == 0) cout << A[i / 2] << endl;
+    else cout << B[i / 2] << endl;
+  }
 }
