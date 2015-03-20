@@ -130,17 +130,234 @@ int lengthOfLongestSubstring(string s) {
  *  The overall run time complexity should be O(log (m+n)).
  */
 
-int main() {
-  // 2
-  //ListNode *l1 = vectorToList(vector<int>{3,1,0,0,1,9,0,1,6,1});
-  //ListNode *l2 = vectorToList(vector<int>{5,5,8,6,2,5,8,2,6,1});
-  //ListNode *result = addTwoNumbers(l1, l2);
-  //for(auto val : listToVector(result)) cout << val;
-  //cout << endl;
-  
+/*
+ *                                    5. Palindrome Number
+ */
+bool isPalindrome(int x) {
+  if(x == 0) return true;
+  if(x < 0) return false;
 
-  // 3
-  cout << lengthOfLongestSubstring("c") << endl; 
-  cout << lengthOfLongestSubstring("abcabcbb") << endl; 
+  int m = 1;
+  while(x / m >= 10) m *= 10;
+  while(x > 0) {
+    if(x / m != x % 10) return false;
+
+    x = (x % m) / 10;
+    m /= 100;
+  }
+  return true;
+}
+
+/*
+ *                                    10. Regular Expression Matching
+ */
+bool isMatch(const char* s, const char* p) {
+  return false;
+}
+
+
+/*
+ *                                    11. Container With Most Water
+ */
+int maxArea(const vector<int>& heights) {
+  int n = heights.size();
+  if(n < 2) return 0;
+
+  int start = 0, end = n - 1;
+  int maxArea = 0;
+
+  while(start < end) {
+    maxArea = max(maxArea, (end - start) * min(heights[start], heights[end]));
+    heights[start] < heights[end] ? start++ : end--;
+  }
+  return maxArea;
+}
+
+/*
+ *                                    12. Integer to Roman
+ */
+
+string intToRoman(int num) {
+  unordered_map<int, string> m;
+
+  m[1] = "I";
+  m[4] = "IV";
+  m[5] = "V";
+  m[9] = "IX";
+  m[10] = "X";
+  m[40] = "XL";
+  m[50] = "L";
+  m[90] = "XC";
+  m[100] = "C";
+  m[400] = "CD";
+  m[500] = "D";
+  m[900] = "CM";
+  m[1000] = "M";
+
+  string ret = "";
+  int d = 1;
+  while(num / 10 >= d) d *= 10;
+
+  while(num > 0) {
+    int curr = num / d;
+    if(curr == 9) {
+      ret += m[9 * d];
+    } else if(curr >= 5) {
+      ret += m[5 * d];
+      ret += string(curr - 5, m[d][0]);
+    } else if(curr == 4){
+      ret += m[4 * d];
+    } else {
+      ret += string(curr, m[d][0]);
+    }
+    num -= (num / d) * d;
+    d = d / 10;
+  }
+  return ret;
+}
+
+int romanToInt(string s) {
+  int len = s.length();
+  if(len == 0) return 0;
+
+  static unordered_map<char, int> m;
+  
+  m['I'] = 1;
+  m['V'] = 5;
+  m['X'] = 10;
+  m['L'] = 50;
+  m['C'] = 100;
+  m['D'] = 500;
+  m['M'] = 1000;
+
+  int ret = m[s[0]];
+  for(int i = 1; i < len; ++i) {
+    int curr = m[s[i]];
+    int prev = m[s[i - 1]];
+
+    if(curr > prev) {
+      ret -= 2 * prev;
+      ret += curr;
+    } else {
+      ret += curr;
+    }
+  }
+  return ret;
+}
+
+string longestCommonPrefix(vector<string> &strs) {
+  int n = strs.size();        
+
+  if(n == 0) return "";
+  if(n == 1) return strs[0];
+
+  sort(strs.begin(), strs.end());
+  int len = strs[0].length();
+
+  for(int i = 1; i < n; ++i) {
+    string prev = strs[i - 1];
+    string curr = strs[i];
+
+    int l = 0;
+    while(l < prev.length() && l < curr.length() && prev[l] == curr[l]) l++;
+    len = min(l, len);
+  }
+  return strs[0].substr(0, len);
+}
+
+//////////////////////////////////////////////////////////
+//                      15. 3 Sum
+//////////////////////////////////////////////////////////
+bool seen(unordered_map<int, unordered_map<int, int> >& mem, int key1, int key2) {
+  return mem.count(key1) && mem[key1].count(key2);
+}
+
+void sumHelp(vector<int>& num, int start, int end, unordered_map<int, unordered_map<int, int> >& mem, vector<vector<int> >& result) {
+  if(start >= end - 1 || seen(mem, num[start], num[end]))
+    return;
+  
+  while(start < end - 2 && num[start] == num[start + 1] && num[start] == num[start + 2]) {
+    start++;
+  }
+
+  while(start < end - 2 && num[end] == num[end - 1] && num[end] == num[end - 2]) {
+    end--;
+  }
+
+  int j = start + 1;
+  int sum;
+  while(start < j && j < end) {
+    sum = num[start] + num[end];
+    if(num[j] == -sum) {
+      if(!seen(mem, num[start], num[end])) {
+        result.push_back(vector<int>{ num[start], num[j], num[end] });
+        mem[num[start]][num[end]] = 1;
+      }
+    }
+    j++;
+  }
+
+  mem[num[start]][num[end]] = 1;
+  sumHelp(num, num[start] == num[start + 1] ? start + 2 : start + 1, num[end] == num[end - 1] ? end - 1 : end, mem, result);
+  sumHelp(num, num[start] == num[start + 1] ? start + 1 : start, num[end] == num[end - 1] ? end - 2 : end - 1, mem, result);
+}
+
+vector<vector<int> > threeSum(vector<int> &num) {
+  int n = num.size();
+
+  vector<vector<int> > result;
+
+  sort(num.begin(), num.end());
+
+  if(n < 3) return result;
+  if(n == 3) return num[0] + num[1] + num[2] == 0 ? vector<vector<int> >{ num } : result;
+
+  unordered_map<int, unordered_map<int, int> > mem;
+  sumHelp(num, 0, n - 1, mem, result);
+  return result;
+}
+
+vector<vector<int> > threeSum2(vector<int> &num) {  
+  vector<vector<int> > result;
+  int len = num.size();
+
+  sort(num.begin(), num.end());
+  for(int i = 0; i < len; i++) {
+    int target = -num[i];
+    int start = i + 1, end = len - 1;
+    while(start < end) {
+      if(num[start] + num[end] == target) {
+        result.push_back(vector<int>{num[i], num[start], num[end]});  
+        start++;
+        end--;  
+        while(start < end && num[start] == num[start-1]) start++;  
+        while(start < end && num[end] == num[end+1]) end--;  
+      } else if(num[start] + num[end] < target) {
+        start++;
+      } else {
+        end--;
+      }
+    }
+    if(i < len-1)
+      while(num[i] == num[i+1]) i++;
+  }
+  return result;
+}
+
+int main() {
+  //vector<int> num = {-13,5,13,12,-2,-11,-1,12,-3,0,-3,-7,-7,-5,-3,-15,-2,14,14,13,6,-11,-11,5,-15,-14,5,-5,-2,0,3,-8,-10,-7,11,-5,-10,-5,-7,-6,2,5,3,2,7,7,3,-10,-2,2,-12,-11,-1,14,10,-9,-15,-8,-7,-9,7,3,-2,5,11,-13,-15,8,-3,-7,-12,7,5,-2,-6,-3,-10,4,2,-5,14,-3,-1,-10,-3,-14,-4,-3,-7,-4,3,8,14,9,-2,10,11,-10,-4,-15,-9,-1,-1,3,4,1,8,1};
+  //vector<int> num = {-1, 0, 1, 2, -1, -4};
+  //vector<int> num = {0, 0, 0, 0};
+  vector<int> num(1000, 0);
+  for(int i = 0; i < 1000; ++i) {
+    num[i] = -500 + i;
+  }
+  vector<vector<int> > result = threeSum2(num);
+
+  for(auto v : result) {
+    for(auto num : v)
+      cout << num << " ";
+    cout << endl;
+  }
   return 0;
 }

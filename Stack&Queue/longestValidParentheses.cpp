@@ -86,6 +86,7 @@ int longestValidParentheses2(string s) {
   if(s.length() == 0 || s.length() == 1)
     return 0;
 
+  // scan from left to right to handle case like "(())))))))"
   int max_len = 0, depth = 0, start = -1;
   for (int i = 0; i < s.length(); ++i) {
     if(s[i] == '(') {
@@ -101,6 +102,8 @@ int longestValidParentheses2(string s) {
     }
   }
 
+
+  // scan from right to left to handle case like "((((((()))"
   depth = 0;
   start = s.size();
   for(int i = s.length() - 1; i >= 0; --i) {
