@@ -23,7 +23,6 @@ def convert(s, b1, b2):
 
     return result[::-1]
 
-
 print(convert("615", 7, 13))
 
 
