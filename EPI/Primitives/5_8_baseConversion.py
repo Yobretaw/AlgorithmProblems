@@ -3,7 +3,6 @@ import os
 import re
 import math
 
-
 def convert(s, b1, b2):
     val = 0
     m = 1
