@@ -50,6 +50,7 @@ string intToRoman(int n) {
 }
 
 string intToRoman2(int n) {
+
   static vector<pair<int, string> > valToSym = {
     make_pair(1    , "I"),
     make_pair(4    , "IV"),
@@ -74,26 +75,43 @@ string intToRoman2(int n) {
   return "";
 }
 
-int romanToInt(string s) {
-  unordered_map<char, int> map;
+string intToRoman3(int num) {
+  unordered_map<int, string> m;
 
-  map['I'] = 1;
-  map['V'] = 5;
-  map['X'] = 10;
-  map['L'] = 50;
-  map['C'] = 100;
-  map['D'] = 500;
-  map['M'] = 1000;
+  m[1] = "I";
+  m[4] = "IV";
+  m[5] = "V";
+  m[9] = "IX";
+  m[10] = "X";
+  m[40] = "XL";
+  m[50] = "L";
+  m[90] = "XC";
+  m[100] = "C";
+  m[400] = "CD";
+  m[500] = "D";
+  m[900] = "CM";
+  m[1000] = "M";
 
-  int result = 0;
-  for (int i = 0; i < s.length(); ++i) {
-    if(i > 0 && map[s[i]] > map[s[i - 1]])
-      result += map[s[i]] - 2 * map[s[i - 1]];
-    else
-      result += map[s[i]];
+  string ret = "";
+  int d = 1;
+  while(num / 10 >= d) d *= 10;
+
+  while(num > 0) {
+    int curr = num / d;
+    if(curr == 9) {
+      ret += m[9 * d];
+    } else if(curr >= 5) {
+      ret += m[5 * d];
+      ret += string(curr - 5, m[d][0]);
+    } else if(curr == 4){
+      ret += m[4 * d];
+    } else {
+      ret += string(curr, m[d][0]);
+    }
+    num -= (num / d) * d;
+    d = d / 10;
   }
-
-  return result;
+  return ret;
 }
 
 int main() {

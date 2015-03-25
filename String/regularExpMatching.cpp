@@ -27,6 +27,17 @@ bool matchFirst(const char* s, const char *p);
  *    isMatch("aa", ".*") → true
  *    isMatch("ab", ".*") → true
  *    isMatch("aab", "c*a*b") → true
+ *
+ *****************************************************************************************
+
+ *  The recursion mainly breaks down elegantly to the following two cases:
+ *  
+ *  If the next character of p is NOT ‘*’, then it must match the current character of s.
+ *  Continue pattern matching with the next character of both s and p.
+ *
+ *  If the next character of p is ‘*’, then we do a brute force exhaustive matching of 0, 1,
+ *  or more repeats of current character of p… Until we could not match any more characters.
+ *
  */
 bool isMatch(const char *s, const char *p) {
   if(!*p) return !*s;
