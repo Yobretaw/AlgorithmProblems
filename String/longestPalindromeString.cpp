@@ -4,60 +4,42 @@
 #include "vector"
 using namespace std;
 
-string preProcess(string s) {
-  string ret = "#";
-  for(int i = 0; i < (int)s.length(); i++) {
-    ret += s[i];
-    ret += "#";
-  }
-
-  return ret;
-}
-
 // Machester Algorithm
 // Runtime: O(n)
 // Space: O(n)
 string longestPalSubstring(string s) {
-  if(s.length() == 0)
-    return "";
+  if(s.length() < 2) return s;
 
-  s = preProcess(s);
-  
-  int currCenter = 0;
-  int maxCenter = 0;
-  int maxRadius = 0;
-  int rightEnd = 0;
-
-  int p[s.length()];
-  memset(p, 0, sizeof(p));
-
-  for(int i = 0; i < (int)s.length(); i++) {
-    p[i] = (rightEnd > i)
-      ? min(p[2 * currCenter - i], rightEnd - i)
-      : 1;
-
-    while(s[i + p[i]] == s[i - p[i]])
-      p[i]++;
-
-    if(i + p[i] > rightEnd) {
-      rightEnd = i + p[i];
-      currCenter = i;
-    }
-
-    if(p[i] > maxRadius) {
-      maxCenter = i;
-      maxRadius = p[i];
-    }
+  string str = "#";
+  for(int i = 0; i < s.length(); ++i) {
+    str += s[i];
+    str += "#";
   }
 
-  if(maxRadius <= 2)
-    return "";
+  int n = str.length();
+  int f[n];
+  int mid = 0, right = 0, pos = 0, len = 1;
+  for(int i = 1; i < n; ++i) {
+    if(right > i)
+      f[i] = min(f[2 * mid - i], right - i);
+    else
+      f[i] = 0;
 
-  string ret = "";
-  for(int i = maxCenter - maxRadius + 2; i <= maxCenter + maxRadius - 2; i+=2)
-    ret += s[i];
+    while(i - f[i] - 1 >= 0 &&
+          i + f[i] + 1 < n &&
+          str[i - f[i] - 1] == str[i + f[i] + 1])
+      f[i]++;
 
-  return ret;
+    if(len < f[i]) {
+      len = f[i];
+      pos = (i - f[i]) / 2;
+    }
+    if(right < i + f[i]) {
+      mid = i;
+      right = i + f[i];
+    }
+  }
+  return s.substr(pos, len);
 }
 
 // DP

@@ -39,8 +39,8 @@ using namespace std;
  *  P L    I G
  *  A      N
  *  
- *  所以，对于每一层主元素坐标 (i,j)= (j+1)*n +i
- *  对于每两个主元素之间的插入元素，(j+1)*n -i
+ *  所以，对于每一层主元素坐标 (i,j) = (j + 1) * n + i
+ *  对于每两个主元素之间的插入元素，(j + 1) * n - i
  */
 string convert(string s, int nRows) {
   if(nRows <= 1) return s;
@@ -50,12 +50,13 @@ string convert(string s, int nRows) {
   if(len == 0) return result;
   for(int i = 0; i < nRows; i++) {
     for(int j = 0, index = i; index < len; j++, index = (2 * nRows - 2) * j + i) {
-      result.append(1, s[index]);  //main element(vertical aligned)
-      if(i == 0 || i == nRows - 1)   //insertion element(skew aligned)
+      result += s[index];
+
+      if(i == 0 || i == nRows - 1)
         continue;
 
-      if(index+(nRows - i - 1) * 2 < len)
-        result.append(1, s[index + (nRows - i - 1) * 2]);
+      if(index + (nRows - i - 1) * 2 < len)
+        result += s[index + (nRows - i - 1) * 2];
      }  
    }  
    return result;  

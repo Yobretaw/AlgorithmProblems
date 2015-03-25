@@ -130,17 +130,184 @@ int lengthOfLongestSubstring(string s) {
  *  The overall run time complexity should be O(log (m+n)).
  */
 
-int main() {
-  // 2
-  //ListNode *l1 = vectorToList(vector<int>{3,1,0,0,1,9,0,1,6,1});
-  //ListNode *l2 = vectorToList(vector<int>{5,5,8,6,2,5,8,2,6,1});
-  //ListNode *result = addTwoNumbers(l1, l2);
-  //for(auto val : listToVector(result)) cout << val;
-  //cout << endl;
-  
 
-  // 3
-  cout << lengthOfLongestSubstring("c") << endl; 
-  cout << lengthOfLongestSubstring("abcabcbb") << endl; 
+/*
+ *                                    5. Longest Palindromic Substring
+ *  
+ *  Given a string S, find the longest palindromic substring in S. You may assume that the
+ *  maximum length of S is 1000, and there exists one unique longest palindromic substring.
+ */
+string longestPalSubstring(const string& s) {
+  int len = s.length();
+  if(len < 2) return s;
+
+  int maxstart = 0, maxlen = 1;
+  string ret = "";
+  vector<vector<bool> > mem(len, vector<bool>(len, false));
+
+  //for(int i = 0; i < len; ++i)
+  //  mem[i][i] = true;
+
+  //for(int i = 0; i < len - 1; ++i) {
+  //  if(s[i] == s[i + 1]) {
+  //    mem[i][i + 1] = true;
+  //    maxstart = i;
+  //    maxlen = 2;
+  //  }
+  //}
+
+  //for(int k = 3; k <= len; ++k) {
+  //  for(int i = 0; i < len - k + 1; ++i) {
+  //    int j = i + k - 1;
+      
+  //    if(s[i] == s[j] && mem[i + 1][j - 1])
+  //      mem[i][j] = true;
+
+  //    if(mem[i][j] && j - i + 1 > maxlen) {
+  //      maxstart = i;
+  //      maxlen = j - i + 1;
+  //    }
+  //  }
+  //}
+  
+  for(int i = len - 1; i >= 0; --i) {
+    for(int j = i; j < len; ++j) {
+      mem[i][j] = s[i] == s[j] && (j - i < 2 || mem[i + 1][j - 1]);
+      if(mem[i][j]) {
+        if(j - i + 1 > maxlen) {
+          maxlen = j - i + 1;
+          maxstart = i;
+        }
+      }
+    }
+  }
+  return s.substr(maxstart, maxlen);
+}
+
+string longestPalSubstring2(string s) {
+  if(s.length() < 2) return s;
+
+  // preprocessing
+  string str = "#";
+  for(int i = 0; i < s.length(); ++i) {
+    str += s[i];
+    str += "#";
+  }
+
+  int n = str.length();
+  int f[n];
+  int mid = 0, right = 0, pos = 0, len = 1;
+  for(int i = 1; i < n; ++i) {
+    if(right > i)
+      f[i] = min(f[2 * mid - i], right - i);
+    else
+      f[i] = 0;
+
+    while(i - f[i] - 1 >= 0 &&
+          i + f[i] + 1 < n &&
+          str[i - f[i] - 1] == str[i + f[i] + 1])
+      f[i]++;
+
+    if(len < f[i]) {
+      len = f[i];
+      pos = (i - f[i]) / 2;
+    }
+    if(right < i + f[i]) {
+      mid = i;
+      right = i + f[i];
+    }
+  }
+  return s.substr(pos, len);
+}
+
+/*
+ *                                  6. ZigZag Conversion
+ */
+
+/*
+ *                                  7. Reverse Integer
+ */
+int reverseInteger(int x) {
+  int sign = x < 0 ? -1 : 1;
+  x *= sign;
+
+  int ret = 0;
+  while(x > 0) {
+    if(INT_MAX / 10 < ret)
+      return 0;
+
+    ret *= 10;
+    ret += x % 10;
+    x /= 10;
+  }
+  return ret * sign;
+}
+
+
+/*
+ *                                  7. String to Integer
+ */
+int stringToInteger(const string& s) {
+  int n = s.length();
+  if(n == 0) return 0;
+  if(n == 1) return s[0] <= '9' && s[0] >= '0' ? s[0] - '0' : 0;
+
+  int val = 0;
+  int sign = 1;
+  int idx = 0;
+
+  // skip whitespaces
+  while(s[idx] == ' ') idx++;    
+
+  // all whitespaces
+  if(idx == n) return 0;
+
+  if(s[idx] == '+' || s[idx] == '-') {
+    sign = s[idx] == '+' ? 1 : -1;
+    idx++;
+  }
+
+  char c;
+  while(idx < n && s[idx] >= '0' && s[idx] <= '9') {
+    c = s[idx];
+    int next = c - '0';
+
+    if(sign > 0 && ((INT_MAX / 10 < val) || (INT_MAX / 10 == val && next > INT_MAX % 10)))
+      return INT_MAX;
+    else if(sign < 0 && ((INT_MIN / 10 > -val) || (INT_MIN / 10 == -val && -next < INT_MIN % 10)))
+      return INT_MIN;
+
+    val *= 10;
+    val += next;
+    idx++;
+  }
+  return val * sign;
+}
+
+int strStr(string haystack, string needle) {
+  int hl = haystack.length();
+  int nl = needle.length();
+
+  if(nl == 0) return -1;
+
+  int curr = 0;
+  while(curr <= hl - nl) {
+    if(haystack[curr] != needle[0]) {
+      curr++;
+    } else {
+      int l = curr;
+      int i = 0;
+      while(i < nl && haystack[l] == needle[i]) {
+        i++;
+        l++;
+      }
+      if(i == nl) return r;
+    }
+  }
+}
+
+int main() {
+  //cout << stringToInteger("-1") << endl;
+  //cout << stringToInteger("-2147483641") << endl;
   return 0;
 }
