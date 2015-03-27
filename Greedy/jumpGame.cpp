@@ -52,7 +52,6 @@ int minJump(vector<int>& num) {
     }
     curr = max(curr, i + num[i]);
   }
-  if(last < num.size()) return -1;
   return result;
 }
 
