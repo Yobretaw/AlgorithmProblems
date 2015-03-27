@@ -63,7 +63,25 @@ def maxProfix1(prices):
 
 def maxProfix2(prices, k):
     """
-    
+        Formally , this problem is to compute the maximum valud of (A[j_0] - A[i_0]) + (A[j_1] - A[i_1])
+        + ... + (A[j_k-1] - A[i_k-1]) subject to i_0 < j_0 < i_1 < j_1 < .. < i_k-1 < j_k-1.
+
+        A straightforward algorithm is to interate over j from 1 to k and interate through A, recording
+        for each index i the best solution for A[0:i] with j pairs. We store these solutions in an
+        auxiliary array of length n. The overall time complexity will be O(kn^2); by reusing the arrays
+        we can reduct to additional space complexity to O(n).
+
+        We can improve the time complexity to O(kn), and the additional space complexity to O(k) as follows.
+        Defind B(i, j) to be the most money you can have if you must make j - 1 buy-sell transaction prior
+        to i-th day and buy at i-th day. Defind S(i, j) to tbe the maximum profit achievable with j buys
+        and sells with the j-th sell taking place at i-th day. Then the following mutual recurrence holds:
+                
+                    S(i, j) = A[i] + max_{i' < i}(B(i, j))
+                    B(i, j) = max_{i' < i}(S(i', j - 1)) - A[i]
+
+        The key to achieving an O(kn) time bound is the observation that computing B and S requires computing
+        max_{i' < i}(B(i', j - 1)) and max_{i' < i}(S(i', j - 1)). These two quantities can be computed in
+        constant time for each i and j with a conditional update.
     """
     n = len(prices)
     
@@ -86,6 +104,7 @@ def maxProfix2(prices, k):
             j += 1
             sign *= -1
 
+    print k_sum
     return k_sum[-1]
 
 
