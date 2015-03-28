@@ -132,4 +132,38 @@ print computeArray(l)
     of distinct elements of A.
 """
 def computeMaxTripleProduct(A):
-    pass
+    n = len(A)
+
+    if n < 3:
+        return 0
+
+    max_val = 0
+    for val in A:
+        max_val = val if val > max_val else max_val
+
+    pos_max = 0
+    pos_sec = 0
+    neg_min = 0
+    neg_sec = 0
+    for val in A:
+        if val > pos_max and val != max_val:
+            pos_sec = pos_max
+            pos_max = val
+        elif val != pos_max and val != max_val and val > pos_sec:
+            pos_sec = val
+        elif val < neg_min:
+            neg_sec = neg_min
+            neg_min = val
+        elif val != neg_min and val < neg_sec:
+            neg_sec = val
+
+    a = pos_max * pos_sec
+    b = neg_min * neg_sec
+
+    return max_val * (a if a > b else b)
+
+
+l = [3, 2, 5, 4]
+print computeMaxTripleProduct(l)
+l = [3, 2, -1, 4, -1, 6]
+print computeMaxTripleProduct(l)
