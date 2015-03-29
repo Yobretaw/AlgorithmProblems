@@ -4,7 +4,6 @@ import re
 import math
 import random
 
-
 """
     ============================================================================================
     Let A be an array whose entries are all distinct. Implement an algorithm that takes A and an
