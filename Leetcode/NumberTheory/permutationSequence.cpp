@@ -33,7 +33,7 @@ vector<int> findSeq(int n, int k) {
   vector<int> result(n, 0);
   k--;
 
-  // reverse Canto expansion
+  // reverse Cantor expansion
   for(int i = 0; i < n; ++i) {
     int currFac = k / fac[n - 1 - i];
     int idx = getNextDigit(digits, currFac);

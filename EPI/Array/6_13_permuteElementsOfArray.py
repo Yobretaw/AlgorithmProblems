@@ -15,6 +15,8 @@ import random
     Given an array A of n elements and a permutation P, apply P to A using only constant additional
     storge. Use A itself to store the result.
 
+    Essentially it's bucket sort.
+
 
     [2, 0, 1, 3]
     [a, b, c, d]
