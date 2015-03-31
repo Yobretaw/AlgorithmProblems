@@ -11,4 +11,20 @@ import random
     ============================================================================================
 """
 def generateNthRowOfPascalTraingle(n):
-    pass
+    row = [1]
+    result = [[1]]
+
+    for i in range(1, n):
+        for j in reversed(range(1, i)):
+            row[j] = row[j - 1] + row[j]
+
+        row.append(1)
+        result.append(list(row))
+
+    return result
+
+#print generateNthRowOfPascalTraingle(1)
+#print generateNthRowOfPascalTraingle(2)
+#print generateNthRowOfPascalTraingle(3)
+#print generateNthRowOfPascalTraingle(4)
+print generateNthRowOfPascalTraingle(5)
