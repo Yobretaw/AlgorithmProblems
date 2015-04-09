@@ -157,5 +157,40 @@ def parse_punchunation(c):
     guous preallocated blocks of memory
 """
 def merge_sorted_arrays(A, B):
-    pass
+    alen = len(A)
+    blen = len(B)
 
+    count_a = 0
+    for i in range(0, alen):
+        if A[i] == '\0':
+            break
+        count_a += 1
+
+    A[:] = A[:count_a + blen]
+
+    curr = len(A) - 1
+    i = count_a - 1
+    j = blen - 1
+    while curr >= 0:
+        if i < 0:
+            A[curr] = B[j]
+            j -= 1
+        elif j < 0:
+            A[curr] = A[i]
+            i -= 1
+        elif A[i] > B[j]:
+            A[curr] = A[i]
+            i -= 1
+        else:
+            A[curr] = B[j]
+            j -= 1
+
+        curr -= 1
+    
+    return
+
+#A = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+#B = [c + 1 for c in A]
+#A.extend(['\0'] * len(B))
+#merge_sorted_arrays(A, B)
+#print A
