@@ -41,6 +41,17 @@ class Node():
 
         return head
 
+    def length(self):
+        count = 0
+        head = self
+
+        while head:
+            count += 1
+            head = head.next
+
+        return count
+
+
 
 def ll_generate_ascending_list(n, start=0):
     nodes = [Node(i + start) for i in range(0, n)]
