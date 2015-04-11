@@ -19,21 +19,21 @@ def reverse_partial(l, s, f):
     if s == f:
         return l
 
-    dummy = Node(-1, l)
-    start = dummy
+    dummy = Node("*", l)
+    prev = dummy
     count = 1
     while count < s:
         count += 1
-        start = start.next
+        prev = prev.next
     
-    curr = start.next
+    tail = prev.next
     while count < f:
-        tmp = curr.next
-        curr.next = tmp.next
+        tmp = tail.next
+        tail.next = tmp.next
 
         # link parts together
-        tmp.next = start.next
-        start.next = tmp
+        tmp.next = prev.next
+        prev.next = tmp
 
         count += 1
 
@@ -41,6 +41,6 @@ def reverse_partial(l, s, f):
 
 
 l = ll_generate_ascending_list(10, 1)
-print reverse_partial(l.clone(), 1, 9)
-print reverse_partial(l.clone(), 1, 10)
+#print reverse_partial(l.clone(), 1, 9)
+#print reverse_partial(l.clone(), 1, 10)
 print reverse_partial(l.clone(), 2, 5)

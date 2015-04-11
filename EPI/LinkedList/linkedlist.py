@@ -17,7 +17,7 @@ class Node():
             arr.append(head.val)
             head = head.next
 
-        return '_'.join([str(val) for val in arr])
+        return ', '.join([str(val) for val in arr])
 
     def get_length(self):
         l = 1
