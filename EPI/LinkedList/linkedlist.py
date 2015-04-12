@@ -3,10 +3,10 @@ import os
 import math
 
 class Node():
-    def __init__(self, val=0, next=None, prev=None):
+    def __init__(self, val=0, next=None, random=None):
         self.val = val
         self.next = next
-        self.prev = prev
+        self.random = random
 
     def __repr__(self):
         arr = []
