@@ -37,10 +37,10 @@ def find_help(a, i, m, b, j, n, k):
             return find_help(a, i + (m/2 + 1), m - (m/2 + 1), b, j, n, k - (m/2 + 1))
 
 
-a = [i for i in range(0, 100)]
-b = [i + 100 for i in a]
+#a = [i for i in range(0, 100)]
+#b = [i + 100 for i in a]
 
 #print find_median_sorted_arrays(a, b)
 
-for i in range(0, len(a) + len(b)):
-    print i + 1, find_help(a, 0, len(a), b, 0, len(b), i + 1)
+#for i in range(0, len(a) + len(b)):
+#    print i + 1, find_help(a, 0, len(a), b, 0, len(b), i + 1)
