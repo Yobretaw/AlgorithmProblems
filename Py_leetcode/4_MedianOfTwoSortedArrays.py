@@ -10,9 +10,9 @@ def find_median_sorted_arrays(a, b):
     n = len(b)
 
     if (m + n) & 1:
-        return find_help(a, 0, m, b, 0, n, (m + n) / 2)
+        return find_help(a, 0, m, b, 0, n, (m + n)/2)
     else:
-        return (find_help(a, 0, m, b, 0, n, (m + n) / 2) + find_help(a, 0, m, b, 0, n, (m + n) / 2 + 1)) / 2.0
+        return (find_help(a, 0, m, b, 0, n, (m + n)/2) + find_help(a, 0, m, b, 0, n, (m + n)/2 + 1))/2.0
 
 
 def find_help(a, i, m, b, j, n, k):
@@ -25,14 +25,14 @@ def find_help(a, i, m, b, j, n, k):
     mid_a = a[i + m/2]
     mid_b = b[j + n/2]
 
-    if mid_a > mid_b:
-        if m/2 + n/2 + 1 >= k:
+    if m/2 + n/2 + 1 >= k:
+        if mid_a > mid_b:
             return find_help(a, i, m/2, b, j, n, k)
         else:
-            return find_help(a, i, m, b, j + (n/2 + 1), n - (n/2 + 1), k - (n/2 + 1))
-    else:
-        if m/2 + n/2 + 1 >= k:
             return find_help(a, i, m, b, j, n/2, k)
+    else:
+        if mid_a > mid_b:
+            return find_help(a, i, m, b, j + (n/2 + 1), n - (n/2 + 1), k - (n/2 + 1))
         else:
             return find_help(a, i + (m/2 + 1), m - (m/2 + 1), b, j, n, k - (m/2 + 1))
 
@@ -42,5 +42,5 @@ b = [i + 100 for i in a]
 
 #print find_median_sorted_arrays(a, b)
 
-#for i in range(0, len(a) + len(b)):
-#    print i + 1, find_help(a, 0, len(a), b, 0, len(b), i + 1)
+for i in range(0, len(a) + len(b)):
+    print i + 1, find_help(a, 0, len(a), b, 0, len(b), i + 1)
