@@ -9,32 +9,38 @@ def find_median_sorted_arrays(a, b):
     m = len(a)
     n = len(b)
 
+    if (m + n) & 1:
+        return find_help(a, 0, m, b, 0, n, (m + n) / 2)
+    else:
+        return (find_help(a, 0, m, b, 0, n, (m + n) / 2) + find_help(a, 0, m, b, 0, n, (m + n) / 2 + 1)) / 2.0
+
 
 def find_help(a, i, m, b, j, n, k):
-    if k == 1:
-        return min(a[i + 0], b[j + 0])
+    if m == 0 or n == 0:
+        return a[i + k - 1] if n <= 0 else b[j + k - 1]
 
-    if m == 1:
-        return a[i]
-    elif n == 1:
-        return b[j]
+    if k <= 1:
+        return min(a[i], b[j])
 
-    mid_a = a[i + m / 2]
-    mid_b = a[j + n / 2]
+    mid_a = a[i + m/2]
+    mid_b = b[j + n/2]
 
     if mid_a > mid_b:
-        if m / 2 + n / 2 + 1 >= k:
-            return find_help(a, i, m - m / 2 - 1, b, j, n, k - m / 2  - 1)
+        if m/2 + n/2 + 1 >= k:
+            return find_help(a, i, m/2, b, j, n, k)
         else:
-            return find_help(a, i, m, b, j + n / 2, n - n / 2 - 1, k - n / 2 - 1)
+            return find_help(a, i, m, b, j + (n/2 + 1), n - (n/2 + 1), k - (n/2 + 1))
     else:
-        if m / 2 + n / 2 +1 >= k:
-            return find_help(a, i, m, b, j, n - n / 2 - 1, k - n / 2 - 1)
+        if m/2 + n/2 + 1 >= k:
+            return find_help(a, i, m, b, j, n/2, k)
         else:
-            return find_help(a, i + m / 2, m - m / 2 - 1, b, j, n, k - m / 2 - 1)
+            return find_help(a, i + (m/2 + 1), m - (m/2 + 1), b, j, n, k - (m/2 + 1))
 
 
+a = [i for i in range(0, 100)]
+b = [i + 100 for i in a]
 
-a = [1, 2, 3]
-b = [1, 2, 3]
-print find_median_sorted_arrays(a, b)
+#print find_median_sorted_arrays(a, b)
+
+#for i in range(0, len(a) + len(b)):
+#    print i + 1, find_help(a, 0, len(a), b, 0, len(b), i + 1)
