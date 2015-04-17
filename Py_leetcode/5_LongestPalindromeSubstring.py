@@ -68,5 +68,5 @@ def longestPalindrome_dp(s):
     return s[start:start + max_len]
 
 
-print longestPalindrome("abababba")
-print longestPalindrome_dp("abababba")
+#print longestPalindrome("abababba")
+#print longestPalindrome_dp("abababba")
