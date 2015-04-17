@@ -30,6 +30,12 @@ class MaxStack():
     def get_max(self):
         return self.stack[-1][1]
 
+    def size(self):
+        return len(self.stack)
+
+    def empty(self):
+        return self.size() == 0
+
 
 
 #s = MaxStack()
