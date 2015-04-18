@@ -42,8 +42,8 @@ class MaxQueue():
         return self._in.size() + self._out.size()
 
 
-#q = MaxQueue()
 
+#q = MaxQueue()
 
 #a = [1.3, 0, 2.5, 3.7, 0, 1.4, 2.6, 0, 2.2, 1.7, 0, 0, 0, 0, 1.7]
 #for i in range(0, 4):
