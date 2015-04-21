@@ -1,6 +1,5 @@
 import sys
 import math
-import imp
 
 """
     Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
@@ -25,4 +24,5 @@ def generate_parentheses(n):
         if open_count > (len(curr) - open_count):
             generate_parentheses_help(curr + ')', open_count, n, res)
 
-print generate_parentheses(3)
+
+#print generate_parentheses(3)
