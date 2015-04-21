@@ -25,39 +25,39 @@ def reverse_nodes_k_group(head, k):
         if not head or k < 2:
             return head
 
-        dummy = Node('*', head)
-        before = dummy
-        curr = head
-
-        tail = curr
-        i = 0
-        while tail and i < k:
+        tail = head
+        i = 1
+        while tail.next and i < k:
             tail = tail.next
             i += 1
 
         if i < k:
-            return dummy.next
+            return head
 
+        newHead = tail
+        curr = head
+        last = curr
+        prev = tail.next
         while tail:
-            prev = tail
-            last = curr
             i = 0
-            while curr and i < k:
+            while i < k:
                 tmp = curr.next
                 curr.next = prev
                 prev = curr
                 curr = tmp
-
-                i += 1
                 tail = tail.next if tail else None
+                i += 1
 
-            before.next = prev
-            before = last
+            last.next = tail
+            last = curr if tail else last
+            prev = tail.next if tail else None
 
-        return dummy.next
+        last.next = curr
+        return newHead
+        
 
-n = 10
-l = ll_generate_ascending_list(n, 1)
-#print reverse_nodes_k_group(l, 4)
-for i in range(0, n):
-    print reverse_nodes_k_group(l.clone(), i + 1)
+#n = 10
+#l = ll_generate_ascending_list(n, 1)
+##print reverse_nodes_k_group(l.clone(), 2)
+#for i in range(0, n):
+#    print reverse_nodes_k_group(l.clone(), i + 1)
