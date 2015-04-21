@@ -11,9 +11,9 @@ import math
        4: g, h, i
        5: j, k, l
        6: m, n, o
-       7: p, q, r
-       8: s, t, u
-       9: v, w, x, z
+       7: p, q, r, s
+       8: t, u, v
+       9: w, x, y, z
     
        Input:Digit string "23"
        Output: ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"]
