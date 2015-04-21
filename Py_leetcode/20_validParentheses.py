@@ -7,22 +7,22 @@ import math
     The brackets must close in the correct order, "()" and "()[]{}" are all valid but "(]" and "([)]" are not.
 """
 def is_valid(s):
-    n = len(s)
+        n = len(s)
 
-    if n & 1:
-        return False
-
-    st = []
-    for c in s:
-        if c in ['(', '[', '{']:
-            st.append(c)
-        elif len(s) == 0:
+        if n & 1:
             return False
-        else:
-            if not is_valid_pair(st[-1] + c):
+
+        st = []
+        for c in s:
+            if c in ['(', '[', '{']:
+                st.append(c)
+            elif len(st) == 0:
                 return False
-            st.pop()
-    return True
+            else:
+                if not is_valid_pair(st[-1] + c):
+                    return False
+                st.pop()
+        return not len(st)
 
 
 def is_valid_pair(s):
