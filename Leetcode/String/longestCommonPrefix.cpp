@@ -54,4 +54,3 @@ int main() {
   cout << lcp2(strs) << endl;
   return 0;
 }
-
