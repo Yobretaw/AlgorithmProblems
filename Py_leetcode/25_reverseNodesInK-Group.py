@@ -22,37 +22,42 @@ ll_generate_ascending_list = imp.load_source('Node', '../EPI/LinkedList/linkedli
     For k = 3, you should return: 3->2->1->4->5
 """
 def reverse_nodes_k_group(head, k):
-    if not head or k < 2:
-        return head
+        if not head or k < 2:
+            return head
 
-    dummy = Node('*', head)
-    before = dummy
-    curr = head
+        dummy = Node('*', head)
+        before = dummy
+        curr = head
 
-    while curr:
-        rest = curr
+        tail = curr
         i = 0
-        while rest and i < k:
-            rest = rest.next
+        while tail and i < k:
+            tail = tail.next
             i += 1
 
         if i < k:
-            break
+            return dummy.next
 
-        prev = rest
-        last = curr
-        i = 0
-        while curr and i < k:
-            tmp = curr.next
-            curr.next = prev
-            prev = curr
-            curr = tmp
-            i += 1
+        while tail:
+            prev = tail
+            last = curr
+            i = 0
+            while curr and i < k:
+                tmp = curr.next
+                curr.next = prev
+                prev = curr
+                curr = tmp
 
-        before.next = prev
-        before = last
+                i += 1
+                tail = tail.next if tail else None
 
-    return dummy.next
+            before.next = prev
+            before = last
 
-l = ll_generate_ascending_list(10, 1)
-print reverse_nodes_k_group(l, 3)
+        return dummy.next
+
+n = 10
+l = ll_generate_ascending_list(n, 1)
+#print reverse_nodes_k_group(l, 4)
+for i in range(0, n):
+    print reverse_nodes_k_group(l.clone(), i + 1)
