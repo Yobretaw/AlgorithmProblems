@@ -50,7 +50,7 @@ def binarySearchMax(x, y):
     high = len(bin(x)) - 3
 
     while low < high:
-        mid = low + (high - low) / 2 
+        mid = low + (high - low) >> 1
 
         if (y << mid) <= x and (y << (mid + 1)) >= x:
             return mid

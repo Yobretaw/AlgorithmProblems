@@ -1,6 +1,5 @@
 import sys
 import math
-import imp
 
 """
     Given a sorted array, remove the duplicates in place such that each element appear only once and return the new length.
