@@ -78,7 +78,6 @@ void printGrid(int grid[N][N]) {
 
 int main(int argc, const char *argv[])
 {
-  
   int grid[N][N] = {{3, 0, 6, 5, 0, 8, 4, 0, 0},
                     {5, 2, 0, 0, 0, 0, 0, 0, 0},
                     {0, 8, 7, 0, 0, 0, 0, 3, 1},
