@@ -14,10 +14,10 @@ def permutations(num):
         return [num] if len(num) == 1 else []
 
     res = []
-    permutations_help(num, 0, [], res)
+    permutations_help(num, 0, res)
     return res
 
-def permutations_help(num, idx, curr, res):
+def permutations_help(num, idx, res):
     n = len(num)
     if idx == n - 1:
         res.append(list(num))
@@ -25,7 +25,7 @@ def permutations_help(num, idx, curr, res):
 
     for i in range(idx, n):
         num[i], num[idx] = num[idx], num[i]
-        permutations_help(num, idx + 1, curr, res)
+        permutations_help(num, idx + 1, res)
         num[i], num[idx] = num[idx], num[i]
 
 
