@@ -37,6 +37,33 @@ def permutations_unqiue_help(num, total, curr, m, res):
             m[num[i][0]] += 1
 
 
+def permutations_unqiue2(num):
+    l = len(num)
+
+    if not l or l == 1:
+        return [num] if l else []
+
+    res = []
+    permutations_unqiue2_help(num, 0, res)
+    return res
+
+def permutations_unqiue2_help(num, idx, res):
+    n = len(num)
+
+    if idx == n - 1:
+        res.append(list(num))
+        return
+
+    swapped = {}
+    for i in range(idx, n):
+        if num[i] in swapped:
+            continue
+        swapped[num[i]] = 1
+        num[idx], num[i] = num[i], num[idx]
+        permutations_unqiue2_help(num, idx + 1, res)
+        num[idx], num[i] = num[i], num[idx]
+
+
 def permutations_unqiue_iterative(num):
     if not num or len(num) == 1:
         return [num] if num else []
@@ -64,5 +91,7 @@ a = [0, 0, 1, 0, 1]
 #for line in permutations_unqiue_iterative(a):
 #    print line
 #print permutations_unqiue(a)
+print permutations_unqiue2(a)
+print permutations_unqiue_iterative(a)
 #print len(permutations_unqiue(a))
 #print len(permutations_unqiue_iterative(a))
