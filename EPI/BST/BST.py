@@ -23,19 +23,6 @@ def bst_generate_tree_help():
 def bst_print(root):
     output = []
     bst_print_help(root, 0, output)
-    #max_len = 0
-    #for line in output:
-    #    max_len = max(max_len, len(line))
-
-    #for i in range(0, len(output)):
-    #    while len(output[i]) < max_len:
-    #        output[i] += ' '
-
-    #for i in range(0, max_len):
-    #    s =""
-    #    for j in reversed(range(0, len(output))):
-    #        s += output[j][i]
-    #    print s
         
 
 def bst_print_help(root, level, output):
@@ -46,8 +33,4 @@ def bst_print_help(root, level, output):
             val = 'N'
         print ' ' * 4 * level + str(val)
         print ' '
-        #val = root.val
-        #if not val:
-        #    val = 'N'
-        #output.append(' ' * level + str(val))
         bst_print_help(root.left, level + 1, output)

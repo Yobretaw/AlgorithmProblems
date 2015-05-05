@@ -11,52 +11,55 @@ bst_print = imp.load_source('Node', '../BST/BST.py').bst_print
     Design an algorithm that computes the successor of a node in a binary tree. Assume
     that each node stores its parent.
 """
-def compute_successor(root, target):
-    if not root or not target:
-        return None
-
-    if target.right:
-        res = target.right
+def compute_successor(node):
+    if node.right:
+        res = node.right
         while res.left:
             res = res.left
         return res
     else:
-        return compute_successor_help(root, target)
+        if not node.parent:
+            return None
+        else:
+            parent = node.parent
+            if parent.left is node:
+                return parent
+            else:
+                while parent and parent.right is node:
+                    parent, node = parent.parent, node.parent
+                return parent
 
-def compute_successor_help(root, target):
-    if not root:
-        return None
 
-    if root.left is target:
-        return root
 
-    if root.left:
-        pred = root.left
-        while pred.right:
-            pred = pred.right
-        if pred is target:
-            return root
 
-    left = compute_successor_help(root.left, target)
-    return left if left else compute_successor_help(root.right, target)
-
-n1 = Node(1)
+root = Node(1)
 n2 = Node(2)
 n3 = Node(3)
 n4 = Node(4)
 n5 = Node(5)
 n6 = Node(6)
+n7 = Node(7)
 
-n1.left = n2
-n1.right = n3
+root.left = n2
+root.right = n3
+
 n2.left = n4
-n2.right = n6
-n4.right = n5
+n2.right = n5
+n3.left = n6
+n3.right = n7
 
-bst_print(n1)
-print compute_successor(n1, n1)
-print compute_successor(n1, n2)
-print compute_successor(n1, n3)
-print compute_successor(n1, n4)
-print compute_successor(n1, n5)
-print compute_successor(n1, n6)
+n2.parent = root
+n3.parent = root
+n4.parent = n2
+n5.parent = n2
+n6.parent = n3
+n7.parent = n3
+
+bst_print(root)
+print compute_successor(root)
+print compute_successor(n2)
+print compute_successor(n3)
+print compute_successor(n4)
+print compute_successor(n5)
+print compute_successor(n6)
+print compute_successor(n7)
