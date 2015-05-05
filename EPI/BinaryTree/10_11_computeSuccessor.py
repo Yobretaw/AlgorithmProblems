@@ -30,8 +30,6 @@ def compute_successor(node):
                 return parent
 
 
-
-
 root = Node(1)
 n2 = Node(2)
 n3 = Node(3)
