@@ -30,7 +30,28 @@ def reconstruct(inorder, preorder):
     root.right = reconstruct(inorder[root_idx + 1:], preorder[1+root_idx:])
     return root
 
+def reconstruct2(inorder, preorder):
+    m = {}
+    for i in range(0, len(inorder)):
+        m[inorder[i]] = i
+
+    curr = [0]
+    return reconstruct2_help(preorder, m, 0, len(preorder) - 1, curr)
+
+def reconstruct2_help(preorder, m, start, end, curr):
+    if start > end:
+        return None
+
+    root = Node(preorder[curr[0]])
+    curr[0] += 1
+    root_idx = m[root.val]
+    root.left = reconstruct2_help(preorder, m, start, root_idx - 1, curr)
+    root.right = reconstruct2_help(preorder, m, root_idx + 1, end, curr)
+    return root
+
 
 #inorder = ['F', 'B', 'A', 'E', 'H', 'C', 'D', 'I', 'G']
 #preorder = ['H', 'B', 'F', 'E', 'A', 'C', 'D', 'G', 'I']
 #bst_print(reconstruct(inorder, preorder))
+#print '-' * 100
+#bst_print(reconstruct2(inorder, preorder))

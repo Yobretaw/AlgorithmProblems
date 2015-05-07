@@ -20,5 +20,29 @@ import math
 
     The total number of unique paths is 2.
 """
-def unique_path_ii(board):
-    pass
+def unique_path_ii(grid):
+    m = len(grid)
+    n = len(grid[0])
+
+    if grid[0][0] or grid[m - 1][n - 1]:
+        return 0
+
+    grid[0][0] = 1
+    for i in range(1, n):
+        grid[0][i] = grid[0][i - 1] if not grid[0][i] else 0
+    for j in range(1, m):
+        grid[j][0] = grid[j - 1][0] if not grid[j][0] else 0
+
+    for i in range(1, m):
+        for j in range(1, n):
+            grid[i][j] = grid[i - 1][j] + grid[i][j - 1] if not grid[i][j] else 0
+
+    return grid[m - 1][n - 1]
+
+
+#grid = [
+#    [0,0,0],
+#    [0,1,0],
+#    [0,0,0]
+#]
+#print unique_path_ii(grid)
