@@ -15,9 +15,10 @@ def my_sqrt(x):
     while res ** 2 < x:
         m = 1
         while (res + m << 1) ** 2 < x:
-            m >>= 1
+            m <<= 1
+        print x, res, m
         res += m
     return res
 
-for i in range(1, 1000):
+for i in range(1, 100):
     print i, int(i ** 0.5), my_sqrt(i)
