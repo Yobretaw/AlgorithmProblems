@@ -13,11 +13,10 @@ def max_rectangle(mtx):
     
     H = [0] * n
     L = [0] * n
-    R = [n] * n
-
+    R = [n - 1] * n
     ret = 0
     for i in range(0, m):
-        left, right = 0, n
+        left, right = 0, n - 1
         for j in range(0, n):
             if mtx[i][j] == '1':
                 H[j] += 1
@@ -30,9 +29,8 @@ def max_rectangle(mtx):
         for j in reversed(range(0, n)):
             if mtx[i][j] == '1':
                 R[j] = min(R[j], right)
-                ret = max(ret, H[j] * (R[j] - L[j]))
+                ret = max(ret, H[j] * (R[j] - L[j] + 1))
             else:
-                right = j
-                R[j] = n
-
+                right = j - 1
+                R[j] = n - 1
     return ret
