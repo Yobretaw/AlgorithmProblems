@@ -25,16 +25,21 @@ def decode_ways(s):
 
 def decode_ways_help(s, idx):
     n = len(s)
-    if idx == n:
+    if idx >= n:
         return 0
 
-    curr = int(s[idx])
-    if curr < 2:
+    curr_val = int(s[idx])
+    if curr_val == 0:
         return decode_ways_help(s, idx + 1)
-    #elif curr == 1:
-    #    return decode_ways_help(s, idx + 1) + (1 if idx == n - 1 else 2)
+    elif curr_val == 1:
+        return decode_ways_help(s, idx + 1) + decode_ways_help(s, idx + 2)
+    elif curr_val == 2:
+        if idx < n - 1 and int(s[idx + 1]) < 7:
+            return decode_ways_help(s, idx + 1) + decode_ways_help(s, idx + 2)
+        else:
+            return decode_ways_help(s, idx + 2)
     else:
-        return decode_ways_help(s, idx + 1) + (1 if idx == n - 1 or int(s[idx + 1]) > 6 or int(s[idx + 1]) == 0 else 2)
+        return decode_ways_help(s, idx + 1)
 
 print decode_ways('12')
 
