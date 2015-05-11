@@ -67,6 +67,6 @@ def f(s1, s2, m):
     m[(s1, s2)] = False
     return False
 
-print is_scramble('great', 'rgeat')
-print is_scramble('great', 'rgtae')
-print is_scramble('abcdefghijklmnopq', 'efghijklmnopqcadb')
+#print is_scramble('great', 'rgeat')
+#print is_scramble('great', 'rgtae')
+#print is_scramble('abcdefghijklmnopq', 'efghijklmnopqcadb')
