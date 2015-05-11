@@ -14,11 +14,13 @@ using namespace std;
  * of largest rectangle in the histogram
  */
 int getMaxArea(vector<int>& heights) {
-  if(heights.size() == 0)
-    return 0;
+  //if(heights.size() == 0)
+  //  return 0;
 
-  if(heights.size() == 1)
-    return heights[0];
+  //if(heights.size() == 1)
+  //  return heights[0];
+  if heights.size() < 2:
+    return heights.size() ? heights[0] : 0
 
 
   stack<int> s;
