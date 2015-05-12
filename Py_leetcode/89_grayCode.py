@@ -25,23 +25,23 @@ import math
     Refl :http://en.wikipedia.org/wiki/Gray_code
 """
 def gray_code(n):
-        if not n:
-            return [0]
+    if not n:
+        return [0]
 
-        res = [0] * (2 ** n)
-        for i in range(0, n):
-            offset = 2 ** i
-            cycle_len = 2 ** (i + 1)
-            is_one = True
-            for j in range(offset, 2 ** n):
-                if cycle_len <= 0:
-                    cycle_len = 2 ** (i + 1)
-                    is_one = not is_one
+    res = [0] * (2 ** n)
+    for i in range(0, n):
+        offset = 2 ** i
+        cycle_len = 2 ** (i + 1)
+        is_one = True
+        for j in range(offset, 2 ** n):
+            if cycle_len <= 0:
+                cycle_len = 2 ** (i + 1)
+                is_one = not is_one
 
-                if is_one:
-                    res[j] |= 1 << i
-                cycle_len -= 1
-        return res
+            if is_one:
+                res[j] |= 1 << i
+            cycle_len -= 1
+    return res
 
 
 print gray_code(1)
