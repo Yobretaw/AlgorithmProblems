@@ -19,7 +19,7 @@ def validate_bst(root):
     if not root:
         return True
 
-    res = [None, True]
+    res = [None, True]  # [prevNode, isValid]
     validate_bst_help(root, res)
     return res[1]
 
