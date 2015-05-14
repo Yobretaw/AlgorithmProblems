@@ -23,13 +23,12 @@ def bst_generate_tree_help():
 def bst_print(root):
     output = []
     bst_print_help(root, 0, output)
-        
 
 def bst_print_help(root, level, output):
     if root:
         bst_print_help(root.right, level + 1, output)
         val = root.val
-        if not val:
+        if val == None:
             val = 'N'
         print ' ' * 4 * level + str(val)
         print ' '
