@@ -23,9 +23,6 @@ bst_print = imp.load_source('Node', '../EPI/BST/BST.py').bst_print
     return true, as there exist a root-to-leaf path 5->4->11->2 which sum is 22.
 """
 def path_sum(root, k):
-    return path_sum_help(root, k)
-
-def path_sum_help(root, k):
     if not root:
         return False
 
@@ -33,7 +30,7 @@ def path_sum_help(root, k):
     if not root.left and not root.right:
         return not k
     else:
-        return path_sum_help(root.left, k) or path_sum_help(root.right, k)
+        return path_sum(root.left, k) or path_sum(root.right, k)
 
 
 #root = Node(1, None, Node(2))

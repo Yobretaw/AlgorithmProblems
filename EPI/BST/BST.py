@@ -4,6 +4,7 @@ class Node():
         self.left = left
         self.right = right
         self.parent = parent
+        self.next = None
         self.count = 0
 
     def __repr__(self):
