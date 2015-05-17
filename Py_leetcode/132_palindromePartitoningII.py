@@ -59,11 +59,28 @@ def dfs(s, mtx, idx, m):
 
     res = sys.maxint
     for i in range(idx, len(s)):
-        #print idx, i, mtx[idx][i]
         if mtx[idx][i]:
             res = min(res, dfs(s, mtx, i + 1, m))
     m[idx] = 1 + res if not mtx[idx][len(s) - 1] else res
     return m[idx]
 
+
+def minCut2(s):
+    n = len(s)
+    cut = [0] * (n + 1)
+    for i in range(0, n + 1):
+        cut[i] = i - 1
+
+    for i in range(0, n):
+        j = 0
+        while i - j >= 0 and i + j < n and s[i - j] == s[i + j]:
+            cut[i + j + 1] = min(cut[i + j + 1], 1 + cut[i - j])
+            j += 1
+
+        j = 1
+        while i - j + 1 >= 0 and i + j < n and s[i - j + 1] == s[i + j]:
+            cut[i + j + 1] = min(cut[i + j + 1], 1 + cut[i - j + 1])
+            j += 1
+    return cut[n]
 
 #print minCut('ababa')
