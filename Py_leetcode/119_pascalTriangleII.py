@@ -30,6 +30,6 @@ def generate2(k):
         res += [1]
     return res
 
-for i in range(0, 10):
-    print generate(i)
-    print generate2(i)
+#for i in range(0, 10):
+#    print generate(i)
+#    print generate2(i)
