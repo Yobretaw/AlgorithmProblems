@@ -5,6 +5,7 @@ from collections import defaultdict
 
 Node = imp.load_source('Node', '../BST/BST.py').Node
 bst_print = imp.load_source('Node', '../BST/BST.py').bst_print
+
 """
     Write a nonrecursive program for performing an inorder traversal on a binary
     tree. Assume nodes have parent fields.
