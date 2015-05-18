@@ -44,6 +44,22 @@ def sort_colors(arr):
             two_start -= 1
             arr[two_start] = 2
 
+def sort_colors2(arr):
+    i = 0
+    lo = 0
+    hi = len(arr) - 1
+
+    while i <= hi:
+        if arr[i] < 1:
+            arr[i], arr[lo] = arr[lo], arr[i]
+            i += 1
+            lo += 1
+        elif arr[i] > 1:
+            arr[i], arr[hi] = arr[hi], arr[i]
+            hi -= 1
+        else:
+            i += 1
+
 #arr = [2, 1, 0, 0, 1, 2]
 #sort_colors(arr)
 #print arr
