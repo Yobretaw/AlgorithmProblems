@@ -16,46 +16,46 @@ import math
         (-2,  0, 0, 2)
 """
 def four_sum(num, target):
-        n = len(num)
-        
-        if n < 4:
-            return []
+    n = len(num)
+    
+    if n < 4:
+        return []
 
-        num.sort()
+    num.sort()
 
-        if n == 4:
-            return [num] if sum(num) == target else []
+    if n == 4:
+        return [num] if sum(num) == target else []
 
-        i = 0
-        res = []
-        while i < n - 3:
-            j = i + 1
-            while j < n - 2:
-                k = j + 1
-                l = n - 1
-                
-                while k < l:
-                    total = num[i] + num[j] + num[k] + num[l]
-                    if total == target:
-                        res.append([num[i], num[j], num[k], num[l]])
-                        
-                        k += 1
-                        l -= 1
+    i = 0
+    res = []
+    while i < n - 3:
+        j = i + 1
+        while j < n - 2:
+            k = j + 1
+            l = n - 1
+            
+            while k < l:
+                total = num[i] + num[j] + num[k] + num[l]
+                if total == target:
+                    res.append([num[i], num[j], num[k], num[l]])
+                    
+                    k += 1
+                    l -= 1
 
-                        while k < l and num[k] == num[k - 1]: k += 1
-                        while k < l and num[l] == num[l + 1]: l -= 1
-                    elif total < target:
-                        k += 1
-                        while k < l and num[k] == num[k - 1]: k += 1
-                    else:
-                        l -= 1
-                        while k < l and num[l] == num[l + 1]: l -= 1
-                j += 1
-                while j < n - 2 and num[j] == num[j - 1]: j += 1
-            i += 1
-            while i < n - 3 and num[i] == num[i - 1]: i += 1
+                    while k < l and num[k] == num[k - 1]: k += 1
+                    while k < l and num[l] == num[l + 1]: l -= 1
+                elif total < target:
+                    k += 1
+                    while k < l and num[k] == num[k - 1]: k += 1
+                else:
+                    l -= 1
+                    while k < l and num[l] == num[l + 1]: l -= 1
+            j += 1
+            while j < n - 2 and num[j] == num[j - 1]: j += 1
+        i += 1
+        while i < n - 3 and num[i] == num[i - 1]: i += 1
 
-        return res
+    return res
 
 
 l = [1, 0, -1, 0, -2, 2]
