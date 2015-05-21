@@ -23,18 +23,18 @@ def fraction_to_decimal(numerator, denominator):
     res = []
     res.append(sign)
     res.append(str(n / d))
-    rem = n % d
-    if not rem:
+    r = n % d   # remainder
+    if not r:
         return ''.join(res)
     
     res.append('.')
     seen = {}
-    while not rem in seen:
-        seen[rem] = len(res)
-        res.append(str(10 * rem / d))
-        rem = 10 * rem % d
+    while not r in seen:
+        seen[r] = len(res)
+        res.append(str(10 * r / d))
+        r = 10 * r % d
 
-    idx = seen[rem]
+    idx = seen[r]
     res.insert(idx, '(')
     res.append(')')
     return ''.join(res).replace('(0)', '')
