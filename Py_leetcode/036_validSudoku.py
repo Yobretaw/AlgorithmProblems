@@ -27,7 +27,7 @@ def check_row(board):
 
 def check_column(board):
     for i in range(0, 9):
-        filled = [0] * 9 
+        filled = [0] * 9
         for j in range(0, 9):
             try:
                 curr = int(board[j][i]) - 1
@@ -53,7 +53,19 @@ def check_box(board):
                         pass
     return True
 
-#board = ["..4...63.",".........","5......9.","...56....","4.3.....1","...7.....","...5.....",".........","........."]
+#board = [
+#  "3.9....42",
+#  ".189436..",
+#  "......89.",
+#  "..3.9..6.",
+#  "427...589",
+#  ".6..8.2..",
+#  ".72......",
+#  "..457632.",
+#  "63....7.4"
+#]
+
 #for line in board:
 #    print line
+
 #print is_valid_sudoku(board)
