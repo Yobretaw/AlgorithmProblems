@@ -82,12 +82,12 @@ def is_valid_put(board, row, col, val):
 def remove_num_from_sets(A, row, col, val):
     for i in range(0, 9):
         A[row][i][val - 1] = False
-        A[col][i][val - 1] = False
+        A[i][col][val - 1] = False
 
 def add_num_to_sets(A, row, col, val):
     for i in range(0, 9):
         A[row][i][val - 1] = True
-        A[col][i][val - 1] = True
+        A[i][col][val - 1] = True
 
 
 """
