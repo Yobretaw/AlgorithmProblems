@@ -15,80 +15,88 @@ is_valid_sudoku = imp.load_source('Node', './036_validSudoku.py').is_valid_sudok
 
     You may assume that there will be only one unique solution.
 """
-FC_CHECKING = False
-#FC_CHECKING = True
+#ENABLE_FORDWARD_CHECKING = False
+ENABLE_FORDWARD_CHECKING = True
+
+IDX_TO_PRIME = [2, 3, 5, 7, 11, 13 ,17, 19, 23]
+
+counter = 0
+
 def sudoku_solver(board):
-    A = [[None for j in range(0, 9)] for i in range(0, 9)]
-    for a in A:
-        for i in range(0, 9):
-            a[i] = [False for i in range(1, 10)]
+    global IDX_TO_PRIME
+    rows = [None] * 9
+    cols = [None] * 9
+    boxes = [None] * 9
+    emptys = []
+
+    for i in range(0, 9):
+        rows[i] = 1
+        cols[i] = 1
+        boxes[i] = 1
+
+    for i in range(0, 9):
+        for j in range(0, 9):
+            if board[i][j] != '.':
+                d = IDX_TO_PRIME[int(board[i][j]) - 1]
+                rows[i] *= d
+                cols[j] *= d
+                boxes[i - i % 3 + int(j / 3)] *= d
+            else:
+                emptys.append((i, j))
 
     for i in range(0, 9):
         board[i] = [c for c in board[i]]
-    sudoku_solver_help(board, A)
+
+    sudoku_solver_help(board, emptys, rows, cols, boxes)
+
     for i in range(0, 9):
+        #print(' '.join(board[i]))
         board[i] = ' | '.join(board[i])
 
 
-def sudoku_solver_help(board, A):
-    next_pos = find_next_pos(board)
+def sudoku_solver_help(board, emptys, rows, cols, boxes):
+    next_pos = find_next_pos(board, emptys)
+    #global counter
     if not next_pos:
-        return True
+        #print(counter)
+        #counter += 1
+        return ENABLE_FORDWARD_CHECKING or is_valid_sudoku(board)
 
     i, j = next_pos
     for x in range(1, 10):
-        if FC_CHECKING:
-            if A[i][j][x - 1]: continue
-        if is_valid_put(board, i, j, str(x)):
+        if is_valid_put(board, i, j, x, rows, cols, boxes):
             board[i][j] = str(x)
-            if FC_CHECKING:
-                if A[i][j][x - 1]: continue
-            add_num_to_sets(A, i, j, x)
-            if sudoku_solver_help(board, A):
+            d = IDX_TO_PRIME[x - 1]
+            emptys.pop()
+            if ENABLE_FORDWARD_CHECKING:
+                rows[i] *= d
+                cols[j] *= d
+                boxes[i - i % 3 + int(j / 3)] *= d
+                pass
+            if sudoku_solver_help(board, emptys, rows, cols, boxes):
                 return True
+            if ENABLE_FORDWARD_CHECKING:
+                rows[i] /= d
+                cols[j] /= d
+                boxes[i - i % 3 + int(j / 3)] /= d
+                pass
+            emptys.append(next_pos)
             board[i][j] = '.'
-            if FC_CHECKING:
-                remove_num_from_sets(A, i, j, x)
     return False
 
-def find_next_pos(board):
-    for i in range(0, 9):
-        for j in range(0, 9):
-            if board[i][j] == '.':
-                return i, j
-    return None
+def find_next_pos(board, emptys):
+    try:
+        res = emptys[-1]
+        return res
+    except:
+        return None
 
-def is_valid_put(board, row, col, val):
-    for i in range(0, 9):
-        if board[row][i] == val:
-            return False
+def is_valid_put(board, row, col, val, rows, cols, boxes):
+    if not ENABLE_FORDWARD_CHECKING:
+        return True
 
-    for i in range(0, 9):
-        if board[i][col] == val:
-            return False
-
-    row -= row % 3
-    col -= col % 3
-
-    for i in range(0, 3):
-        for j in range(0, 3):
-            if board[row + i][col + j] == val:
-                return False
-    return True
-
-"""
-    Methods used in forward checking
-"""
-def remove_num_from_sets(A, row, col, val):
-    for i in range(0, 9):
-        A[row][i][val - 1] = False
-        A[i][col][val - 1] = False
-
-def add_num_to_sets(A, row, col, val):
-    for i in range(0, 9):
-        A[row][i][val - 1] = True
-        A[i][col][val - 1] = True
-
+    d = IDX_TO_PRIME[val - 1]
+    return rows[row] % d != 0 and cols[col] % d != 0 and boxes[row - row % 3 + int(col / 3)] % d != 0
 
 """
     Optimization
@@ -143,15 +151,26 @@ board4 = [
   "2.89....3",
   "........6",
 ]
+
+#print('int grid[N][N] = {')
+#for line in board4:
+#    s = '{'
+#    for c in line:
+#        s += (c if c != '.' else '0') + ', '
+#    s = s[:-1]
+#    s += '},'
+#    print(s)
+#print('};')
+
 times = []
-for i in range(0, 50):
+for i in range(0, 500):
   start_time = time.time()
-  sudoku_solver(copy.deepcopy(board1))
+  sudoku_solver(copy.deepcopy(board4))
   #for line in board:
-  #    print ' -' + '--' * 17
-  #    print '| ' + line + ' |'
-  #print ' -' + '--' * 17
-  print(i)
+  #    print(' -' + '--' * 17)
+  #    print('| ' + line + ' |')
+  #print(' -' + '--' * 17)
+  #print(i)
   end_time= time.time()
   times.append(end_time - start_time)
 
