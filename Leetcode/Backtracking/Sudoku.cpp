@@ -15,10 +15,12 @@ int INT_MAX = 1 << 31 - 1;
 int INT_MIN = -1;
 
 #define N 9
-#define ENABLE_FORWARD_CHECKING 1
-#define MCDV 1
+#define ENABLE_FORWARD_CHECKING 0
+#define MCDV 0
 #define MCGV 0
 #define LCGV 0
+
+long long g_num_nodes = 0;
 
 bool isSafe(int su[N][N], int row, int col, int num, long long  rows[N], long long  cols[N], long long  boxes[N]);
 bool findUassignedLocation(int su[N][N], int& row, int& col, vector<pair<int, int> >& emptys);
@@ -153,7 +155,7 @@ bool solve(
     long long  boxes[N],
     vector<pair<int, int> >& emptys)
 {
-
+  g_num_nodes += 1;
   int row, col;
   if(!findUassignedLocation(su, row, col, emptys)) {
     return true;
@@ -163,6 +165,7 @@ bool solve(
 
   // always randomly shuffle the number to be tried next
   //random_shuffle(random_idx.begin(), random_idx.end());
+  //next_permutation(random_idx.begin(), random_idx.end());
 
   for (auto i : random_idx) {
     if(isSafe(su, row, col, i, rows, cols, boxes)) {
@@ -261,30 +264,26 @@ bool isValidSudoku(int grid[N][N]) {
   return true;
 }
 
-//int random_generator(int i) {
-//  return rand() % i;
-//}
-
 int main(int argc, const char *argv[])
 {
   int count = 0;
-  int nums = 500;
-  vector<double> times(nums);
+  int nums = 2;
+  vector<long long> times(nums);
   for(int i = 0; i < nums; ++i) {
     clock_t start = clock();
 
     // EASY :)
-    int grid[N][N] = {
-      {3, 0, 9, 0, 0, 0, 0, 4, 2,},
-      {0, 1, 8, 9, 4, 3, 6, 0, 0,},
-      {0, 0, 0, 0, 0, 0, 8, 9, 0,},
-      {0, 0, 3, 0, 9, 0, 0, 6, 0,},
-      {4, 2, 7, 0, 0, 0, 5, 8, 9,},
-      {0, 6, 0, 0, 8, 0, 2, 0, 0,},
-      {0, 7, 2, 0, 0, 0, 0, 0, 0,},
-      {0, 0, 4, 5, 7, 6, 3, 2, 0,},
-      {6, 3, 0, 0, 0, 0, 7, 0, 4,},
-    };
+    //int grid[N][N] = {
+    //  {3, 0, 9, 0, 0, 0, 0, 4, 2,},
+    //  {0, 1, 8, 9, 4, 3, 6, 0, 0,},
+    //  {0, 0, 0, 0, 0, 0, 8, 9, 0,},
+    //  {0, 0, 3, 0, 9, 0, 0, 6, 0,},
+    //  {4, 2, 7, 0, 0, 0, 5, 8, 9,},
+    //  {0, 6, 0, 0, 8, 0, 2, 0, 0,},
+    //  {0, 7, 2, 0, 0, 0, 0, 0, 0,},
+    //  {0, 0, 4, 5, 7, 6, 3, 2, 0,},
+    //  {6, 3, 0, 0, 0, 0, 7, 0, 4,},
+    //};
 
     // MEDIUM :/
     //int grid[N][N] = {
@@ -300,17 +299,17 @@ int main(int argc, const char *argv[])
     //};
 
     // HARD :(
-    //int grid[N][N] = {
-    //  {6, 0, 0, 8, 0, 9, 0, 0, 0,},
-    //  {0, 0, 5, 0, 0, 7, 0, 8, 6,},
-    //  {0, 7, 0, 0, 0, 0, 0, 0, 0,},
-    //  {0, 0, 0, 4, 0, 1, 3, 0, 7,},
-    //  {8, 0, 1, 0, 0, 0, 5, 0, 4,},
-    //  {7, 0, 9, 2, 0, 5, 0, 0, 0,},
-    //  {0, 0, 0, 0, 0, 0, 0, 4, 0,},
-    //  {1, 8, 0, 5, 0, 0, 6, 0, 0,},
-    //  {0, 0, 0, 3, 0, 4, 0, 0, 5,},
-    //};
+    int grid[N][N] = {
+      {6, 0, 0, 8, 0, 9, 0, 0, 0,},
+      {0, 0, 5, 0, 0, 7, 0, 8, 6,},
+      {0, 7, 0, 0, 0, 0, 0, 0, 0,},
+      {0, 0, 0, 4, 0, 1, 3, 0, 7,},
+      {8, 0, 1, 0, 0, 0, 5, 0, 4,},
+      {7, 0, 9, 2, 0, 5, 0, 0, 0,},
+      {0, 0, 0, 0, 0, 0, 0, 4, 0,},
+      {1, 8, 0, 5, 0, 0, 6, 0, 0,},
+      {0, 0, 0, 3, 0, 4, 0, 0, 5,},
+    };
 
     // EVIL ::>_<::
     //int grid[N][N] = {
@@ -324,6 +323,8 @@ int main(int argc, const char *argv[])
     //  {2, 0, 8, 9, 0, 0, 0, 0, 3,},
     //  {0, 0, 0, 0, 0, 0, 0, 0, 6,},
     //};
+
+    g_num_nodes = 0;
 
     long long  rows[N];
     long long  cols[N];
@@ -348,31 +349,34 @@ int main(int argc, const char *argv[])
     }
 
     // random variable order
-    //random_shuffle(emptys.begin(), emptys.end());
+    random_shuffle(emptys.begin(), emptys.end());
+    //next_permutation(emptys.begin(), emptys.end());
 
     // random value order
-    //random_shuffle(random_idx.begin(), random_idx.end());
+    random_shuffle(random_idx.begin(), random_idx.end());
     if(solve(grid, rows, cols, boxes, emptys)) {
-      times[count++] = (std::clock() - start) / (double)(CLOCKS_PER_SEC / 1000);
+      //cout << i << endl;
+      //times[count++] = (std::clock() - start) / (double)(CLOCKS_PER_SEC / 1000);
+      times[count++] = g_num_nodes;
       //printGrid(grid);
       //cout << isValidSudoku(grid) << endl;
     } else {
       cout << "NO SOLUTION FOUND!" << endl;
     }
   }
-
+  for(auto v : times) cout << v << endl;
   // compute average run time & their standard devaition
-  double sum = std::accumulate(std::begin(times), std::end(times), 0.0);
-  double m =  sum / times.size();
-
-  double accum = 0.0;
-  std::for_each (std::begin(times), std::end(times), [&](const double d) {
+  long long sum = std::accumulate(std::begin(times), std::end(times), 0);
+  long long m =  sum / times.size();
+  cout << m << endl;
+  long long accum = 0;
+  std::for_each (std::begin(times), std::end(times), [&](const long long d) {
       accum += (d - m) * (d - m);
   });
 
-  double stdev = sqrt(accum / (times.size()-1));
+  long long stdev = sqrt(accum / (times.size() == 1 ? 1 : times.size()-1));
 
   cout << nums << " iterations done." << endl;
-  cout << "Average time: " << m << " ms. \nStandard devaition: " << stdev << " ms." << endl;
+  cout << "Average nodes: " << m << ". \nStandard devaition: " << stdev << "." << endl;
   return 0;
 }
