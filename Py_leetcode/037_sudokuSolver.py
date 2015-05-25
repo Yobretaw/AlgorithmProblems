@@ -47,11 +47,12 @@ def sudoku_solver(board):
     for i in range(0, 9):
         board[i] = [c for c in board[i]]
 
-    sudoku_solver_help(board, emptys, rows, cols, boxes)
-
-    for i in range(0, 9):
-        #print(' '.join(board[i]))
-        board[i] = ' | '.join(board[i])
+    if sudoku_solver_help(board, emptys, rows, cols, boxes):
+      for i in range(0, 9):
+          print(' '.join(board[i]))
+          board[i] = ' | '.join(board[i])
+    else:
+      print("NO SOLUTION FOUND")
 
 
 def sudoku_solver_help(board, emptys, rows, cols, boxes):
@@ -60,29 +61,45 @@ def sudoku_solver_help(board, emptys, rows, cols, boxes):
     if not next_pos:
         #print(counter)
         #counter += 1
-        return ENABLE_FORDWARD_CHECKING or is_valid_sudoku(board)
+        return True
 
     i, j = next_pos
+    emptys.pop()
     for x in range(1, 10):
         if is_valid_put(board, i, j, x, rows, cols, boxes):
             board[i][j] = str(x)
             d = IDX_TO_PRIME[x - 1]
-            emptys.pop()
-            if ENABLE_FORDWARD_CHECKING:
-                rows[i] *= d
-                cols[j] *= d
-                boxes[i - i % 3 + int(j / 3)] *= d
-                pass
-            if sudoku_solver_help(board, emptys, rows, cols, boxes):
-                return True
-            if ENABLE_FORDWARD_CHECKING:
+            rows[i] *= d
+            cols[j] *= d
+            boxes[i - i % 3 + int(j / 3)] *= d
+            d = IDX_TO_PRIME[x - 1]
+
+            if ENABLE_FORDWARD_CHECKING and not forwardChecking(board, i, j, rows, cols, boxes):
                 rows[i] /= d
                 cols[j] /= d
                 boxes[i - i % 3 + int(j / 3)] /= d
-                pass
-            emptys.append(next_pos)
+                board[i][j] = '.'
+                continue
+
+            if sudoku_solver_help(board, emptys, rows, cols, boxes):
+                return True
+
+            rows[i] /= d
+            cols[j] /= d
+            boxes[i - i % 3 + int(j / 3)] /= d
             board[i][j] = '.'
+    emptys.append(next_pos)
     return False
+
+
+def forwardChecking(board, row, col, rows, cols, boxes):
+  PRIME_PRODUCT = 223092870
+  for i in range(0, 9):
+    if (board[row][i] == '.' and ((rows[row] * cols[i] % PRIME_PRODUCT == 0))) or \
+        (board[i][col] == '.' and (rows[i] * cols[col] % PRIME_PRODUCT == 0)):
+        print(row, col, i)
+        return False
+  return True
 
 def find_next_pos(board, emptys):
     try:
@@ -92,9 +109,6 @@ def find_next_pos(board, emptys):
         return None
 
 def is_valid_put(board, row, col, val, rows, cols, boxes):
-    if not ENABLE_FORDWARD_CHECKING:
-        return True
-
     d = IDX_TO_PRIME[val - 1]
     return rows[row] % d != 0 and cols[col] % d != 0 and boxes[row - row % 3 + int(col / 3)] % d != 0
 
@@ -163,9 +177,10 @@ board4 = [
 #print('};')
 
 times = []
-for i in range(0, 500):
+for i in range(0, 1):
+  board = board4
   start_time = time.time()
-  sudoku_solver(copy.deepcopy(board4))
+  sudoku_solver(copy.deepcopy(board))
   #for line in board:
   #    print(' -' + '--' * 17)
   #    print('| ' + line + ' |')
@@ -174,5 +189,5 @@ for i in range(0, 500):
   end_time= time.time()
   times.append(end_time - start_time)
 
-print(mean(times))
-print(stdev(times))
+#print(mean(times))
+#print(stdev(times))
