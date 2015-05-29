@@ -14,7 +14,6 @@ def count_primes(n):
         if not arr[i]: continue
         for j in range(2 * i, n, i):
             arr[j] = False
-            j += i
     return len(filter(lambda x: x, arr))
 
 
