@@ -17,9 +17,7 @@ def length_of_longest_substring(s):
             curr_start = chars[k] + 1
 
         chars[k] = i
-
         max_len = max(i - curr_start + 1, max_len)
-
     return max_len
 
 """
