@@ -23,6 +23,16 @@ import math
     For now, the judge is able to judge based on one instance of gray code sequence. Sorry about that.
 
     Refl :http://en.wikipedia.org/wiki/Gray_code
+
+    Dec  Gray   Binary
+     0   000    000
+     1   001    001
+     2   011    010
+     3   010    011
+     4   110    100
+     5   111    101
+     6   101    110
+     7   100    111
 """
 def gray_code(n):
     if not n:
@@ -43,5 +53,14 @@ def gray_code(n):
             cycle_len -= 1
     return res
 
+def gray_code2(n):
+    return [(i >> 1) ^ i for i in range(2 ** n)]
+
+def gray_to_binary(n):
+    mask = n >> 1
+    while mask != 0:
+        n ^= mask
+        mask >>= 1
+    return n
 
 print gray_code(1)
