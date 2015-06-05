@@ -1,0 +1,40 @@
+4. Median of Sorted Array:
+  - Note the problem is asking to find the kth largest element, should be (total_len / 2 + 1) if total_len is odd
+
+5. Longest Palindromic Substring
+
+6. ZigZag Conversion
+
+10. Regular Expression Matching
+
+
+15. 3Sum
+  - Be careful about the branch and when to change start, mid, and end
+
+16. 3SumCloset:
+- Be careful about branch
+
+25. ReverseNodesInK-Group
+  - Iterative & Recursive solution
+
+
+29.Divide Two Integers
+
+30. Substring with Concatenation of All Words
+  - Be careful about the loop boundary
+
+31. NextPermutation
+  - When looking for the index be careful about <= and < or >= and >
+
+35. Search Insert Position
+  - Be careful when comparing adjacent variable
+
+40.Combination Sum II
+  - How to avoid duplicates in result
+
+
+41. Find Missing Positive
+  - Be careful when deciding when inner loop should stop
+
+43. Multiply Strings
+  - Remember to handle '0' x '0'

@@ -16,36 +16,36 @@ from collections import defaultdict
     (order does not matter).
 """
 def string_concatenation(s, lists):
-        if not s or not lists:
-            return None
+    if not s or not lists:
+        return None
 
-        m = defaultdict(int)
-        for word in lists: m[word] += 1
+    m = defaultdict(int)
+    for word in lists: m[word] += 1
 
-        n = len(lists[0])
-        total_len = len(lists) * n
-        res = []
-        for i in range(0, len(s) - total_len + 1):
-            count = 0
-            old_vals = {}
-            for j in range(i, i + total_len, n):
-                curr = s[j:j+n]
-                if m.has_key(curr) and m[curr] > 0:
-                    # record original value of curr in m
-                    if not curr in old_vals:
-                        old_vals[curr] = m[curr]
-                    m[curr] -= 1
-                    count += 1
-                else:
-                    break
+    n = len(lists[0])
+    total_len = len(lists) * n
+    res = []
+    for i in range(0, len(s) - total_len + 1):
+        count = 0
+        old_vals = {}
+        for j in range(i, i + total_len, n):
+            curr = s[j:j+n]
+            if m.has_key(curr) and m[curr] > 0:
+                # record original value of curr in m
+                if not curr in old_vals:
+                    old_vals[curr] = m[curr]
+                m[curr] -= 1
+                count += 1
+            else:
+                break
 
-            if count == len(lists): res.append(i)
+        if count == len(lists): res.append(i)
 
-            # recover old values in m
-            for word in old_vals:
-                m[word] = old_vals[word]
+        # recover old values in m
+        for word in old_vals:
+            m[word] = old_vals[word]
 
-        return res
+    return res
 
 s = "barfoothefoobarman"
 words = ["foo", "bar"]

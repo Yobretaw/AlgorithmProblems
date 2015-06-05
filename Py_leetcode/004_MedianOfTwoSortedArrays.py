@@ -44,3 +44,12 @@ def find_help(a, i, m, b, j, n, k):
 
 #for i in range(0, len(a) + len(b)):
 #    print i + 1, find_help(a, 0, len(a), b, 0, len(b), i + 1)
+
+a = [1, 2, 3, 4, 5]
+b = [6, 7, 8, 9, 10]
+#print find_help(a, 0, len(a), b, 0, len(b), 8)
+print find_median_sorted_arrays(a, b)
+
+
+def find(a, b, k):
+    return find_help(a, 0, len(a), b, 0, len(b), k)

@@ -79,7 +79,6 @@ def max_profit(prices, k):
             f[day] = max(f[day - 1], prices[day] + netval)
             netval = max(netval, g[day - 1] - prices[day])
     return f[-1]
-    #return f[-1][-1]
 
 p = [1, 2]
 print max_profit(p, 1)
