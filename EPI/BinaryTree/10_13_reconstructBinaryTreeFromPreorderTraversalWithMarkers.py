@@ -34,6 +34,6 @@ def reconstruct_help(seq, idx):
     root.right = reconstruct_help(seq, idx)
     return root
 
-seq = ['H', 'B', 'F', None, None, 'E', 'A', None, None, None, 'C', None, 'D', None, 'G', 'I', None, None, None]
-root = reconstruct(seq)
-bst_print(root)
+#seq = ['H', 'B', 'F', None, None, 'E', 'A', None, None, None, 'C', None, 'D', None, 'G', 'I', None, None, None]
+#root = reconstruct(seq)
+#bst_print(root)
