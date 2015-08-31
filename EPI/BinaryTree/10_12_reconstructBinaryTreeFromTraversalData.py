@@ -30,6 +30,9 @@ def reconstruct(inorder, preorder):
     root.right = reconstruct(inorder[root_idx + 1:], preorder[1+root_idx:])
     return root
 
+"""
+    Optimized solution that takes O(n) time
+"""
 def reconstruct2(inorder, preorder):
     m = {}
     for i in range(0, len(inorder)):
