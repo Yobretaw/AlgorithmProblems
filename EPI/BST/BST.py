@@ -6,6 +6,7 @@ class Node():
         self.parent = parent
         self.next = None
         self.count = 0
+        self.locked = False # 10_17
 
     def __repr__(self):
         return str(self.val)
