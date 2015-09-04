@@ -47,4 +47,3 @@ def merge_sorted(arrays):
 #a = [1, 3, 5]
 #b = [2, 4, 6]
 #print merge_sorted([a, b])
-
