@@ -10,6 +10,11 @@ from heapq import *
     the k largest elements stored in the heap. You cannot modify the heap. For
     example, if the heap is [561, 314, 401, 28, 156, 359, 271, 11, 3], the 4 largest
     elements are 561, 314, 401 and 359.
+
+    =============
+
+    Time: O(klogk)
+    Space: O(k)
 """
 def compute_k_largest_elements(h, k):
     n = len(h)
@@ -34,12 +39,12 @@ def compute_k_largest_elements(h, k):
             pass
     return res
 
-l = [561, 314, 401, 28, 156, 359, 271, 11, 3]
-print compute_k_largest_elements(l, 1)
-print compute_k_largest_elements(l, 2)
-print compute_k_largest_elements(l, 3)
-print compute_k_largest_elements(l, 4)
-print compute_k_largest_elements(l, 5)
-print compute_k_largest_elements(l, 6)
-print compute_k_largest_elements(l, 7)
-print compute_k_largest_elements(l, 8)
+#l = [561, 314, 401, 28, 156, 359, 271, 11, 3]
+#print compute_k_largest_elements(l, 1)
+#print compute_k_largest_elements(l, 2)
+#print compute_k_largest_elements(l, 3)
+#print compute_k_largest_elements(l, 4)
+#print compute_k_largest_elements(l, 5)
+#print compute_k_largest_elements(l, 6)
+#print compute_k_largest_elements(l, 7)
+#print compute_k_largest_elements(l, 8)
