@@ -25,20 +25,11 @@ def _select(vector, left, right, k):
             k -= pivotDist + 1
             left = pivotNewIndex + 1
  
-def select(vector, k, left=None, right=None):
+def select(vector, k)
     """\
-    Returns the k-th smallest, (k >= 0), element of vector within vector[left:right+1].
-    left, right default to (0, len(vector) - 1) if omitted
+    Returns the k-th smallest, (k >= 0), element of vector within vector
     """
-    if left is None:
-        left = 0
-    lv1 = len(vector) - 1
-    if right is None:
-        right = lv1
-    assert vector and k >= 0, "Either null vector or k < 0 "
-    assert 0 <= left <= lv1, "left is out of range"
-    assert left <= right <= lv1, "right is out of range"
-    return _select(vector, left, right, k)
+    return _select(vector, 0, len(vector) - 1, k)
  
 if __name__ == '__main__':
     v = [9, 8, 7, 6, 5, 0, 1, 2, 3, 4]
