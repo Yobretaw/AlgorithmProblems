@@ -10,6 +10,11 @@ from heapq import *
     stored in a file.
 
     How would you compute the k stars which are closest to the origin?
+
+    ==========
+
+    Time: O(nlogk)
+    Space: O(k)
 """
 def compute_k_closest(points, k):
     h = []
@@ -19,7 +24,6 @@ def compute_k_closest(points, k):
         h.append(points[i])
 
     for i in range(k, len(points)):
-        #heappushpop(h, points[i])
         h.append(points[i])
         heapify(h)
         heappop(h)
