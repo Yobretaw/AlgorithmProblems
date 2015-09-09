@@ -31,7 +31,7 @@ def find_first_occurence(arr, k):
 #arr = [1, 1, 1, 1, 1, 1, 1, 1]
 #print find_first_occurence(arr, 1)
 
-#arr = [-14, 10, 2, 108, 108, 243, 285, 285, 285, 401]
+#arr = [-14, -10, 2, 108, 108, 243, 285, 285, 285, 401]
 #print find_first_occurence(arr, -14)
 #print find_first_occurence(arr, 108)
 #print find_first_occurence(arr, 243)
