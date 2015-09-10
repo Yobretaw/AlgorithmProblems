@@ -41,7 +41,6 @@ def search_sorted_array_of_unknown_length(arr, k):
                 l = mid + 1
         except Exception:
             r = mid
-
     return -1
 
 #def search_sorted_array_of_unknown_length(l, k):
