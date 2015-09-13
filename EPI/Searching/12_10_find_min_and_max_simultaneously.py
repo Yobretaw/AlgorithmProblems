@@ -40,7 +40,7 @@ def find_min_max(arr):
     for i in range(1, len(min_players)):
         if min_players[a] > min_players[i]:
             a = i
-    
+
     for i in range(1, len(max_players)):
         if max_players[b] < max_players[i]:
             b = i

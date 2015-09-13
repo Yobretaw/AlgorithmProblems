@@ -31,7 +31,7 @@ def partition(arr, left, right, pivot_index):
     pivot_value = arr[pivot_index]
     arr[right], arr[pivot_index] = arr[pivot_index], arr[right]
     stored_index = left
-    
+
     for i in range(left, right):
         if arr[i] < pivot_value:
             arr[i], arr[stored_index] = arr[stored_index], arr[i]
@@ -41,3 +41,4 @@ def partition(arr, left, right, pivot_index):
 
 #v = [9, 8, 7, 6, 5, 0, 1, 2, 3, 4]
 #print([find_kth_largest_element(v, i) for i in range(1, len(v) + 1)])
+
