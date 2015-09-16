@@ -25,7 +25,7 @@ def _select(vector, left, right, k):
             k -= pivotDist + 1
             left = pivotNewIndex + 1
  
-def select(vector, k)
+def select(vector, k):
     """\
     Returns the k-th smallest, (k >= 0), element of vector within vector
     """
