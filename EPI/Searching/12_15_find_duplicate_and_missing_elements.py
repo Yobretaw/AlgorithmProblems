@@ -14,7 +14,7 @@ import random
     Let t be the element that appears twice, and m be the missing number. If m
     and t differ in the k-th bit, we compute the XOR of the nubmers from 0 to
     n - 1 in which the k-th bit is 1, and the entries in the array in which
-    the k-th bit is 1. Let this XOR be h, h must be one of m or t. We can then
+    the k-th bit is 1. Let this XOR be h, then h must be one of m or t. We can then
     make another pass through A to determine if h is th duplicate or the missing
     element.
 """
@@ -25,6 +25,7 @@ def find_duplicate_and_missing_elements(arr):
     for i, v in enumerate(arr):
         miss_XOR_dup ^= i ^ arr[i]
 
+    # keep the lowest bit that they differ
     differ_bit = miss_XOR_dup & ~(miss_XOR_dup - 1)
     miss_or_dup = 0
     for i, v in enumerate(arr):
@@ -39,6 +40,6 @@ def find_duplicate_and_missing_elements(arr):
     
     return miss_or_dup ^ miss_XOR_dup, miss_or_dup
 
-a = [5, 3, 0, 3, 1, 2]
-print find_duplicate_and_missing_elements(a)
-
+#a = [i for i in range(100)]
+#a[86] = a[50]
+#print find_duplicate_and_missing_elements(a)
