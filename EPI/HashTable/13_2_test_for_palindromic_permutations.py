@@ -9,7 +9,7 @@ from collections import defaultdict, Counter
 
     ===========
 
-    Such permutation exists if and only if the number of odd occurences of letters
+    Such permutation exists if and only if the number of odd occurences of characters
     is less than 2
 """
 def test_form_palindrome(s):
@@ -22,7 +22,8 @@ def test_form_palindrome(s):
     for k, v in c.iteritems():
         if v % 2 == 1 and odd_count:
             return False
-        odd_count += 1
+        elif v % 2 == 1:
+            odd_count += 1
     return True
 
 print test_form_palindrome('edifiedee')
