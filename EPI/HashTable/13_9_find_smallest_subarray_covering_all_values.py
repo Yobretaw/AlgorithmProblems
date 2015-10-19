@@ -57,7 +57,60 @@ def find_smallest_subarray_covering_set(s, t):
     return s[start:end]
 
 
+"""
+    Variant 13.9.2
+    
+    Given an array A, find a shortest subarray A[i:j] such that each distinct
+    value present in A is also present in the subarray.
+"""
+def subarray_cover(a):
+    n = len(a)
+    if n < 2:
+        return (-1, -1) if not a else (0, 0)
+    
+    vals = set(a)
+    return find_smallest_subarray_covering_set(a, vals)
+
+
+"""
+    Variant 13.9.3
+
+    Given an array A, rearrange the elements so that the shortest subarray
+    containing all distinct values in A has maximum possible length
+"""
+def rearrange(a):
+    n = len(a)
+    if n < 2:
+        return
+    
+    # probably no need to sort...
+    a[:] = ''.join(sorted(a))
+    c = Counter(a)
+
+    least_common = c.most_common()[-2:]
+
+    a[:] = list(filter(lambda x: x != least_common[0][0], a))
+    a[:] = list(filter(lambda x: x != least_common[1][0], a))
+
+    a[:] = [least_common[0][0]] * least_common[0][1] + a
+    a[:] = a + [least_common[1][0]] * least_common[1][1]
+
+
+"""
+    Variant 13.9.4
+
+    Given an array A and a positive integer k, rearrange the elements so that
+    no two equal elements are k or less apart.
+"""
+def rearrange2(a):
+    pass
+
+
 if __name__ == '__main__':
-    print find_smallest_subarray_convering_set('ADOBECODEBANC','ABC')
-    print find_smallest_subarray_convering_set('aa','a')
-    print find_smallest_subarray_convering_set('aa','ab')
+    print find_smallest_subarray_covering_set('ADOBECODEBANC','ABC')
+    print find_smallest_subarray_covering_set('aa','a')
+    print find_smallest_subarray_covering_set('aa','ab')
+
+    A = list('ADOBECODEBANC')
+    rearrange(A)
+    print A
