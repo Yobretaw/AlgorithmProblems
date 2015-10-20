@@ -113,8 +113,7 @@ def rearrange2(s, dist):
     cur = 0
     for c in s:
         while arr[cur] != None:
-            cur += 1
-            cur %= n
+            cur = (cur + 1) % n
 
         prev_char = arr[cur - 1] if cur > 0 else None
         next_char = arr[cur + 1] if cur < n - 1 else None
@@ -122,8 +121,7 @@ def rearrange2(s, dist):
             raise Exception('Cannot rearrange')
 
         arr[cur] = c
-        cur += dist
-        cur %= n
+        cur = (cur + dist) % n
 
     return ''.join(arr) 
 
@@ -135,23 +133,23 @@ def rearrange2(s, dist):
     A[i:j] are distinct.
 """
 def find_longest_subarray_without_dupilcates(s):
-        n = len(s)
-        if n < 2:
-            return s
+    n = len(s)
+    if n < 2:
+        return s
 
-        i = 0
-        start, end = 0, -1
-        latest_pos = {}
-        for j, char in enumerate(s):
-            if char in latest_pos:
-                i = max(i, latest_pos[char] + 1)
+    i = 0
+    start, end = 0, -1
+    latest_pos = {}
+    for j, char in enumerate(s):
+        if char in latest_pos:
+            i = max(i, latest_pos[char] + 1)
 
-            latest_pos[char] = j
+        latest_pos[char] = j
 
-            if (j - i + 1) > (end - start + 1):
-                start, end = i, j
+        if (j - i + 1) > (end - start + 1):
+            start, end = i, j
 
-        return s[start:end+1]
+    return s[start:end+1]
 
 
 
