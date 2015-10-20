@@ -102,15 +102,71 @@ def rearrange(a):
     Given an array A and a positive integer k, rearrange the elements so that
     no two equal elements are k or less apart.
 """
-def rearrange2(a):
-    pass
+def rearrange2(s, dist):
+    n = len(s)
+    if n < 2:
+        return s
+
+    s = ''.join(p[0] * p[1] for p in Counter(s).most_common())
+
+    arr = [None] * n
+    cur = 0
+    for c in s:
+        while arr[cur] != None:
+            cur += 1
+            cur %= n
+
+        prev_char = arr[cur - 1] if cur > 0 else None
+        next_char = arr[cur + 1] if cur < n - 1 else None
+        if c == prev_char or c == next_char:
+            raise Exception('Cannot rearrange')
+
+        arr[cur] = c
+        cur += dist
+        cur %= n
+
+    return ''.join(arr) 
+
+
+"""
+    Variant 13.9.5
+
+    Given an array A, find a longest subaray A[i:j] such that all elements in
+    A[i:j] are distinct.
+"""
+def find_longest_subarray_without_dupilcates(s):
+        n = len(s)
+        if n < 2:
+            return s
+
+        i = 0
+        start, end = 0, -1
+        latest_pos = {}
+        for j, char in enumerate(s):
+            if char in latest_pos:
+                i = max(i, latest_pos[char] + 1)
+
+            latest_pos[char] = j
+
+            if (j - i + 1) > (end - start + 1):
+                start, end = i, j
+
+        return s[start:end+1]
+
 
 
 if __name__ == '__main__':
-    print find_smallest_subarray_covering_set('ADOBECODEBANC','ABC')
-    print find_smallest_subarray_covering_set('aa','a')
-    print find_smallest_subarray_covering_set('aa','ab')
+    #print find_smallest_subarray_covering_set('ADOBECODEBANC','ABC')
+    #print find_smallest_subarray_covering_set('aa','a')
+    #print find_smallest_subarray_covering_set('aa','ab')
 
-    A = list('ADOBECODEBANC')
-    rearrange(A)
-    print A
+    #A = list('ADOBECODEBANC')
+    #rearrange(A)
+    #print A
+
+    # tests for rearrange2
+    #print rearrange2(list('aaaabbbcc'), 2)
+    #print rearrange2(list('geeksforgeeks'), 3)
+    #print rearrange2(list('aaaabbbcc'), 3)
+
+    #print find_longest_subarray_without_dupilcates('geeksforgeeks')
