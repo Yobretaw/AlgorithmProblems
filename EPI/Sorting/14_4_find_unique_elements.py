@@ -46,10 +46,11 @@ def remove_duplicates2(A):
     A[:] = A[:write_idx]
     return
 
-A = [1, 4, 2, 3, 5, 6, 4, 3, 1, 9, 0]
-remove_duplicates(A)
-print A
+if __name__ == '__main__':
+    A = [1, 4, 2, 3, 5, 6, 4, 3, 1, 9, 0]
+    remove_duplicates(A)
+    print A
 
-A = [1, 4, 2, 3, 5, 6, 4, 3, 1, 9, 0]
-remove_duplicates2(A)
-print A
+    A = [1, 4, 2, 3, 5, 6, 4, 3, 1, 9, 0]
+    remove_duplicates2(A)
+    print A

@@ -22,4 +22,5 @@ def print_freq_in_order(s):
     print res
 
 
-print_freq_in_order('bcdacebe')
+if __name__ == '__main__':
+    print_freq_in_order('bcdacebe')
