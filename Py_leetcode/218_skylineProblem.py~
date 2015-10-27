@@ -7,7 +7,8 @@ from heapq import *
 
 """
     We keep (height, right) pairs in the priority queue and they stay in there
-    as long as there's a larger height in there.
+    as long as there's a larger height in there, not just until their building
+    is left behind.
 
     In each loop, we first check what has the smaller x-coordinate: adding the
     next building from the input, or removing the next building from the queue.
