@@ -7,10 +7,10 @@ Node = imp.load_source('Node', '../BST/BST.py').Node
 bst_print = imp.load_source('Node', '../BST/BST.py').bst_print
 
 """
-    ============================================================================================
-    Design an algorithm for computing the Lowest Common Ancestor(LCA) of two nodes in a binary
-    tree in which nodes do not have a parent field.
-    ============================================================================================
+    ===========================================================================
+    Design an algorithm for computing the Lowest Common Ancestor(LCA) of two
+    nodes in a binary tree in which nodes do not have a parent field.
+    ===========================================================================
 """
 def find_lca(root, n1, n2):
     if not root:

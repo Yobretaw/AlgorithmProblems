@@ -35,3 +35,9 @@ def bst_print_help(root, level, output):
         print ' ' * 4 * level + str(val)
         print ' '
         bst_print_help(root.left, level + 1, output)
+
+def bst_node_count(root):
+    if not root:
+        return 0
+
+    return bst_node_count(root.left) + bst_node_count(root.right) + 1
