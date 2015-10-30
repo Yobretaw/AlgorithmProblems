@@ -41,3 +41,35 @@ def bst_node_count(root):
         return 0
 
     return bst_node_count(root.left) + bst_node_count(root.right) + 1
+
+def generate_complete_bst(node_count):
+    if not node_count:
+        return None
+
+    depth = 1
+    while 2 ** depth - 1 <= node_count:
+        depth += 1
+
+    depth -= 1
+    count = [0]
+    bottom_level_count = [node_count - (2 ** depth - 1)]
+    root = generate_complete_bst_help(0, depth, count, bottom_level_count)
+    return root
+
+def generate_complete_bst_help(curr_depth, max_depth, count, bottom_level_count):
+    if curr_depth == max_depth:
+        if bottom_level_count[0] <= 0:
+            return None
+
+        bottom_level_count[0] -= 1
+        res = Node(count[0])
+        count[0] += 1
+        return res
+
+    l = generate_complete_bst_help(curr_depth + 1, max_depth, count, bottom_level_count)
+    root = Node(count[0])
+    count[0] += 1
+    r = generate_complete_bst_help(curr_depth + 1, max_depth, count, bottom_level_count)
+
+    root.left, root.right = l, r
+    return root
