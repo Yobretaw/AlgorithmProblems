@@ -12,29 +12,18 @@ class Node():
         return str(self.val)
 
 
-def bst_generate_tree(n):
-    arr = []
-    for i in range(0, n):
-        arr.append(i)
-
-    pass
-
-def bst_generate_tree_help():
-    pass
-
 def bst_print(root):
-    output = []
-    bst_print_help(root, 0, output)
+    bst_print_help(root, 0)
 
-def bst_print_help(root, level, output):
+def bst_print_help(root, level):
     if root:
-        bst_print_help(root.right, level + 1, output)
+        bst_print_help(root.right, level + 1)
         val = root.val
         if val == None:
             val = 'N'
         print ' ' * 4 * level + str(val)
         print ' '
-        bst_print_help(root.left, level + 1, output)
+        bst_print_help(root.left, level + 1)
 
 def bst_node_count(root):
     if not root:
@@ -73,3 +62,15 @@ def generate_complete_bst_help(curr_depth, max_depth, count, bottom_level_count)
 
     root.left, root.right = l, r
     return root
+
+def find_node(root, val):
+    if not root:
+        return None
+
+    while root:
+        if root.val == val:
+            return root
+
+        root = root.left if root.val > val else root.right
+    return None
+
