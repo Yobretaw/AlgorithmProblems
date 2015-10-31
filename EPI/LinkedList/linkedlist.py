@@ -6,6 +6,7 @@ class Node():
     def __init__(self, val=0, next=None, random=None):
         self.val = val
         self.next = next
+        self.prev = None
         self.random = random
 
     def __repr__(self):
@@ -58,6 +59,9 @@ def ll_generate_ascending_list(n, start=0):
 
     for i in range(0, n - 1):
         nodes[i].next = nodes[i + 1]
+
+    for i in range(1, n):
+        nodes[i].prev = nodes[i - 1]
 
     return nodes[0]
 

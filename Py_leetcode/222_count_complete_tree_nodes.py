@@ -18,16 +18,16 @@ generate_complete_bst = imp.load_source('Node', '../EPI/BST/BST.py').generate_co
 """
 def count_complete_tree_nodes(root):
     h = compute_depth(root)
-    nodes = 0
+    count = 0
     while root:
         if compute_depth(root.right) == h - 1:
-            nodes += 2 ** h
+            count += 2 ** h
             root = root.right
         else:
-            nodes += 2 ** (h - 1)
+            count += 2 ** (h - 1)
             root = root.left
         h -= 1
-    return nodes
+    return count
 
 def compute_depth(root):
     count = 0
