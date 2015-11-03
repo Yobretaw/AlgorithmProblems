@@ -39,13 +39,16 @@ class Endpoint:
         self.seg = seg
 
     def value(self):
-        return seg.left if self.is_left else seg.right
+        return self.seg.left if self.is_left else self.seg.right
 
     def __le__(self, other):
-        return self.value() < other.value
+        return self.value() < other.value()
 
     def __eq__(self, other):
-        return self.value == other.value
+        return self.value() == other.value()
+
+    def __repr__(self):
+        return 'is_left:%s' % str(self.is_left) + ' ' + self.seg.__repr__()
 
 
 def compute_view_from_above(segments):
@@ -87,13 +90,27 @@ def compute_view_from_above(segments):
         prev_xaxis = p.value()
 
         if p.is_left:
-            bst_insert_node(root, p.seg.height, p.seg)
+            root = bst_insert_node(root, p.seg.height, p.seg)
         else:
-            bst_remove_node(root, p.seg.height)
+            root = bst_remove_node(root, p.seg.height)
 
     if prev:
         print prev
 
 
 if __name__ == '__main__':
-    pass
+    segments = [
+        LineSegment(0, 4, 'bottomright', 1),
+        LineSegment(1, 3, 'bottomleft', 3),
+        LineSegment(2, 7, 'dot', 2),
+        LineSegment(4, 5, 'doubleLine', 4),
+        LineSegment(5, 7, 'singleLine', 1),
+        LineSegment(6, 10, 'bottomright', 3),
+        LineSegment(8, 9, 'bottomright', 2),
+        LineSegment(9, 18, 'verticalLine', 1),
+        LineSegment(11, 13, 'singleLine', 3),
+        LineSegment(12, 15, 'verticalLine', 2),
+        LineSegment(14, 15, 'dot', 3),
+        LineSegment(16, 17, 'singleLine', 3)
+    ]
+    compute_view_from_above(segments)

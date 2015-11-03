@@ -1,5 +1,5 @@
 class Node():
-    def __init__(self, val, left=None, right=None, parent=None):
+    def __init__(self, val, left=None, right=None, parent=None, store=None):
         self.val = val
         self.left = left
         self.right = right
@@ -8,7 +8,7 @@ class Node():
         self.count = 0
         self.locked = False # 10_17
 
-        self.store = None
+        self.store = store
 
     def __repr__(self):
         return str(self.val)
@@ -57,7 +57,7 @@ def bst_insert_node(root, val, store=None):
         else:
             root = root.right
 
-    if root.val < parent.val:
+    if val < parent.val:
         parent.left = new_node
     else:
         parent.right = new_node
