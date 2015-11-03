@@ -47,7 +47,6 @@ def bst_to_array(root):
     if not root:
         return []
 
-    print root
     return bst_to_array(root.left) + [root] + bst_to_array(root.right)
 
 def build_bst_from_sorted_array(arr):
@@ -59,7 +58,9 @@ def build_bst_from_sorted_array_help(arr, start, end):
         return None
 
     if start == end - 1:
-        return arr[start]
+        res = arr[start]
+        res.left = res.right = None
+        return res
 
     mid = start + (end - start) / 2
     root = arr[mid]
@@ -79,67 +80,6 @@ def bst_remove_node(root, val):
     arr = bst_to_array(root)
     arr = filter(lambda x: x.val != val, arr)
     return build_bst_from_sorted_array(arr)
-
-#def bst_insert_node(root, val, store=None):
-#    new_node = Node(val=val, store=store)
-
-#    if not root:
-#        return new_node
-
-#    root_copy = root
-#    parent = None
-#    while root:
-#        parent = root
-#        if root.val > val:
-#            root = root.left
-#        else:
-#            root = root.right
-
-#    if val < parent.val:
-#        parent.left = new_node
-#    else:
-#        parent.right = new_node
-
-#    return root_copy
-
-#def bst_remove_node(root, val):
-#    if not root:
-#        return None
-
-#    if root.val == val:
-#        if not root.left or not root.right:
-#            return root.left if root.left else root.right
-#        else:
-#            new_root = root.left
-#            tmp = new_root
-#            while new_root.right:
-#                new_root = new_root.right
-#            new_root.right = root.right
-#            return new_root
-#    else:
-#        while root:
-#            if root.val == val:
-#                if root.val < parent.val:
-#                    l, r = root.left, root.right
-#                    parent.left = l
-#                    while l.right:
-#                        l = l.right
-#                    l.right = r
-#                    return
-#                else:
-#                    l, r = root.left, root.right
-#                    parent.right = l
-#                    while l.right:
-#                        l = l.right
-#                    l.right = r
-#                    return
-#                else:
-#                    if root.val < val:
-#                        root = root.left
-#                    else:
-#                        root = root.right
-#            parent = root
-#    return root
 
 
 def generate_complete_bst(node_count):

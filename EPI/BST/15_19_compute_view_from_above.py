@@ -37,15 +37,10 @@ class Endpoint:
     def __init__(self, is_left, seg):
         self.is_left = is_left
         self.seg = seg
+        self.key = seg.left if is_left else seg.right
 
     def value(self):
         return self.seg.left if self.is_left else self.seg.right
-
-    def __le__(self, other):
-        return self.value() < other.value()
-
-    def __eq__(self, other):
-        return self.value() == other.value()
 
     def __repr__(self):
         return 'is_left:%s' % str(self.is_left) + ' ' + self.seg.__repr__()
@@ -58,34 +53,27 @@ def compute_view_from_above(segments):
 
     endpoints = [Endpoint(True, seg) for seg in segments]
     endpoints.extend([Endpoint(False, seg) for seg in segments])
-    endpoints.sort()
+    endpoints.sort(key=lambda x: x.key)
 
     root = None
     prev = None
-    prev_xaxis = endpoints[0].value()
+    prev_xaxis = None
     root = None
     for p in endpoints:
         if root and prev_xaxis != p.value():
-            right_most_node = bst_get_rightmost(root)
+            highest_segment = bst_get_rightmost(root).store
+            color, height = highest_segment.color, highest_segment.height
+
             if prev == None:
-                prev = LineSegment(
-                            prev_xaxis,
-                            p.value(),
-                            right_most_node.store.color,
-                            right_most_node.store.height
-                            )
+                prev = LineSegment(prev_xaxis, p.value(), color, height)
             else:
-                if prev.height == right_most_node.store.height and \
-                        prev.color == right_most_node.store.color:
+                if prev.height == height and prev.color == color:
+                    # extend segment to new rightend if same height and color
                     prev.right = p.value()
                 else:
+                    # previous segment ends, new segment starts
                     print prev
-                    prev = LineSegment(
-                            prev_xaxis,
-                            p.value(),
-                            right_most_node.store.color,
-                            right_most_node.store.height
-                            )
+                    prev = LineSegment(prev_xaxis, p.value(), color, height)
 
         prev_xaxis = p.value()
 
@@ -93,8 +81,6 @@ def compute_view_from_above(segments):
             root = bst_insert_node(root, p.seg.height, p.seg)
         else:
             root = bst_remove_node(root, p.seg.height)
-        #print '-' * 100
-        #bst_print(root)
 
     if prev:
         print prev
