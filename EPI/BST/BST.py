@@ -43,45 +43,103 @@ def bst_get_rightmost(root):
         root = root.right
     return root
 
-def bst_insert_node(root, val, store=None):
-    new_node = Node(val=val, store=store)
-
+def bst_to_array(root):
     if not root:
-        return new_node
+        return []
 
-    parent = None
-    while root:
-        parent = root
-        if root.val > val:
-            root = root.left
-        else:
-            root = root.right
+    print root
+    return bst_to_array(root.left) + [root] + bst_to_array(root.right)
 
-    if val < parent.val:
-        parent.left = new_node
-    else:
-        parent.right = new_node
+def build_bst_from_sorted_array(arr):
+    n = len(arr)
+    return build_bst_from_sorted_array_help(arr, 0, n)
+
+def build_bst_from_sorted_array_help(arr, start, end):
+    if start == end:
+        return None
+
+    if start == end - 1:
+        return arr[start]
+
+    mid = start + (end - start) / 2
+    root = arr[mid]
+
+    root.left = build_bst_from_sorted_array_help(arr, start, mid)
+    root.right = build_bst_from_sorted_array_help(arr, mid + 1, end)
 
     return root
 
-def bst_remove_node(root, val):
-    if not root:
-        return None
+def bst_insert_node(root, val, store=None):
+    arr = bst_to_array(root) + [Node(val=val, store=store)]
+    arr.sort(key=lambda x: x.val)
 
-    res = parent = Node(root.val + 1, root, None)
-    while root:
-        if root.val == val:
-            right_tree = root.right
-            if parent.val > root.val:
-                parent.left = root.left
-            else:
-                parent.right = root.left
-            root = root.left
-            while root.right:
-                root = root.right
-            root.right = right_tree
-        parent = root
-    return res.left
+    return build_bst_from_sorted_array(arr)
+
+def bst_remove_node(root, val):
+    arr = bst_to_array(root)
+    arr = filter(lambda x: x.val != val, arr)
+    return build_bst_from_sorted_array(arr)
+
+#def bst_insert_node(root, val, store=None):
+#    new_node = Node(val=val, store=store)
+
+#    if not root:
+#        return new_node
+
+#    root_copy = root
+#    parent = None
+#    while root:
+#        parent = root
+#        if root.val > val:
+#            root = root.left
+#        else:
+#            root = root.right
+
+#    if val < parent.val:
+#        parent.left = new_node
+#    else:
+#        parent.right = new_node
+
+#    return root_copy
+
+#def bst_remove_node(root, val):
+#    if not root:
+#        return None
+
+#    if root.val == val:
+#        if not root.left or not root.right:
+#            return root.left if root.left else root.right
+#        else:
+#            new_root = root.left
+#            tmp = new_root
+#            while new_root.right:
+#                new_root = new_root.right
+#            new_root.right = root.right
+#            return new_root
+#    else:
+#        while root:
+#            if root.val == val:
+#                if root.val < parent.val:
+#                    l, r = root.left, root.right
+#                    parent.left = l
+#                    while l.right:
+#                        l = l.right
+#                    l.right = r
+#                    return
+#                else:
+#                    l, r = root.left, root.right
+#                    parent.right = l
+#                    while l.right:
+#                        l = l.right
+#                    l.right = r
+#                    return
+#                else:
+#                    if root.val < val:
+#                        root = root.left
+#                    else:
+#                        root = root.right
+#            parent = root
+#    return root
 
 
 def generate_complete_bst(node_count):

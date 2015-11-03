@@ -93,6 +93,8 @@ def compute_view_from_above(segments):
             root = bst_insert_node(root, p.seg.height, p.seg)
         else:
             root = bst_remove_node(root, p.seg.height)
+        #print '-' * 100
+        #bst_print(root)
 
     if prev:
         print prev
