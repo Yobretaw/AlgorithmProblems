@@ -9,23 +9,24 @@ class Node():
         self.locked = False # 10_17
 
         self.store = store
+        self.size = 1 + (left.size if left else 0) + (right.size if right else 0)
 
     def __repr__(self):
         return str(self.val)
 
 
-def bst_print(root):
-    bst_print_help(root, 0)
+def bst_print(root, print_size=False):
+    bst_print_help(root, 0, print_size)
 
-def bst_print_help(root, level):
+def bst_print_help(root, level, print_size):
     if root:
-        bst_print_help(root.right, level + 1)
+        bst_print_help(root.right, level + 1, print_size)
         val = root.val
         if val == None:
             val = 'N'
-        print ' ' * 4 * level + str(val)
+        print ' ' * 4 * level + str(val) + (('[%s]' % root.size) if print_size else '')
         print ' '
-        bst_print_help(root.left, level + 1)
+        bst_print_help(root.left, level + 1, print_size)
 
 def bst_node_count(root):
     if not root:
@@ -107,11 +108,11 @@ def generate_complete_bst_help(curr_depth, max_depth, count, bottom_level_count)
         return res
 
     l = generate_complete_bst_help(curr_depth + 1, max_depth, count, bottom_level_count)
-    root = Node(count[0])
+    root_val = count[0]
     count[0] += 1
     r = generate_complete_bst_help(curr_depth + 1, max_depth, count, bottom_level_count)
 
-    root.left, root.right = l, r
+    root = Node(root_val, l, r)
     return root
 
 def find_node(root, val):
