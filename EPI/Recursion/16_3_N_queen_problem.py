@@ -6,11 +6,11 @@ import math
     Write a function which takes as input a positive integer n, and returns a
     list of all distinct nonattacking placements of n queens on an n x n board.
 """
-def enumerate_solution(n):
+def solve(n):
     row = [0] * n
-    enumerate_solution_help(n, row, 0)
+    solve_help(n, row, 0)
 
-def enumerate_solution_help(n, row, curr_row):
+def solve_help(n, row, curr_row):
     if curr_row >= n:
         print_result(row)
         return
@@ -19,7 +19,7 @@ def enumerate_solution_help(n, row, curr_row):
     for col in range(0, n):
         if is_valid_placement(row, curr_row, col):
             row[curr_row] = col + 1
-            if enumerate_solution_help(n, row, curr_row + 1):
+            if solve_help(n, row, curr_row + 1):
                 res = True
             row[curr_row] = 0
     return res
@@ -46,8 +46,8 @@ def print_result(row):
 
     for line in res:
         print ''.join(line)
-    print '=' * 14
+    print '=' * len(''.join(line))
 
 
 if __name__ == '__main__':
-    print enumerate_solution(5)
+    solve(12)
