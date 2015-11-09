@@ -24,16 +24,20 @@ from copy import deepcopy
     For example, [0,2,3,1] is also a valid gray code sequence according to the
     above definition.
 """
-def compute_gray_code2(n):
-        seq = [0]
-        count = 0
-        while count < n:
-            seq.extend([(num | 1 << count) for num in seq[::-1]])
-            count += 1
+def compute_gray_code(n):
+    seq = [0]
+    count = 0
+    while count < n:
+        seq.extend([(num | 1 << count) for num in seq[::-1]])
+        count += 1
 
-        return seq[:n]
+    return seq
+
+
+def compute_gray_code2(n):
+    return [(i >> 1) ^ i for i in range(2 ** n)]
 
 
 if __name__ == '__main__':
-    for l in compute_gray_code2(0):
+    for l in compute_gray_code2(4):
         print l
