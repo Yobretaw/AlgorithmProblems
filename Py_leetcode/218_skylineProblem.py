@@ -9,7 +9,7 @@ from heapq import *
     We keep (height, right) pairs in the priority queue and they stay in there
     as long as there's a larger height in there.
 
-    In each loop, we first check what has the smaller x-coordinate: adding the
+    In each loop, we first check which has a smaller x-coordinate: adding the
     next building from the input, or removing the next building from the queue.
     In case of a tie, adding buildings wins, as that guarantees correctness.
     We then either add all input buildings starting at that x-coordinate or we
@@ -26,14 +26,18 @@ def get_skyline(LRH):
     i, n = 0, len(LRH)
     liveHR = []
     while i < n or liveHR:
+        x = 0
         if not liveHR or i < n and LRH[i][0] <= -liveHR[0][1]:
-            # read from input
+            # the curren tallest buildings intersects with buildings from input.
+            # We read from input.
             x = LRH[i][0]
             while i < n and LRH[i][0] == x:
                 # push all points wit x coordination equal to x
                 heappush(liveHR, (-LRH[i][2], -LRH[i][1]))
                 i += 1
         else:
+            # No buildings from input intersect with the current tallest building.
+            # we can remove all buildings that are under the roof of the tallest one
             x = -liveHR[0][1]
             while liveHR and -liveHR[0][1] <= x:
                 heappop(liveHR)
