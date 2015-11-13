@@ -62,7 +62,7 @@ def compute_binomial_coefficient2(n, k):
     a = [0] * (k + 1)
     a[0] = 1
     for i in range(n + 1):
-        for j in reversed(range(1, k + 1)):
+        for j in reversed(range(1, min(i, k) + 1)):
             a[j] += a[j - 1]
     return a[-1]
 
