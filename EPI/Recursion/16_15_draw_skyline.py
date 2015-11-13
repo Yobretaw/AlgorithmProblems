@@ -31,7 +31,6 @@ def compute_skyline(buildings):
 
     return buildings
 
-
     # If the required output is a list of "key points" that uniquely defines a
     # skyline, uncomment the code below.
     # A key point is the left endpoint of a horizontal line segment.

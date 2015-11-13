@@ -5,28 +5,30 @@ from collections import defaultdict, deque
 import heapq
 
 """
-    Given an array of integers, find out whether there are two distinct indices i and j in
-    the array such that the difference between nums[i] and nums[j] is at most t and the difference
-    between i and j is at most k.
+    Given an array of integers, find out whether there are two distinct indices
+    i and j in the array such that the difference between nums[i] and nums[j]
+    is at most t and the difference between i and j is at most k.
 """
-def contain_nearby_almost_duplicate(nums, k, t):
-    if k < 1 or t < 0:
+def containsNearbyAlmostDuplicate(nums, k, t):
+    if t < 0:
         return False
 
-    m = {}
-    for i in range(0, len(nums)):
-        val = nums[i] + sys.maxint
-        bucket = val / (t + 1)
-        if bucket in m \
-                or (bucket - 1 in m and val - m[bucket - 1] <= t) \
-                or (bucket + 1 in m and m[bucket + 1] - val <= t):
+    n = len(nums)
+    d = {}
+    t += 1
+    for i in range(n):
+        if i > k:
+            d.pop(nums[i - k - 1] / t)
+
+        m = nums[i] / t
+        if m in d:
+            return True
+        if m - 1 in d and abs(nums[i] - d[m - 1]) < t:
+            return True
+        if m + 1 in d and abs(nums[i] - d[m + 1]) < t:
             return True
 
-        if len(m) >= k:
-            last_bucket = (nums[i - k] + sys.maxint) / (t + 1)
-            m.pop(last_bucket, None)
-
-        m[bucket] = val
+        d[m] = nums[i]
 
     return False
 
