@@ -73,27 +73,6 @@ def compute_scoring_sequence(scores, s, t):
     for i in range(n + 1):
         table[i][0][0] = 1
 
-    for j in range(s + 1):
-        for k in range(t + 1):
-            for i in range(1, n + 1):
-                score = scores[i - 1]
-                table[i][j][k] = table[i - 1][j][k]
-
-                for idx in reversed(range(i - 2, i)):
-                    sc = scores[idx]
-                    if j >= sc:
-                        table[i][j][k] += table[i][j - sc][k]
-                    if k >= sc:
-                        table[i][j][k] += table[i][j][k - sc]
-
-                #if j >= score:
-                #    table[i][j][k] += table[i][j - score][k]
-                
-                #if k >= score:
-                #    table[i][j][k] += table[i][j][k - score]
-
-                print i, j, k, '   curr: ', table[i][j][k], '  prev: ', table[i - 1][j][k]
-
     #for i in range(1, n + 1):
     #    score = scores[i - 1]
     #    print score
@@ -123,21 +102,15 @@ def compute_scoring_sequence(scores, s, t):
     return table[-1][-1][-1]
 
 
-#def compute_scoring_sequence2(scores, s, t):
-#    res = [0]
-#    indices = [0, 0]
-#    accu = [0, 0]
-
-#    compute_scoring_sequence2(scores, s, t, indices, accu, res)
-#    return res
-
-#def compute_scoring_sequence2(scores, s, t, indices, accu, res):
-#    if indices[0] == s and indices[1] == t:
-#        res[0] += 1
-#        return
-#    elif indices[0] > s or indices[1] > t:
-#        return
-
+"""
+    Suppose the final score is (s, s'). How would you compute the maximum number
+    of times the team that lead could have changed? For example, if s = 10 and
+    s' = 6, the lead could have changed 4 times: Team 1 scores 2, then Team 2
+    scores 3 (lead change), then Team 1 scores 2 (lead change), then Team 2 sc-
+    ores 3 (lead change), then Team 1 scores 3 (lead change) followed by 3.
+"""
+def compute_max_lead_change(scores, s, t):
+    pass
 
 
 if __name__ == '__main__':
