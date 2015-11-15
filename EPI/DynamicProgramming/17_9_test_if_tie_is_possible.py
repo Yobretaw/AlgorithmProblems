@@ -58,11 +58,11 @@ if __name__ == '__main__':
     arr = [i for i in range(1, 11)]
     print determine_tie(arr)
 
-    arr = [i for i in range(1, 12)]
-    print determine_tie(arr)
+    #arr = [i for i in range(1, 12)]
+    #print determine_tie(arr)
 
-    arr = [1, 2, 3]
-    print determine_tie2(arr)
+    #arr = [1, 2, 3]
+    #print determine_tie2(arr)
 
-    arr = [1, 2, 2, 4, 1]
-    print determine_tie2(arr)
+    #arr = [1, 2, 2, 4, 1]
+    #print determine_tie2(arr)
