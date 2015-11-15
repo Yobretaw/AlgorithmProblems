@@ -43,7 +43,7 @@ def determine_tie2(arr):
     t = [[0 for i in range(total + 1)] for i in range(n + 1)]
     t[0][0] = 1
 
-    for i in range(1, n):
+    for i in range(1, n + 1):
         for j in range(total + 1):
             t[i][j] = t[i - 1][j]
 
@@ -51,7 +51,7 @@ def determine_tie2(arr):
                 t[i][j] += t[i - 1][j - arr[i - 1]] + 1
 
     # return the number of combination of subsets that yield a tie
-    return t[i][total / 2]
+    return t[-1][total / 2]
 
 
 if __name__ == '__main__':
