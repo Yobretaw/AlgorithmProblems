@@ -137,8 +137,6 @@ def compute_min_removed_char(a):
     return t[0][-1]
 
 
-
-
 if __name__ == '__main__':
     a = 'abc'
     b = 'cbaa'
