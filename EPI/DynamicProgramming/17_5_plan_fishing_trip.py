@@ -30,7 +30,7 @@ def compute_max_value(mtx):
 def compute_max_value_with_negative(mtx):
     m, n = len(mtx), len(mtx[0])
 
-    max_val = 0
+    max_val = -sys.maxint
     for i in reversed(range(m)):
         for j in reversed(range(n)):
             mtx[i][j] += max(
