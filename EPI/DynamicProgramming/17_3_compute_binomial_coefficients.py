@@ -1,7 +1,6 @@
 import sys
 import math
 
-
 """
     Design an efficient algorithm for computing 'n choose k', which has the
     property that it never overflows if 'n choose k' can be represented as a
