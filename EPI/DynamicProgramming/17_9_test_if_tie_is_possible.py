@@ -50,6 +50,7 @@ def determine_tie2(arr):
             if j >= arr[i - 1]:
                 t[i][j] += t[i - 1][j - arr[i - 1]] + 1
 
+    # return the number of combination of subsets that yield a tie
     return t[i][total / 2]
 
 
