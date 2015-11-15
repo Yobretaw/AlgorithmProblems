@@ -26,21 +26,10 @@ def maximize_value2(w, weights, values):
             d[i][j] = (-1, 0)
         for j in reversed(range(weights[i], w + 1)):
             if t[j] > t[j - weights[i]] + values[i]:
-                t[j] = t[i - 1][j]
                 d[i][j] = (-1, 0)
             else:
                 t[j] = t[j - weights[i]] + values[i]
                 d[i][j] = (-1, -weights[i])
-    #t = [[0 for i in range(w + 1)] for j in range(n)]
-    #d = [[(0, 0) for i in range(w + 1)] for j in range(n)]
-    #for i in range(n):
-    #    for j in range(0, w + 1):
-    #        if j < weights[i] or t[i - 1][j] > t[i - 1][j - weights[i]] + values[i]:
-    #            t[i][j] = t[i - 1][j]
-    #            d[i][j] = (-1, 0)
-    #        else:
-    #            t[i][j] = t[i - 1][j - weights[i]] + values[i]
-    #            d[i][j] = (-1, -weights[i])
 
     res = []
     i, j = n - 1, w
