@@ -27,39 +27,6 @@ def split_array(arr):
         val -= 1
     return total - 2 * val
 
-def split_array_return_subset(arr):
-    n = len(arr)
-    total = sum(arr)
-
-    # t[i][j] indices whether we can achieve a sum of j using the first i
-    # elements of array
-    t = [[False for i in range(total + 1)] for i in range(n + 1)]
-    t[0][0] = True
-    path = [[(0, 0) for i in range(total + 1)] for i in range(n + 1)]
-
-    for i in range(1, n + 1):
-        for j in range(total + 1):
-            t[i][j] |= t[i - 1][j]
-            path[i][j] = (-1, 0)
-
-            if j >= arr[i - 1]:
-                t[i][j] |= t[i - 1][j - arr[i - 1]]
-                path[i][j] = (-1. -arr[i - 1])
-
-    # return the number of combination of subsets that yield a tie
-    val = total / 2 
-    while val >= 0 and not t[-1][val]:
-        val -= 1
-
-    res = []
-    i, j = n, total
-    while i >= 0 and j >= 0:
-        left, up = path[i][j]
-        if up:
-            res.append(arr[i - 1])
-        i, j = i + left, j + up
-    return res
-
 """
     Variant 17.10.1
 
@@ -67,25 +34,32 @@ def split_array_return_subset(arr):
     have equal size.
 """
 def split_array2(arr):
-    n = len(arr)
-    if n & 1:
-        return -1
+    if len(arr) & 1:
+        return None
 
-    total = sum(arr)
-    t = [[False for i in range(total + 1)] for i in range(n + 1)]
-    t[0][0] = True
+    min_val = [sys.maxint]
+    res = []
+    split_array_help2(arr, 0, 0, min_val, [], res)
+    return min_val[0], res
 
-    for i in range(1, n + 1):
-        for j in range(total + 1):
-            t[i][j] |= t[i - 1][j]
-
-            if j >= arr[i - 1]:
-                t[i][j] |= t[i - 1][j - arr[i - 1]]
+def split_array_help2(arr, idx, diff, min_val, curr, res):
+    if idx == len(arr):
+        if len(curr) == len(arr) / 2:
+            if min_val[0] > abs(diff):
+                res[:] = list(curr)
+            min_val[0] = min(min_val[0], abs(diff))
+        return
     
+    if len(curr) < len(arr) / 2:
+        curr.append(arr[idx])
+        split_array_help2(arr, idx + 1, diff + arr[idx], min_val, curr, res)
+        curr.pop()
+
+    split_array_help2(arr, idx + 1, diff - arr[idx], min_val, curr, res)
 
 
 
 if __name__ == '__main__':
     arr = [65, 35, 245, 195, 65, 150, 275, 155, 120, 320, 75, 40, 200, 100, 220, 99]
     print split_array(arr)
-    print split_array_return_subset(arr)
+    print split_array2(arr)
