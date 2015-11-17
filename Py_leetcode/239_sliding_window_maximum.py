@@ -28,24 +28,24 @@ from collections import deque
     array.
 """
 def sliding_window_maximum(nums, k):
-        res = []
+    res = []
 
-        # q stores the indices of elements in current window
-        # we ensure that q[-1] <= q[-2]
-        q = deque()
-        for i, v in enumerate(nums):
-            if q and q[0] <= i - k:
-                q.popleft()
+    # q stores the indices of elements in current window
+    # we ensure that q[-1] <= q[-2]
+    q = deque()
+    for i, v in enumerate(nums):
+        if q and q[0] <= i - k:
+            q.popleft()
 
-            # ensure q[-1] <= q[-2]
-            while q and nums[q[-1]] < v:
-                q.pop()
+        # ensure q[-1] <= q[-2]
+        while q and nums[q[-1]] < v:
+            q.pop()
 
-            q.append(i)
-            if i + 1 >= k:
-                res.append(nums[q[0]])
+        q.append(i)
+        if i + 1 >= k:
+            res.append(nums[q[0]])
 
-        return res
+    return res
 
 
 if __name__ == '__main__':
