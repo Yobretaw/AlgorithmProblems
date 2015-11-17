@@ -72,7 +72,15 @@ def find_concatanation_word2(d, s):
 
     Devise an O(nW) algorithm for word breaking
 """
-# TODO
+def find_concatanation_word3(d, s):
+    n = len(s)
+
+    # t[i] stores the length of the last word in the string that ends at i
+    t = [0] * n
+
+    max_word_len = max(len(ss) for ss in d)
+
+    # TODO
 
 
 if __name__ == '__main__':
