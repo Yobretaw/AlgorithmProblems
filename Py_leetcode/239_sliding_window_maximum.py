@@ -31,13 +31,12 @@ def sliding_window_maximum(nums, k):
     res = []
 
     # q stores the indices of elements in current window
-    # we ensure that q[-1] <= q[-2]
+    # we ensure that nums[q[i]] >= nums[q[j]] for all i < j
     q = deque()
     for i, v in enumerate(nums):
         if q and q[0] <= i - k:
             q.popleft()
 
-        # ensure q[-1] <= q[-2]
         while q and nums[q[-1]] < v:
             q.pop()
 
