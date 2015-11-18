@@ -15,12 +15,11 @@ import math
 """
 def find_min_weight_path(arrs):
         n = len(arrs)
-        if n < 2:
-            return None if not n else 0
+        INT_MIN = -sys.maxint
 
         # t[i][j] represents the minimum weight path to row i, column j.
         # We then have t[i][j] = arr[i][j] + min(t[i - 1][j - 1], t[i][j - 1])
-        t = [[0 for x in range(i + 1)] for i in range(n)]
+        t = [[INT_MIN for x in range(i + 1)] for i in range(n)]
 
         for i in range(n):
             for j in range(i + 1):
@@ -38,5 +37,10 @@ if __name__ == '__main__':
     arrs = [
         [1],
         [2, 3]
+    ]
+    print find_min_weight_path(arrs)
+
+    arrs = [
+        [1],
     ]
     print find_min_weight_path(arrs)
