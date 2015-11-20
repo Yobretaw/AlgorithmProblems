@@ -37,6 +37,8 @@ def compute_winning_prob(prob):
     for r in range(int(math.ceil(0.5 * n)), n + 1):
         prob_sum += compute_winning_prob_help(prob, r, n, P)
     
+    for l in P:
+        print l
     return prob_sum
 
 def compute_winning_prob_help(prob, r, n, P):

@@ -65,14 +65,14 @@ def count_ways_to_dest_dp2(n, k):
     if n <= 1:
         return 1
 
-    steps = [0] * (k + 1)
-    steps[0] = steps[1] = 1
+    f = [0] * (k + 1)
+    f[0] = f[1] = 1
     for i in range(2, n + 1):
-        steps[i % (k + 1)] = 0
+        f[i % (k + 1)] = 0
         for j in range(1, min(k + 1, i + 1)):
-            steps[i % (k + 1)] += steps[(i - j) % (k + 1)]
+            f[i % (k + 1)] += f[(i - j) % (k + 1)]
 
-    return steps[n % (k + 1)]
+    return f[n % (k + 1)]
 
 # this algorithm is similar to the above one, except that this algorithm uses
 # O(n) space
