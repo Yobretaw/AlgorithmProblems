@@ -22,7 +22,7 @@ def optimize_decomposition(words, L):
     # calculating M[i]
     for i, word in enumerate(words):
         b_len = L - len(word)
-        M[i] = (M[i - 1] if i >= 1 else 0) + 1 << b_len
+        M[i] = (M[i - 1] if i >= 1 else 0) + (1 << b_len)
 
         # Iterating from j = i + 1 down to the first f such that len(words[i + 1]) + 
         # Sum_{k = f to i}(len(words[k]) + 1) > L.
@@ -39,8 +39,9 @@ def optimize_decomposition(words, L):
     # be M[j - 1]
     min_mess = (M[n - 2] if n >= 2 else 0)
     b_len = L - len(words[-1])
+
     for i in reversed(range(0, n - 1)):
-        b_len -= (len(words[i]) + 1)
+        b_len -= len(words[i]) + 1
 
         if b_len < 0:
             return min_mess
