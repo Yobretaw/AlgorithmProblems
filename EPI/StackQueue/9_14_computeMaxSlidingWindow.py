@@ -23,37 +23,25 @@ from stack import Stack
      1  3  -1  -3  5 [3  6  7]      7
     ============================================================================================
 """
-def max_sliding_window(a, w):
-    n = len(a)
+def sliding_window_maximum(nums, k):
+    res = []
 
-    if n <= w:
-        return max(a)
-
-    res = [0] * (n - w + 1)
-
+    # q stores the indices of elements in current window
+    # we ensure that q[-1] <= q[-2]
     q = deque()
-    for i in range(0, w):
-        while len(q) and a[i] >= a[q[-1]]:
-            q.pop()
-        q.append(i)
-
-    for i in range(w, n):
-        res[i - w] = q[0]
-
-        # pop all elements that are smaller than the current element
-        while len(q) and a[i] >= a[q[-1]]:
-            q.pop()
-
-        # pop all element whose index is smaller than the left bound of current window
-        while len(q) and q[0] <= i - w:
+    for i, v in enumerate(nums):
+        if q and q[0] <= i - k:
             q.popleft()
 
+        # ensure q[-1] <= q[-2]
+        while q and nums[q[-1]] < v:
+            q.pop()
+
         q.append(i)
+        if i + 1 >= k:
+            res.append(nums[q[0]])
 
-    res[n - w] = q[0]
-    res = [a[i] for i in res]
     return res
-
 
 
 """
