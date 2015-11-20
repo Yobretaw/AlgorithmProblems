@@ -67,8 +67,22 @@ def count_ways_to_dest_dp2(n, k):
 
     return steps[n % (k + 1)]
 
+def count_ways_to_dest_dp3(n k):
+    if n <= 1:
+        return 1
+
+    f = [0] * (k + 1)
+    f[0] = 1
+
+    for i in range(n + 1):
+        for j in range(1, k + 1):
+            if i >= j:
+                f[i] += f[i - j]
+    
+    return f[-1]
+
 
 if __name__ == '__main__':
     for i in range(5, 10):
         for j in range(1, i):
-            print i, j, len(count_ways_to_dest(i, j)), count_ways_to_dest_dp(i, j), count_ways_to_dest_dp2(i, j)
+            print i, j, len(count_ways_to_dest(i, j)), count_ways_to_dest_dp(i, j), count_ways_to_dest_dp2(i, j), count_ways_to_dest_dp3(i, j)
