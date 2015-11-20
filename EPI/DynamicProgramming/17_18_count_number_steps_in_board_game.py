@@ -19,21 +19,28 @@ import math
 """
 # Native recursion method
 def count_ways_to_dest(n, k):
-    res = []
-    count_ways_to_dest_help(n, k, 0, [], res)
-    return res
+    res = [0]
+    cache = [-1] * (n + 1)
+    count_ways_to_dest_help(n, k, 0, res, cache)
+    return res[0]
 
-def count_ways_to_dest_help(n, k, total, path, res):
+def count_ways_to_dest_help(n, k, total, res, cache):
     if total == n:
-        res.append(list(path))
+        res[0] += 1
         return
+
+    if cache[total] != -1:
+        res[0] += cache[total]
+        return
+
+    old = res[0]
 
     i = 1
     while i <= k and total + i <= n:
-        path.append(i)
-        count_ways_to_dest_help(n, k, total + i, path, res)
-        path.pop()
+        count_ways_to_dest_help(n, k, total + i, res, cache)
         i += 1
+
+    cache[total] = res[0] - old
 
 # DP
 def count_ways_to_dest_dp(n, k):
@@ -67,22 +74,27 @@ def count_ways_to_dest_dp2(n, k):
 
     return steps[n % (k + 1)]
 
-def count_ways_to_dest_dp3(n k):
+# this algorithm is similar to the above one, except that this algorithm uses
+# O(n) space
+def count_ways_to_dest_dp3(n, k):
     if n <= 1:
         return 1
 
-    f = [0] * (k + 1)
+    f = [0] * (n + 1)
     f[0] = 1
-
     for i in range(n + 1):
-        for j in range(1, k + 1):
-            if i >= j:
-                f[i] += f[i - j]
+        for j in range(1, min(i + 1, k + 1)):
+            f[i] += f[i - j]
     
     return f[-1]
 
 
 if __name__ == '__main__':
-    for i in range(5, 10):
+    for i in range(5, 50):
         for j in range(1, i):
-            print i, j, len(count_ways_to_dest(i, j)), count_ways_to_dest_dp(i, j), count_ways_to_dest_dp2(i, j), count_ways_to_dest_dp3(i, j)
+            print i, j
+            print count_ways_to_dest_dp(i, j)
+            print count_ways_to_dest_dp2(i, j)
+            print count_ways_to_dest_dp3(i, j)
+            print count_ways_to_dest(i, j)
+            print '-' * 20
