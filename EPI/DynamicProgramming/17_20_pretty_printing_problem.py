@@ -27,7 +27,7 @@ def optimize_decomposition(words, L):
         # Iterating from j = i + 1 down to the first f such that len(words[i + 1]) + 
         # Sum_{k = f to i}(len(words[k]) + 1) > L.
         for j in reversed(range(0, i)):
-            b_len -= (len(words[j]) + 1)
+            b_len -= len(words[j]) + 1
 
             if b_len < 0:
                 break
