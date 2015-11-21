@@ -13,6 +13,7 @@ import math
     total messiness of a sequence of lines is the sum of messinesses of all the
     lines.
 """
+# Time: O(nL), space: O(n)
 def optimize_decomposition(words, L):
     n = len(words)
 
@@ -49,6 +50,17 @@ def optimize_decomposition(words, L):
         min_mess = min(min_mess, (0 if i < 1 else M[i - 1]))
 
     return min_mess
+
+"""
+    Variant 17.20.1
+
+    Suppose the messiness of a line ending with b blanks characters is defined
+    to be b. Can you solve the messiness minimization problem in O(n) time and
+    O(1) space?
+"""
+def optimize_decomposition2(words, L):
+    n = len(words)
+    pass
 
 if __name__ == '__main__':
     s = 'I have inserted a large number of new examples from the papers for the Mathematical Tripos during the last twenty years, which should be useful to Cambridge students.'
