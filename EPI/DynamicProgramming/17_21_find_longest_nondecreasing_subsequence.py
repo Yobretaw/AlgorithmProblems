@@ -189,7 +189,7 @@ def longest_bitonic_subsequence(A):
 
     The idea is to first sort all points by their x coordinates. Then we find
     the longest increasing subsequence of the list of the y coordinates of
-    the sorted points.
+    the sorted points
 """
 
 if __name__ == '__main__':
