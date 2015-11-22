@@ -9,7 +9,7 @@ import random
 
     such that i_j < i_{j + 1} and A[i_j] < A[i_{j + 1}] for any j in [0, k - 2]
 """
-def longest_non_decreasing_subsequence(A):
+def longest_nondecreasing_subsequence(A):
     n = len(A)
 
     # f[i] stores a tuple (a, b) where a is the index of previous element that
@@ -34,7 +34,7 @@ def longest_non_decreasing_subsequence(A):
     return []
 
 # O(nlogn) time
-def longest_non_decreasing_subsequence2(A):
+def longest_nondecreasing_subsequence2(A):
     tail_values = []
     for v in A:
         idx = upper_bound(tail_values, v)
@@ -194,8 +194,8 @@ def longest_bitonic_subsequence(A):
 
 if __name__ == '__main__':
     #A = [0, 8, 4, 12, 2, 10, 6, 14, 1, 9]
-    #print longest_non_decreasing_subsequence(A)
-    #print longest_non_decreasing_subsequence2(A)
+    #print longest_nondecreasing_subsequence(A)
+    #print longest_nondecreasing_subsequence2(A)
 
     #print longest_alternating_subsequence(A)
 
