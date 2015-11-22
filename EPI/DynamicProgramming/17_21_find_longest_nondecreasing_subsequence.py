@@ -178,6 +178,20 @@ def longest_bitonic_subsequence(A):
 
 
 
+"""
+    Variant 17.21.5
+
+    Define a sequence of points in the plane to be ascending if each point is
+    above and to the right of the previous point. How would you find a maximum
+    ascending subset of a set of points in the plane?
+
+    ----
+
+    The idea is to first sort all points by their x coordinates. Then we find
+    the longest increasing subsequence of the list of the y coordinates of
+    the sorted points.
+"""
+
 if __name__ == '__main__':
     #A = [0, 8, 4, 12, 2, 10, 6, 14, 1, 9]
     #print longest_non_decreasing_subsequence(A)
