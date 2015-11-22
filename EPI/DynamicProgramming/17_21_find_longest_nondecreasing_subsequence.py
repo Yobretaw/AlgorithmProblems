@@ -9,7 +9,7 @@ import random
 
     such that i_j < i_{j + 1} and A[i_j] < A[i_{j + 1}] for any j in [0, k - 2]
 """
-def find_longest_subsequence(A):
+def longest_non_decreasing_subsequence(A):
     n = len(A)
 
     # f[i] stores a tuple (a, b) where a is the index of previous element that
@@ -22,9 +22,7 @@ def find_longest_subsequence(A):
             if A[i] >= A[j] and f[i][1] < 1 + f[j][1]:
                 f[i] = (j, 1 + f[j][1])
 
-
     max_len = max(e[1] for e in f)
-
     for i in range(max_len, n):
         if f[i][1] == max_len:
             idx = i
@@ -36,7 +34,7 @@ def find_longest_subsequence(A):
     return []
 
 # O(nlogn) time
-def find_longest_subsequence2(A):
+def longest_non_decreasing_subsequence2(A):
     tail_values = []
     for v in A:
         idx = upper_bound(tail_values, v)
@@ -120,7 +118,7 @@ def longest_alternating_subsequence2(A):
 
 
 """
-    Variant 17.21.2
+    Variant 17.21.3
 
     Define a sequence of numbers <a_0, a_1, ..., a_n> to be convex if a_i < 
     (a_{i-1} + a_{i+1}) / 2, for 1 <= i <= n - 2. Given an array of numbers
@@ -144,11 +142,46 @@ def longest_convex_subsequence(A):
     return max(e[1] for e in f)
 
 
+"""
+    Variant 17.21.4
+
+    Defind a sequence of numbers <a_0, a_1, ..., a_{n-1}> to be bitonic if
+    there exists k such that a_i < a_{i+1} for 0 <= i < k, and a_i > a_{i+1}
+    for k <= i < n - 1. Given an array of numbers A of length n, find a longest
+    subsequence <i_0, i_1, ..., i_{k-1}> such that <A[i_0], A[i_1], ..., A[i_{k-1}]>
+    is bitonic.
+"""
+def longest_bitonic_subsequence(A):
+    n = len(A)
+    
+    # f[i] = [(a, b), (c, d)] where (a, b) represents info of the increasing part,
+    # while (c, d) stores info of the decreasing part.
+    f = [[(-1, 0), (-1, 0)] for i in range(n)]
+    f[0] = [(-1, 1), (-1, 1)]
+
+    for i in range(1, n):
+        for j in range(i):
+            # keep increasing
+            if A[i] > A[j] and f[i][0][1] < 1 + f[j][0][1]:
+                f[i][0] = (j, 1 + f[j][0][1])
+
+            # start/continue decreasing
+            if A[i] < A[j] and f[i][1][1] < 1 + max(f[j][0][1], f[j][1][1]):
+                f[i][1] = (j, 1 + max(f[j][0][1], f[j][1][1]))
+
+    return max(e[1][1] for e in f)
+
+
+# Another approach which takes O(nlogn) time is to use the idea of longest
+# increasing subsequence(LIS). We find the LIS of the input A and the reverse
+# of A, and then traverse both results to get the longest bitonic subsequence.
+
+
 
 if __name__ == '__main__':
     #A = [0, 8, 4, 12, 2, 10, 6, 14, 1, 9]
-    #print find_longest_subsequence(A)
-    #print find_longest_subsequence2(A)
+    #print longest_non_decreasing_subsequence(A)
+    #print longest_non_decreasing_subsequence2(A)
 
     #print longest_alternating_subsequence(A)
 
@@ -166,3 +199,12 @@ if __name__ == '__main__':
 
     A = [0, 8, 4, 12, 2, 10, 6, 14, 1, 9]
     print longest_convex_subsequence(A)
+
+    A = [0, 8, 4, 12, 2, 10, 6, 14, 1, 9]
+    print longest_bitonic_subsequence(A)
+
+    A = [0, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 15]
+    print longest_bitonic_subsequence(A)
+
+    A = [12, 4, 78, 90, 45, 23]
+    print longest_bitonic_subsequence(A)
