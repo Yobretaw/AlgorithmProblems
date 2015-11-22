@@ -102,15 +102,16 @@ def longest_alternating_subsequence2(A):
 
     res = []
     for a in A:
-        if len(res) < 2:
+        if res and res[-1] == a:
+            continue
+        elif len(res) < 2:
             res.append(a)
             continue
-        if res[-1] == a:
-            continue
-        if (a - res[-1]) * (res[-1] - res[-2]) < 0:
+        elif (a - res[-1]) * (res[-1] - res[-2]) < 0:
             res.append(a)
             continue
-        res[-1] = a
+        else:
+            res[-1] = a
 
     if res[0] > res[1]:
         res.pop(0)
@@ -138,6 +139,6 @@ if __name__ == '__main__':
     print longest_alternating_subsequence(A)
     print longest_alternating_subsequence2(A)
 
-    #for i in range(10):
-    #    A = [int(100 * random.random()) for i in xrange(1000)]
-    #    print longest_alternating_subsequence(A) == longest_alternating_subsequence2(A)
+    for i in range(1000):
+        A = [int(100 * random.random()) for j in xrange(200)]
+        print i, longest_alternating_subsequence(A) == longest_alternating_subsequence2(A)
