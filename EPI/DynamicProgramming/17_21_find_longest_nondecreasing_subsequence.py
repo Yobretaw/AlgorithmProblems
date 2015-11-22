@@ -119,26 +119,50 @@ def longest_alternating_subsequence2(A):
     return len(res)
 
 
+"""
+    Variant 17.21.2
+
+    Define a sequence of numbers <a_0, a_1, ..., a_n> to be convex if a_i < 
+    (a_{i-1} + a_{i+1}) / 2, for 1 <= i <= n - 2. Given an array of numbers
+    A of length n, find a longest subsequence <i_0, i_1, ..., i_{k-1}> such
+    that <A[i_0], A[i_1], ..., A[i_{k-1}]> is convex.
+"""
+def longest_convex_subsequence(A):
+    n = len(A)
+
+    # f[i] = (a, b) where a is the index of previous element the sequence
+    # and b is the length of the subsequence ending at A[i]
+    f = [(-1, 0) for i in range(n)]
+    f[0] = (-1, 0)
+    f[1] = (0, 0)
+
+    for i in range(2, n):
+        for j in range(1, i):
+            if (A[i] + A[f[j][0]]) / 2 > A[j]:
+                f[i] = (j, 1 + f[j][1])
+
+    return max(e[1] for e in f)
+
+
+
 if __name__ == '__main__':
+    #A = [0, 8, 4, 12, 2, 10, 6, 14, 1, 9]
+    #print find_longest_subsequence(A)
+    #print find_longest_subsequence2(A)
+
+    #print longest_alternating_subsequence(A)
+
+    #A = [0, 8, 9, 4, 1, 5, 6, 5, 9, 4]
+    #print longest_alternating_subsequence(A)
+    #print longest_alternating_subsequence2(A)
+
+    #A = [1, 2, 3, 4, 5]
+    #print longest_alternating_subsequence(A)
+    #print longest_alternating_subsequence2(A)
+
+    #for i in range(1000):
+    #    A = [int(100 * random.random()) for j in xrange(200)]
+    #    print i, longest_alternating_subsequence(A) == longest_alternating_subsequence2(A)
+
     A = [0, 8, 4, 12, 2, 10, 6, 14, 1, 9]
-    print find_longest_subsequence(A)
-    print find_longest_subsequence2(A)
-    #print sorted(A)
-
-    #for i in range(100):
-    #    A = [int(100 * random.random()) for i in xrange(1000)]
-    #    print len(find_longest_subsequence(A)) == len(find_longest_subsequence2(A))
-
-    print longest_alternating_subsequence(A)
-
-    A = [0, 8, 9, 4, 1, 5, 6, 5, 9, 4]
-    print longest_alternating_subsequence(A)
-    print longest_alternating_subsequence2(A)
-
-    A = [1, 2, 3, 4, 5]
-    print longest_alternating_subsequence(A)
-    print longest_alternating_subsequence2(A)
-
-    for i in range(1000):
-        A = [int(100 * random.random()) for j in xrange(200)]
-        print i, longest_alternating_subsequence(A) == longest_alternating_subsequence2(A)
+    print longest_convex_subsequence(A)
