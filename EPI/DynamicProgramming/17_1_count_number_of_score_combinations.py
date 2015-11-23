@@ -57,6 +57,7 @@ def count_permutation(k, scores):
     scores 3, Team 1 scores 3 is a scoring sequence which results in this
     final score.
 """
+# Time: O(kmn) where k is the number of scores, m = len(s) and n = len(t)
 def compute_scoring_sequence(scores, s, t):
     if not scores:
         return 0
@@ -66,41 +67,32 @@ def compute_scoring_sequence(scores, s, t):
 
     n = len(scores)
 
-    # table[i][j][k] is the number of distinct scoring sequences that results
-    # (j, k) score pair using the first i scores
-    table = [[[0 for i in range(t + 1)] for i in range(s + 1)] for k in range(n + 1)]
+    # f[i][j] is the number of scoring sequences that yields i score for team
+    # 1 and j score for team 2.
+    f = [[0 for i in range(t + 1)] for j in range(s + 1)]
+    f[0][0] = 1
 
-    for i in range(n + 1):
-        table[i][0][0] = 1
+    for score in scores:
+        if score > s and score > t:
+            break
 
-    #for i in range(1, n + 1):
-    #    score = scores[i - 1]
-    #    print score
-    #    for j in range(0, s + 1):
-    #        for k in range(0, t + 1):
-    #            table[i][j][k] = table[i - 1][j][k]
+        for sc in range(score, max(s + 1, t + 1), score):
+            if sc <= s:
+                f[sc][0] = 1
+            if sc <= t:
+                f[0][sc] = 1
 
-    #            if score > j and score > k:
-    #                print i, j, k, '   curr: ', table[i][j][k], '  prev: ', table[i - 1][j][k]
-    #                continue
+    for i in range(1, s + 1):
+        for j in range(1, t + 1):
+            for score in scores:
+                if score > i and score > j:
+                    break
+                if score <= i:
+                    f[i][j] += f[i - score][j]
+                if score <= j:
+                    f[i][j] += f[i][j - score]
 
-    #            if j >= score:
-    #                table[i][j][k] += table[i][j - score][k]
-
-    #            if k >= score:
-    #                table[i][j][k] += table[i][j][k - score]
-
-    #            #for idx in reversed(range(i)):
-    #            #    sc = scores[idx]
-    #            #    if j >= sc:
-    #            #        table[i][j][k] += table[i][j - sc][k]
-    #            #    if k >= sc:
-    #            #        table[i][j][k] += table[i][j][k - sc]
-
-    #            print i, j, k, '   curr: ', table[i][j][k], '  prev: ', table[i - 1][j][k]
-
-    return table[-1][-1][-1]
-
+    return f[-1][-1]
 
 """
     Suppose the final score is (s, s'). How would you compute the maximum number
@@ -120,4 +112,5 @@ if __name__ == '__main__':
     #print count_number_combination2(s, scores)
     #print count_permutation(s, scores)
 
-    print compute_scoring_sequence([2, 3, 7], 4, 3)
+    print compute_scoring_sequence([2, 3, 7], 14, 13)
+    print compute_scoring_sequence([2, 3, 7], 2, 6)
