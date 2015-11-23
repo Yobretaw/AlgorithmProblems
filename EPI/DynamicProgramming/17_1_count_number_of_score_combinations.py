@@ -21,7 +21,7 @@ def count_number_combination(k, scores):
 
     for i in range(1, n + 1):
         score = scores[i - 1]
-        for j in range(1, k + 1):
+        for j in range(score, k + 1):
             A[i][j] = A[i - 1][j] + (A[i][j - score] if j >= score else 0)
 
     return A[-1][-1]
