@@ -33,6 +33,13 @@ from heapq import *
     Since efficient priority queue data structures require O(logn) time per
     insertion, and a tree with n leaves has 2n - 1 nodes, this algorithm operates
     in O(nlogn) time, where n is the number of symbols.
+
+    -----
+
+
+    Proof of Optimality for Huffman Coding:
+
+        See: http://algoviz.org/OpenDSA/Books/Everything/html/HuffProof.html
 """
 class Node:
     def __init__(self, val, freq):
@@ -52,7 +59,7 @@ class Symbol:
         self.char = char
         self.freq = freq
 
-def construct_tree(symbols):
+def build_tree(symbols):
     if not symbols:
         return None
     
@@ -75,7 +82,7 @@ def print_encoding_tree(root, prev=''):
         return
 
     if not root.left and not root.right:
-        print '{0: <10}'.format(prev) + ':  '+ root.val
+        print '{0: <10}'.format(prev) + ': '+ root.val
         return
 
     print_encoding_tree(root.left, prev + '0')
@@ -98,5 +105,5 @@ if __name__ == '__main__':
         Symbol('J', 0.10), Symbol('Z', 0.07)
     ]
 
-    t = construct_tree(symbols)
+    t = build_tree(symbols)
     print_encoding_tree(t)
