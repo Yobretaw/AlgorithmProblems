@@ -16,6 +16,7 @@ def maximize_value(w, weights, values):
     return t[-1]
 
 
+# This method returns the set of items to be taken
 def maximize_value2(w, weights, values):
     n = len(weights)
 

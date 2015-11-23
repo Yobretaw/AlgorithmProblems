@@ -66,9 +66,9 @@ if __name__ == '__main__':
     print compute_ways_without_obstacles(3, 3)
     
     mtx = [
-        [False, False, False],
-        [False, True, False],
-        [False, False, False]
+        [0, 0, 0],
+        [0, 1, 0],
+        [0, 0, 0]
     ]
     print compute_ways_with_obstacles(mtx)
     print compute_number_monotone(2)
