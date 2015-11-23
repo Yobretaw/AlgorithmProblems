@@ -101,43 +101,41 @@ def compute_scoring_sequence(scores, s, t):
     scores 3 (lead change), then Team 1 scores 2 (lead change), then Team 2 sc-
     ores 3 (lead change), then Team 1 scores 3 (lead change) followed by 3.
 """
-def compute_max_lead_change(scores, s, t):
-    if not scores:
-        return 0
+#def compute_max_lead_change(scores, s, t):
+#    if not scores:
+#        return 0
 
-    if not s and not t:
-        return 1
+#    if not s and not t:
+#        return 1
 
-    n = len(scores)
+#    n = len(scores)
 
-    # f[i][j] is the maximum number of lead changes given the final scoring (i, j)
-    f = [[0 for i in range(t + 1)] for j in range(s + 1)]
-    f[0][0] = 0
+#    # f[i][j] is the maximum number of lead changes given the final scoring (i, j)
+#    f = [[0 for i in range(t + 1)] for j in range(s + 1)]
+#    f[0][0] = 0
 
-    for score in scores:
-        if score > s and score > t:
-            break
+#    for score in scores:
+#        if score > s and score > t:
+#            break
 
-        for sc in range(score, max(s + 1, t + 1), score):
-            if sc <= s:
-                f[sc][0] = 1
-            if sc <= t:
-                f[0][sc] = 1
+#        for sc in range(score, max(s + 1, t + 1), score):
+#            if sc <= s:
+#                f[sc][0] = 1
+#            if sc <= t:
+#                f[0][sc] = 1
 
-    for i in range(1, s + 1):
-        for j in range(1, t + 1):
-            if i == j:
-                continue
-
-            for score in scores:
-                if score > i and score > j:
-                    break
-                if score <= i and i > j and i - score < j:
-                    f[i][j] = max(f[i][j], 1 + f[i - score][j])
-                if score <= j and i < j and j - score < i:
-                    f[i][j] = max(f[i][j], 1 + f[i][j - score])
-
-    return f[-1][-1]
+#    for i in range(1, s + 1):
+#        for j in range(1, t + 1):
+#            if i == j:
+#                continue
+#            for score in scores:
+#                if score > i and score > j:
+#                    break
+#                if score <= i and i > j and i - score < j:
+#                    f[i][j] = max(f[i][j], 1 + f[i - score][j])
+#                if score <= j and i < j and j - score < i:
+#                    f[i][j] = max(f[i][j], 1 + f[i][j - score])
+#    return f[-1][-1]
 
 
 if __name__ == '__main__':
