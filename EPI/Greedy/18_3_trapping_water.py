@@ -43,6 +43,7 @@ def trapping_water2(heights):
     if n < 2:
         return 0
 
+    # f is a stack of tuple (width, height) tuple in decreasing order of height.
     f = []
     f.append((1, heights[0]))
 
@@ -55,7 +56,7 @@ def trapping_water2(heights):
             idx = len(f)
             while idx > 0 and f[idx - 1][1] <= h:
                 idx -= 1
-            
+
             width = 0
             left_height = h if idx > 0 else f[0][1]
 
