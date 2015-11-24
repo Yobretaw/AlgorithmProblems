@@ -13,20 +13,20 @@ def trapping_water(heights):
         return 0
 
     res = 0
-    left_idx, right_idx = 0, n - 1
-    left_max = heights[0]
-    right_max = heights[-1]
+    l, r = 0, n - 1
+    l_max = heights[0]
+    r_max = heights[-1]
 
-    while left_idx < right_idx:
-        if heights[left_idx] < heights[right_idx]:
-            res += left_max - heights[left_idx]
-            left_idx += 1
+    while l < r:
+        if heights[l] < heights[r]:
+            res += l_max - heights[l]
+            l += 1
         else:
-            res += right_max - heights[right_idx]
-            right_idx -= 1
+            res += r_max - heights[r]
+            r -= 1
         
-        left_max = max(left_max, heights[left_idx])
-        right_max = max(right_max, heights[right_idx])
+        l_max = max(l_max, heights[l])
+        r_max = max(r_max, heights[r])
 
     return res
 
