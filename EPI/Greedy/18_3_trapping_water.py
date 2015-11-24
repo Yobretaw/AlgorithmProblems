@@ -37,6 +37,7 @@ def trapping_water(heights):
     Solve the same problem with an algorithm that accesses elements in input array
     in order and can read an element only once. Use minimum additional space.
 """
+# Time: O(n), space: O(n) in worst case
 def trapping_water2(heights):
     n = len(heights)
     if n < 2:
@@ -57,6 +58,8 @@ def trapping_water2(heights):
             
             width = 0
             left_height = h if idx > 0 else f[0][1]
+
+            # This loop will execute at most len(heights) times
             for j in range(idx, len(f)):
                 res += (left_height - f[j][1]) * f[j][0]
                 width += f[j][0]
