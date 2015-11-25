@@ -88,4 +88,4 @@ def greedy_fit(B, n, max_load):
             return None
 
     res.append(curr_load)
-    return res if len(res) <= n else None
+    return [sum(curr_load) for curr_load in res] if len(res) <= n else None
