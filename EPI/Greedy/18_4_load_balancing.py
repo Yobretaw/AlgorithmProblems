@@ -45,3 +45,47 @@ import math
     O(nlogW), where W is the sum of bytes of all users. This approach is much
     faster in practice.
 """
+def balance_load(B, m, n):
+    if not B:
+        return []
+
+    # W is the sum of bytes from all n users
+    W = sum(B)
+
+    start, end = 0, W + 1
+    res = []
+    while start < end:
+        mid = start + (end - start) / 2 
+        fit_result = greedy_fit(B, n, mid)
+
+        if not fit_result:
+            end = mid
+        
+        l = len(fit_result)
+        if l == n:
+            res = fit_result
+        elif l < n:
+            start = mid
+
+    return res
+
+
+def greedy_fit(B, n, max_load):
+    res = []
+
+    curr_load = []
+    sum_curr_load = 0
+    for b in B:
+        if sum_curr_load + b <= max_load:
+            curr.append(b)
+            sum_curr_load += b
+        else:
+            res.append(curr_load)
+            curr_load = [b]
+            sum_curr_load = b
+
+        if len(res) > n:
+            return None
+
+    res.append(curr_load)
+    return res if len(res) <= n else None
