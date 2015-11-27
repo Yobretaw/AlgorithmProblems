@@ -17,22 +17,22 @@ import math
     The solution is guaranteed to be unique.
 """
 def find_start_station(gas, cost):
-        n = len(gas)
+    n = len(gas)
 
-        gas_remaining = 0
-        gas_sum = 0
-        start = 0
-        for i in range(n):
-            gas_remaining += gas[i] - cost[i]
-            gas_sum += gas[i] - cost[i]
+    gas_remaining = 0
+    gas_sum = 0
+    start = 0
+    for i in range(n):
+        gas_remaining += gas[i] - cost[i]
+        gas_sum += gas[i] - cost[i]
 
-            # not enough gas to reach station[i]. Set next station as the new
-            # starting station
-            if gas_remaining < 0:
-                start = i + 1
-                gas_remaining = 0
+        # not enough gas to reach station[i]. Set next station as the new
+        # starting station
+        if gas_remaining < 0:
+            start = i + 1
+            gas_remaining = 0
 
-        return start if gas_sum >= 0 else -1
+    return start if gas_sum >= 0 else -1
 
 if __name__ == '__main__':
     gas = [2, 4]
