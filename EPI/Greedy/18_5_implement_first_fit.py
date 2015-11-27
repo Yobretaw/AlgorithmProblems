@@ -123,7 +123,7 @@ def bin_pack_first_fit2(sizes, V):
     n = len(sizes)
     nodes = [TreeNode(V) for i in range(2 * n - 1)]
 
-    for val in sizes:
+    def insert(val):
         i = 0
         path = []
         while 2 * i + 1 < len(nodes):
@@ -140,6 +140,9 @@ def bin_pack_first_fit2(sizes, V):
 
         for idx in reversed(path):
             nodes[idx].cap = max(nodes[2 * idx + 1].cap, nodes[2 * idx + 2].cap)
+
+    for s in sizes:
+        insert(s)
 
     return [node.items for node in nodes if node.items]
 
