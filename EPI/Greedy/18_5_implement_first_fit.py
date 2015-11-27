@@ -112,7 +112,7 @@ class LeafNode(Node):
 class TreeNode:
     def __init__(self, cap=0):
         self.cap = cap
-        self.items = set()
+        self.items = None
 
 def bin_pack_first_fit2(sizes, V):
     if not sizes:
@@ -134,6 +134,9 @@ def bin_pack_first_fit2(sizes, V):
                 i = idx
             else:
                 i = idx + 1
+
+        if nodes[i].items is None:
+            nodes[i].items = set()
 
         nodes[i].cap -= val
         nodes[i].items.add(val)
