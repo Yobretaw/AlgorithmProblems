@@ -7,10 +7,6 @@ import math
     all elements.
 """
 def find_majority(A):
-    n = len(A)
-    if not n:
-        return None
-
     res = None
     count = 0
     for v in A:
