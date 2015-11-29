@@ -6,6 +6,15 @@ import math
     allowed to read the sequence twice. Devise an algorithm that uses O(k)
     memory to identify the words that occur at least ceil(n/k) times, where
     n is the length of the sequence.
+
+    ----
+
+    Idea:
+
+    We discard k words at any given time and we are guaranteed that all the
+    words that occured more than 1/k times the length of the sequence prior
+    to the discarding continue to appear more than 1/k times in the remaining
+    sequence.
 """
 def find_heavy_hitter(words, k):
     n = len(words)
@@ -40,8 +49,10 @@ def find_heavy_hitter(words, k):
         if w in d:
             d[w] += 1
 
-    return [d[key] for key in d if d[key] >= math.ceil(n/k)]
+    return [key for key in d if d[key] >= math.ceil(n/k)]
 
 
 if __name__ == '__main__':
-    pass
+    A = [1, 1, 2, 3, 1, 2, 2, 2, 2, 2]
+    k = 2
+    print find_heavy_hitter(A, k)
