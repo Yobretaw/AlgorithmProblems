@@ -38,6 +38,5 @@ def trapping_water_by_line(A):
 
     return res
 
-
 if __name__ == '__main__':
     pass
