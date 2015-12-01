@@ -33,24 +33,24 @@ def edit_distance(a, b):
 
 # O(n) space
 def edit_distance2(a, b):
-        m, n = len(a), len(b)
-        if not m or not n:
-            return m if not n else n
+    m, n = len(a), len(b)
+    if not m or not n:
+        return m if not n else n
 
-        t = [i for i in range(n + 1)]
-        for i in range(1, m + 1):
-            prev_i_1_j_1 = t[0]
-            t[0] = i
-            for j in range(1, n + 1):
-                prev_i_1_j = t[j]
-                if a[i - 1] == b[j - 1]:
-                    t[j] = prev_i_1_j_1
-                else:
-                    t[j] = min(t[j - 1], t[j], prev_i_1_j_1) + 1
-                
-                prev_i_1_j_1 = prev_i_1_j
+    t = [i for i in range(n + 1)]
+    for i in range(1, m + 1):
+        prev_i_1_j_1 = t[0]
+        t[0] = i
+        for j in range(1, n + 1):
+            prev_i_1_j = t[j]
+            if a[i - 1] == b[j - 1]:
+                t[j] = prev_i_1_j_1
+            else:
+                t[j] = min(t[j - 1], t[j], prev_i_1_j_1) + 1
+            
+            prev_i_1_j_1 = prev_i_1_j
 
-        return t[-1]
+    return t[-1]
 
 
 """
