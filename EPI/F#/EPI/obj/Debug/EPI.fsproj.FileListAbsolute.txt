@@ -1,0 +1,8 @@
+C:\Users\t-yoush.REDMOND\Documents\AlgorithmProblems\EPI\F#\EPI\bin\Debug\EPI.exe.config
+C:\Users\t-yoush.REDMOND\Documents\AlgorithmProblems\EPI\F#\EPI\bin\Debug\EPI.XML
+C:\Users\t-yoush.REDMOND\Documents\AlgorithmProblems\EPI\F#\EPI\bin\Debug\EPI.exe
+C:\Users\t-yoush.REDMOND\Documents\AlgorithmProblems\EPI\F#\EPI\bin\Debug\EPI.pdb
+C:\Users\t-yoush.REDMOND\Documents\AlgorithmProblems\EPI\F#\EPI\bin\Debug\FSharp.Core.dll
+C:\Users\t-yoush.REDMOND\Documents\AlgorithmProblems\EPI\F#\EPI\bin\Debug\FSharp.Core.xml
+C:\Users\t-yoush.REDMOND\Documents\AlgorithmProblems\EPI\F#\EPI\obj\Debug\EPI.exe
+C:\Users\t-yoush.REDMOND\Documents\AlgorithmProblems\EPI\F#\EPI\obj\Debug\EPI.pdb
